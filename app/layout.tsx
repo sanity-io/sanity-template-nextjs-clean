@@ -30,7 +30,7 @@ export default function RootLayout({
       className={`${mono.variable} ${sans.variable} ${serif.variable}`}
     >
       <head />
-      <body className="text-black bg-white">{children}</body>
+      <body className="bg-white text-black">{children}</body>
     </html>
   )
 }
