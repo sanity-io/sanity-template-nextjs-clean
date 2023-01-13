@@ -17,8 +17,8 @@ export default memo(function IntroTemplate() {
     process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG
   const repoURL = `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}`
   const removeBlockURL = hasRepoEnvVars
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-app`
-    : `https://github.com/sanity-io/template-nextjs-clean#how-can-i-remove-the-next-steps-block-from-my-app`
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_GIT_PROVIDER}.com/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER}/${process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG}/blob/main/README.md#how-can-i-remove-the-next-steps-block-from-my-blog`
+    : `https://github.com/sanity-io/template-nextjs-clean#how-can-i-remove-the-next-steps-block-from-my-blog`
 
   const [hasUTMtags, setHasUTMtags] = useState(false)
 
@@ -35,14 +35,14 @@ export default memo(function IntroTemplate() {
   }
 
   return (
-    <div className="flex justify-center border border-gray-200 bg-gray-50">
+    <div className="flex justify-center border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-950">
       <div className="mt-20 mb-4 grid max-w-screen-2xl grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32 ">
         <div className="self-center">
           <Image
             alt="An illustration of a browser window, a terminal window, the Sanity.io logo and the NextJS logo"
             src={cover}
           />
-          <div className="mt-10 hidden px-14 text-xs text-gray-700 md:block">
+          <div className="mt-10 hidden px-14 text-xs text-gray-700 dark:text-gray-300 md:block">
             <RemoveBlock url={removeBlockURL} />
           </div>
         </div>
@@ -63,7 +63,7 @@ export default memo(function IntroTemplate() {
                   href={
                     'https://github.com/sanity-io/template-nextjs-clean#step-2-set-up-the-project-locally'
                   }
-                  className={`mx-1 underline hover:text-blue-800`}
+                  className={`mx-1 underline hover:text-blue-800 dark:hover:text-blue-200`}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -83,7 +83,7 @@ export default memo(function IntroTemplate() {
                   </div>
 
                   {isLocalHost ? (
-                    <div className="text-xs text-gray-700">
+                    <div className="text-xs text-gray-700 dark:text-gray-300">
                       Start editing your content structure in
                       <div className="bg-slate-200 w-fit px-2">
                         <pre>sanity.config.ts</pre>
@@ -91,10 +91,10 @@ export default memo(function IntroTemplate() {
                     </div>
                   ) : (
                     <>
-                      <div className="text-xs text-gray-700">
+                      <div className="text-xs text-gray-700 dark:text-gray-300">
                         Your code can be found at
                         <a
-                          className="mx-1 underline hover:text-blue-800"
+                          className="mx-1 underline hover:text-blue-800 dark:hover:text-blue-200"
                           href={repoURL}
                           target="_blank"
                           rel="noreferrer"
@@ -105,7 +105,7 @@ export default memo(function IntroTemplate() {
 
                       <div className="mt-3">
                         <a
-                          className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
+                          className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800 dark:hover:text-blue-200"
                           href={repoURL}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -126,10 +126,10 @@ export default memo(function IntroTemplate() {
                   <div className="col-span-2 mt-1 mb-2 font-semibold">
                     Create content with Sanity Studio
                   </div>
-                  <div className="text-xs text-gray-700">
+                  <div className="text-xs text-gray-700 dark:text-gray-300">
                     Your Sanity Studio is deployed at
                     <Link
-                      className="mx-1 underline hover:text-blue-800"
+                      className="mx-1 underline hover:text-blue-800 dark:hover:text-blue-200"
                       href={studioURL}
                     >
                       {studioURL}
@@ -138,7 +138,7 @@ export default memo(function IntroTemplate() {
 
                   <div className="mt-3">
                     <Link
-                      className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800"
+                      className="inline-flex rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-800 dark:hover:bg-blue-200 dark:hover:text-blue-800"
                       href={studioURL}
                     >
                       Go to Sanity Studio
@@ -179,7 +179,7 @@ export default memo(function IntroTemplate() {
               }
             />
           </ol>
-          <div className="text-center text-xs text-gray-700 md:invisible">
+          <div className="text-center text-xs text-gray-700 dark:text-gray-300 md:invisible">
             <RemoveBlock url={removeBlockURL} />
           </div>
         </div>
@@ -198,7 +198,7 @@ function Box({
   return (
     <li className="mt-2 grid grid-flow-col grid-rows-1 place-content-start gap-3">
       <div className="row-span-3 select-none">
-        <div className="relative flex h-5 w-5 select-none items-center justify-center rounded-full bg-gray-200 p-3 text-center">
+        <div className="relative flex h-5 w-5 select-none items-center justify-center rounded-full bg-gray-200 p-3 text-center dark:bg-gray-700">
           {circleTitle}
         </div>
       </div>
@@ -211,7 +211,7 @@ function BlueLink({ href, text }: { href: string; text: string }) {
   return (
     <a
       href={href}
-      className="text-blue-500 underline hover:text-blue-800"
+      className="text-blue-500 underline hover:text-blue-800 dark:hover:text-blue-200"
       target="_blank"
       rel="noreferrer"
     >
@@ -222,7 +222,7 @@ function BlueLink({ href, text }: { href: string; text: string }) {
 
 const RemoveBlock = ({ url }) => (
   <a
-    className="hover:text-blue-800"
+    className="hover:text-blue-800 dark:hover:text-blue-200"
     href={url}
     target="_blank"
     rel="noreferrer"

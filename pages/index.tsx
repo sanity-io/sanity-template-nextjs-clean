@@ -1,6 +1,6 @@
 import IntroTemplate from 'intro-template'
 
-export default async function Page() {
+export default function IndexPage() {
   return (
     <>
       {/* Start something new 💖 */}

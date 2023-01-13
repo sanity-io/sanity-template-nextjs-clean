@@ -1,21 +1,12 @@
-# A Next.js Blog with a Native Authoring Experience<!-- omit in toc -->
+# A minimal Next.js site with Sanity Studio
 
-This starter is a statically generated blog that uses [Next.js][nextjs] for the frontend and [Sanity][sanity-homepage] to handle its content. It comes with a native Sanity Studio that offers features like real-time collaboration, instant side-by-side content previews, and intuitive editing.
+This starter is a statically generated site that uses [Next.js][nextjs] for the frontend and [Sanity][sanity-homepage] to handle its content. 
+It comes with a native Sanity Studio that offers features like real-time collaboration, instant side-by-side content previews, and intuitive editing.
 
-The Studio connects to Sanity Content Lake, which gives you hosted content APIs with a flexible query language, on-demand image transformations, powerful patching, and more. You can use this starter to kick-start a blog or learn these technologies.
+The Studio connects to Sanity Content Lake, which gives you hosted content APIs with a flexible query language, on-demand image transformations, powerful patching, and more. 
+You can use this starter to kick-start a clean slate site or learn these technologies.
 
 [![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
-
-## Features
-
-- A performant, static blog with editable posts, authors, and site settings
-- A native and customizable authoring environment, accessible on `yourblog.com/studio`
-- Real-time and collaborative content editing with fine-grained revision history
-- Side-by-side instant content preview that works across your whole site
-- Support for block content and the most advanced custom fields capability in the industry
-- Webhook-triggered Incremental Static Revalidation; no need to wait for a rebuild to publish new content
-- Free and boosted Sanity project with unlimited admin users, free content updates, and pay-as-you-go for API overages
-- A project with starter-friendly and not too heavy-handed TypeScript and Tailwind.css
 
 ## Table of Contents
 
@@ -30,29 +21,35 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
   - [Step 4. Deploy to production](#step-4-deploy-to-production)
 - [Questions and Answers](#questions-and-answers)
   - [It doesn't work! Where can I get help?](#it-doesnt-work-where-can-i-get-help)
-  - [How can I remove the "Next steps" block from my blog?](#how-can-i-remove-the-next-steps-block-from-my-blog)
+  - [How can I remove the "Next steps" block from my app?](#how-can-i-remove-the-next-steps-block-from-my-app)
   - [How can I set up Incremental Static Revalidation?](#how-can-i-set-up-incremental-static-revalidation)
 - [Next steps](#next-steps)
 
 ## Project Overview
 
-| [Blog](https://nextjs-blog.sanity.build)                                                                       | [Studio](https://nextjs-blog.sanity.build/studio)                                                                       |
-| -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| ![Blog](https://user-images.githubusercontent.com/44635000/197511913-94ea36dd-099d-4dbf-b71f-3335879621c9.png) | ![Sanity Studio](https://user-images.githubusercontent.com/44635000/197511725-b2a2e2e5-287b-41a9-84c6-ec90d37ca480.png) |
+| [Example Studio with preview](https://nextjs-clean.sanity.build/studio)                                                 |
+|-------------------------------------------------------------------------------------------------------------------------|
+| ![Sanity Studio](https://user-images.githubusercontent.com/44635000/197511725-b2a2e2e5-287b-41a9-84c6-ec90d37ca480.png) |
 
-### Important files and folders
+# Important files and folders
 
-| File(s)                                     | Description                                              |
-| ------------------------------------------- | -------------------------------------------------------- |
-| `sanity.config.ts`                          |  Config file for Sanity Studio                           |
-| `sanity.cli.ts`                             |  Config file for Sanity CLI                              |
-| `/pages/studio/[[...index]].tsx`            |  Where Sanity Studio is mounted                          |
-| `/pages/api/revalidate.ts`                  |  Serverless route for triggering ISR                     |
-| `/pages/api/preview.ts`                     |  Serverless route for triggering Preview mode            |
-| `/schemas`                                  |  Where Sanity Studio gets its content types from         |
-| `/plugins`                                  |  Where the advanced Sanity Studio customization is setup |
-| `/lib/sanity.api.ts`,`/lib/sanity.image.ts` | Configuration for the Sanity Content Lake client         |
-| `/lib/sanity.preview.ts`                    | Configuration for the live Preview Mode                  |
+| File(s)                                 | Description                                                                           |
+|-----------------------------------------|---------------------------------------------------------------------------------------|
+| `sanity.config.ts`                      | Config file for Sanity Studio                                                         |
+| `sanity.cli.ts`                         | Config file for Sanity CLI                                                            |
+| `/pages/index.tsx`                      | Landing page for `/`.                                                                 |
+| `/pages/studio/[[...index]].tsx`        | Where Sanity Studio is mounted                                                        |
+| `/pages/api/preview.ts`                 | Serverless route for triggering Preview mode                                          |
+| `/sanity/schemas.ts`                    | Where Sanity Studio gets its content types from                                       |
+| `/sanity/env.ts`                        | Configuration for the Sanity project and dataset                                      |
+| `/sanity/schemas.ts`                    | Where Sanity Studio gets its content types from                                       |
+| `/sanity/lib/client.ts`                 | Sanity client configured based on `env.ts`                                            |
+| `/sanity/lib/image.ts`                  | Sanity image builder - unused in this template, but is needed to render Sanity images |
+| `/sanity/plugins/IFramePreviewView.tsx` | See [adding studio preview](docs/studio-preview.md)                                   |
+| `tailwind.config.js`                    | Tailwind config. Only applies to files listed under `content`                         |
+
+All pages are wrapped in `pages/_document.tsx` and `pages/_app.tsx`.
+
 
 ## Configuration
 
@@ -75,6 +72,8 @@ Download the environment variables needed to connect Next.js and the Studio to y
 ```bash
 npx vercel env pull
 ```
+
+This will create a git-ignored `.env` file with environment variables that will be used for local development.
 
 ### Step 3. Run Next.js locally in development mode
 
@@ -112,22 +111,19 @@ In case of any issues or questions, you can post:
 - [Sanity's GitHub Discussions][sanity-github]
 - [Sanity's Community Slack][sanity-community]
 
-### How can I remove the "Next steps" block from my blog?
+### How can I remove the "Next steps" block from my app?
 
-You can remove it by deleting the `IntroTemplate` component in `/components/IndexPage.tsx`.
-
-### How can I set up Incremental Static Revalidation?
-
-Go to the serverless function code in `/pages/api/revalidate.ts`. In the code comments, you'll find instructions for how to set up [ISR][vercel-isr].
+You can remove it by deleting `intro-template`, and removing `IntroTemplate` usage from `pages/index.tsx`
 
 ## Next steps
 
+- [Setup live preview](./docs/studio-preview.md)
 - [Join our Slack community to ask questions and get help][sanity-community]
 - [How to edit my content structure?][sanity-schema-types]
 - [How to query content?][sanity-groq]
 - [What is content modelling?][sanity-content-modelling]
 
-[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fnextjs-blog-cms-sanity-v3&repository-name=blog-nextjs-sanity&project-name=blog-nextjs-sanity&demo-title=Blog%20with%20Built-in%20Content%20Editing&demo-description=A%20Sanity-powered%20blog%20with%20built-in%20content%20editing%20%26%20instant%20previews&demo-url=https%3A%2F%2Fnextjs-blog.sanity.build%2F%3Futm_source%3Dvercel%26utm_medium%3Dreferral&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F81981%2F197501516-c7c8092d-0305-4abe-afb7-1e896ef7b90a.png&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&external-id=nextjs;template=nextjs-blog-cms-sanity-v3
+[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fsanity-template-sanity-template-nextjs-clean&repository-name=nextjs-sanity-clean&project-name=nextjs-sanity-clean&demo-title=A+minimal+Sanity+%2B+Next+setup&demo-description=A+Sanity-powered+next+setup+ready+for+customization&demo-url=https%3A%2F%2Fnextjs-clean.sanity.build%2F%3Futm_source%3Dvercel%26utm_medium%3Dreferral&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&external-id=nextjs%3Btemplate%3Dnextjs-sanity-clean
 [integration]: https://www.sanity.io/docs/vercel-integration?utm_source=github.com&utm_medium=referral&utm_campaign=nextjs-v3vercelstarter
 [`.env.local.example`]: .env.local.example
 [nextjs]: https://github.com/vercel/next.js
