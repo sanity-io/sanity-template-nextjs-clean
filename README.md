@@ -8,6 +8,11 @@ You can use this starter to kick-start a clean slate site or learn these technol
 
 [![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
 
+> :info: This starter uses the `/pages` directory for Next.js routing.
+>
+> The template will be migrated to the currently experimental [/app][app-dir] directory
+> when Vercel announce that it is production ready.
+
 ## Table of Contents
 
 - [Features](#features)
@@ -141,3 +146,4 @@ You can remove it by deleting `intro-template`, and removing `IntroTemplate` usa
 [vercel-isr]: https://nextjs.org/blog/next-12-1#on-demand-incremental-static-regeneration-beta
 [vercel]: https://vercel.com
 [vercel-github]: https://github.com/vercel/next.js/discussions
+[app-dir]: (https://beta.nextjs.org/docs/routing/fundamentals#the-app-directory)
