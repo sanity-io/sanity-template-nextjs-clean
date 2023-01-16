@@ -1,15 +1,15 @@
 # A minimal Next.js site with Sanity Studio
 
-This starter is a statically generated site that uses [Next.js][nextjs] for the frontend and [Sanity][sanity-homepage] to handle its content. 
+This starter is a statically generated site that uses [Next.js][nextjs] for the frontend and [Sanity][sanity-homepage] to handle its content.
 It comes with a native Sanity Studio that offers features like real-time collaboration, instant side-by-side content previews, and intuitive editing.
 
-The Studio connects to Sanity Content Lake, which gives you hosted content APIs with a flexible query language, on-demand image transformations, powerful patching, and more. 
+The Studio connects to Sanity Content Lake, which gives you hosted content APIs with a flexible query language, on-demand image transformations, powerful patching, and more.
 You can use this starter to kick-start a clean slate site or learn these technologies.
 
 [![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
 
 > **Note**
-> 
+>
 > This starter uses the `/pages` directory for Next.js routing.
 >
 > The template will be migrated to the currently experimental [/app][app-dir] directory
@@ -35,13 +35,13 @@ You can use this starter to kick-start a clean slate site or learn these technol
 ## Project Overview
 
 | [Example Studio with preview](https://nextjs-clean.sanity.build/studio)                                                 |
-|-------------------------------------------------------------------------------------------------------------------------|
+| ----------------------------------------------------------------------------------------------------------------------- |
 | ![Sanity Studio](https://user-images.githubusercontent.com/44635000/197511725-b2a2e2e5-287b-41a9-84c6-ec90d37ca480.png) |
 
 # Important files and folders
 
 | File(s)                                 | Description                                                                           |
-|-----------------------------------------|---------------------------------------------------------------------------------------|
+| --------------------------------------- | ------------------------------------------------------------------------------------- |
 | `sanity.config.ts`                      | Config file for Sanity Studio                                                         |
 | `sanity.cli.ts`                         | Config file for Sanity CLI                                                            |
 | `/pages/index.tsx`                      | Landing page for `/`.                                                                 |
@@ -56,7 +56,6 @@ You can use this starter to kick-start a clean slate site or learn these technol
 | `tailwind.config.js`                    | Tailwind config. Only applies to files listed under `content`                         |
 
 All pages are wrapped in `pages/_document.tsx` and `pages/_app.tsx`.
-
 
 ## Configuration
 

@@ -1,4 +1,5 @@
 # Adding studio preview
+
 Although this template does not ship any studio schemas, it contains the bits needed to add live-preview to for any document schema.
 
 To add Studio preview to a document schema:
@@ -7,7 +8,7 @@ To add Studio preview to a document schema:
 
 1. `deskTool.defaultDocumentNode` allow us to configure views for schemas.
 
-```ts 
+```ts
 import {
   DefaultDocumentNodeResolver,
   StructureResolver,
@@ -28,7 +29,7 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (S, ctx) => {
     ])
   }
 
-  // or add preview based on some custom property  
+  // or add preview based on some custom property
   if (schemaType.options?.preview) {
     return S.document().views([
       S.view.form().title('Content'),
@@ -57,7 +58,7 @@ export default defineConfig({
 ```
 
 3. Add a field named `slug` with type `slug` to your document schema
-4. Add a `[slug].tsx` route to `/pages` that resolves and renders the data. 
+4. Add a `[slug].tsx` route to `/pages` that resolves and renders the data.
 5. (Check out the slug route in [personal-website-template](https://github.com/sanity-io/template-nextjs-personal-website/tree/main/pages/%5Bslug%5D.tsx) for an example of what that might look like)
 
 ## Next steps
@@ -65,8 +66,8 @@ export default defineConfig({
 Make changes to preview configuration as needed.
 The following files all work together:
 
-* `sanity/components/IFramePreviewView.tsx`
-* `sanity/lib/previewSecret.ts`
-* `pages/api/preview.ts`
-* `pages/api/exit-preview.ts`
-* Preview logic in any `/pages` routes
+- `sanity/components/IFramePreviewView.tsx`
+- `sanity/lib/previewSecret.ts`
+- `pages/api/preview.ts`
+- `pages/api/exit-preview.ts`
+- Preview logic in any `/pages` routes
