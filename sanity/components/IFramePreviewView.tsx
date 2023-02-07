@@ -5,7 +5,8 @@ import { UserViewComponent } from 'sanity/desk'
 import styled from 'styled-components'
 import { suspend } from 'suspend-react'
 
-import { apiVersion, previewSecretDocumentId } from '../env'
+import {  previewSecretDocumentId } from '../env'
+import {client } from '../lib/client'
 import { getPreviewSecret } from '../lib/previewSecret'
 
 const FETCH_SECRET = Symbol(previewSecretDocumentId)
@@ -51,8 +52,6 @@ function PagePreviewWithSecret(props: {
   type: string
 }) {
   const { id, slug, type } = props
-
-  const client = useClient({ apiVersion })
 
   // Use `suspend` to fetch the secret with a TTL of 1 minute, just to check if it's necessary to
   // recreate the secret which has a TTL of 60 minutes.
