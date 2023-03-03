@@ -6,15 +6,13 @@ To add Studio preview to a document schema:
 
 ### Add a defaultDocumentNode resolver
 
-1. `deskTool.defaultDocumentNode` allow us to configure views for schemas.
+1. `deskTool.defaultDocumentNode` allow us to configure views for schemas. Create ./sanity/structure.ts and paste:
 
 ```ts
-import {
-  DefaultDocumentNodeResolver,
-  StructureResolver,
-} from 'sanity/lib/exports/desk'
+// ./sanity/structure.ts
+import { DefaultDocumentNodeResolver, StructureResolver } from 'sanity/desk'
 
-import { IFramePreviewView } from 'sanity/components/IFramePreviewView'
+import { IFramePreviewView } from './components/IFramePreviewView'
 
 // Example on how to add views for a schemaType
 // https://www.sanity.io/docs/create-custom-document-views-with-structure-builder
@@ -47,13 +45,15 @@ export const structure: StructureResolver = (S, context) => {
 }
 ```
 
-2 . Add this function to `deskTool` configuration in `sanity.config.ts`:
+2 . Add this function to `deskTool` configuration in `sanity.config.ts`, and import from `./sanity/structure`:
 
 ```ts
 //sanity.config.ts
+import { defaultDocumentNode, structure } from './sanity/structure'
+
 export default defineConfig({
-  //..other conifig
-  plugins: [deskTool({defaultDocumentNode}),
+  //..other config
+  plugins: [deskTool({defaultDocumentNode, structure}),
 })
 ```
 
