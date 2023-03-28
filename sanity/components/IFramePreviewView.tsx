@@ -73,7 +73,7 @@ function PagePreviewWithSecret(props: {
 
   return (
     <StyledIframe
-      src={`/api/sanity/preview?type=${type}&id=${id}&slug=${slug}&secret=${secret}`}
+      src={`/api/preview?type=${type}&id=${id}&slug=${slug}&secret=${secret}`}
     />
   )
 }
