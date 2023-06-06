@@ -34,7 +34,7 @@ You can use this starter to kick-start a clean slate site or learn these technol
 
 ## Project Overview
 
-| [Example Studio with preview](https://nextjs-clean.sanity.build/studio)                                                 |
+| [Example Studio with preview](https://template-nextjs-clean.sanity.build/studio)                                                 |
 | ----------------------------------------------------------------------------------------------------------------------- |
 | ![Sanity Studio](https://user-images.githubusercontent.com/44635000/197511725-b2a2e2e5-287b-41a9-84c6-ec90d37ca480.png) |
 
