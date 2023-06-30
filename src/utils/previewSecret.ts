@@ -1,4 +1,4 @@
-import { groq, SanityClient } from 'next-sanity'
+import { groq, type SanityClient } from 'next-sanity'
 
 import { createRandomUUID } from './uuid'
 

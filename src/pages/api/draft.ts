@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { previewSecretDocumentId, readToken } from '../../sanity/env'
-import { client } from '../../sanity/lib/client'
-import { getPreviewSecret } from '../../sanity/lib/previewSecret'
+import { previewSecretId, readToken } from '~/lib/sanity.api'
+import { getClient } from '~/lib/sanity.client'
+import { getPreviewSecret } from '~/utils/previewSecret'
 
 export default async function preview(
   req: NextApiRequest,
@@ -24,7 +24,10 @@ export default async function preview(
     return
   }
 
-  const authClient = client.withConfig({ useCdn: false, token: readToken })
+  const authClient = getClient({ token: readToken }).withConfig({
+    useCdn: false,
+    token: readToken,
+  })
 
   // The secret can't be stored in an env variable with a NEXT_PUBLIC_ prefix, as it would make you
   // vulnerable to leaking the token to anyone. If you don't have an custom API with authentication
@@ -32,7 +35,7 @@ export default async function preview(
   // to store the secret in your dataset.
   const storedSecret = await getPreviewSecret({
     client: authClient,
-    id: previewSecretDocumentId,
+    id: previewSecretId,
   })
 
   // This is the most common way to check for auth, but we encourage you to use your existing auth
@@ -43,7 +46,7 @@ export default async function preview(
 
   if (slug) {
     res.setPreviewData({ token: readToken })
-    res.writeHead(307, { Location: `/${slug}` })
+    res.writeHead(307, { Location: `/post/${slug}` })
     res.end()
     return
   }
