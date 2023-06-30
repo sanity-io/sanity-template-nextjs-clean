@@ -1,5 +1,6 @@
 import { PortableText } from '@portabletext/react'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
+import Image from 'next/image'
 import { useLiveQuery } from 'next-sanity/preview'
 
 import Container from '~/components/Container'
@@ -9,8 +10,8 @@ import { urlForImage } from '~/lib/sanity.image'
 import {
   getPost,
   type Post,
-  postSlugsQuery,
   postBySlugQuery,
+  postSlugsQuery,
 } from '~/lib/sanity.queries'
 import type { SharedPageProps } from '~/pages/_app'
 import { formatDate } from '~/utils'
@@ -54,9 +55,11 @@ export default function ProjectSlugRoute(
     <Container>
       <section className="post">
         {post.mainImage ? (
-          <img
+          <Image
             className="post__cover"
             src={urlForImage(post.mainImage).url()}
+            height={231}
+            width={367}
             alt=""
           />
         ) : (

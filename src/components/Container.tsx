@@ -1,10 +1,12 @@
+import Link from 'next/link'
+
 export default function Container({ children }: { children: React.ReactNode }) {
   return (
     <div className="container">
       <header className="header">
-        <a className="header__title" href="/">
+        <Link className="header__title" href="/">
           Next.js + Sanity
-        </a>
+        </Link>
       </header>
       <main>{children}</main>
       <footer className="footer">
