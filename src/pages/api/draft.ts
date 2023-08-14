@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { isValidSecret } from 'sanity-plugin-iframe-pane/is-valid-secret'
 
 import { previewSecretId, readToken } from '~/lib/sanity.api'
 import { getClient } from '~/lib/sanity.client'
-import { getPreviewSecret } from '~/utils/previewSecret'
 
 export default async function preview(
   req: NextApiRequest,
@@ -29,23 +29,20 @@ export default async function preview(
     token: readToken,
   })
 
-  // The secret can't be stored in an env variable with a NEXT_PUBLIC_ prefix, as it would make you
-  // vulnerable to leaking the token to anyone. If you don't have an custom API with authentication
-  // that can handle checking secrets, you may use https://github.com/sanity-io/sanity-studio-secrets
-  // to store the secret in your dataset.
-  const storedSecret = await getPreviewSecret({
-    client: authClient,
-    id: previewSecretId,
-  })
-
+  
   // This is the most common way to check for auth, but we encourage you to use your existing auth
   // infra to protect your token and securely transmit it to the client
-  if (secret !== storedSecret) {
+  const validSecret = await isValidSecret(
+    authClient,
+    previewSecretId,
+    secret
+  )
+  if (!validSecret) {
     return res.status(401).send('Invalid secret')
   }
 
   if (slug) {
-    res.setPreviewData({ token: readToken })
+    res.setDraftMode({ enable: true })
     res.writeHead(307, { Location: `/post/${slug}` })
     res.end()
     return
