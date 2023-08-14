@@ -6,7 +6,7 @@ import { getPreviewSecret } from '~/utils/previewSecret'
 
 export default async function preview(
   req: NextApiRequest,
-  res: NextApiResponse<string | void>
+  res: NextApiResponse<string | void>,
 ) {
   if (!readToken) {
     res.status(500).send('Misconfigured server')

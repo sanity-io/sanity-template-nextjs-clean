@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps<
 }
 
 export default function ProjectSlugRoute(
-  props: InferGetStaticPropsType<typeof getStaticProps>
+  props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
   const [post] = useLiveQuery(props.post, postBySlugQuery, {
     slug: props.post.slug.current,
