@@ -27,7 +27,7 @@ export const getStaticProps: GetStaticProps<
 }
 
 export default function IndexPage(
-  props: InferGetStaticPropsType<typeof getStaticProps>
+  props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
   const [posts] = useLiveQuery<Post[]>(props.posts, postsQuery)
   return (

@@ -44,7 +44,7 @@ export async function getPreviewSecret(options: {
     } catch (err) {
       console.error(
         'Failed to create a new preview secret. Ensure the `client` has a `token` specified that has `write` permissions.',
-        err
+        err,
       )
     }
   }

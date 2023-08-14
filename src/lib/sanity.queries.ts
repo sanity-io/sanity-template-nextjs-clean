@@ -13,7 +13,7 @@ export const postBySlugQuery = groq`*[_type == "post" && slug.current == $slug][
 
 export async function getPost(
   client: SanityClient,
-  slug: string
+  slug: string,
 ): Promise<Post> {
   return await client.fetch(postBySlugQuery, {
     slug,
