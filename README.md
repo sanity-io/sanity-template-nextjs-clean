@@ -40,19 +40,19 @@ You can use this starter to kick-start a clean slate site or learn these technol
 
 # Important files and folders
 
-| File(s)                                 | Description                                                                           |
-| --------------------------------------- | ------------------------------------------------------------------------------------- |
-| `sanity.config.ts`                      | Config file for Sanity Studio                                                         |
-| `sanity.cli.ts`                         | Config file for Sanity CLI                                                            |
-| `/pages/index.tsx`                      | Landing page for `/`.                                                                 |
-| `/pages/studio/[[...index]].tsx`        | Where Sanity Studio is mounted                                                        |
-| `/pages/api/draft.ts`                 | Serverless route for triggering Draft mode                                          |
-| `/sanity/schemas.ts`                    | Where Sanity Studio gets its content types from                                       |
-| `/sanity/env.ts`                        | Configuration for the Sanity project and dataset                                      |
-| `/sanity/schemas.ts`                    | Where Sanity Studio gets its content types from                                       |
-| `/sanity/lib/client.ts`                 | Sanity client configured based on `env.ts`                                            |
-| `/sanity/lib/image.ts`                  | Sanity image builder - unused in this template, but is needed to render Sanity images |
-| `tailwind.config.js`                    | Tailwind config. Only applies to files listed under `content`                         |
+| File(s)                          | Description                                                                           |
+| -------------------------------- | ------------------------------------------------------------------------------------- |
+| `sanity.config.ts`               | Config file for Sanity Studio                                                         |
+| `sanity.cli.ts`                  | Config file for Sanity CLI                                                            |
+| `/pages/index.tsx`               | Landing page for `/`.                                                                 |
+| `/pages/studio/[[...index]].tsx` | Where Sanity Studio is mounted                                                        |
+| `/pages/api/draft.ts`            | Serverless route for triggering Draft mode                                            |
+| `/sanity/schemas.ts`             | Where Sanity Studio gets its content types from                                       |
+| `/sanity/env.ts`                 | Configuration for the Sanity project and dataset                                      |
+| `/sanity/schemas.ts`             | Where Sanity Studio gets its content types from                                       |
+| `/sanity/lib/client.ts`          | Sanity client configured based on `env.ts`                                            |
+| `/sanity/lib/image.ts`           | Sanity image builder - unused in this template, but is needed to render Sanity images |
+| `tailwind.config.js`             | Tailwind config. Only applies to files listed under `content`                         |
 
 All pages are wrapped in `pages/_document.tsx` and `pages/_app.tsx`.
 
