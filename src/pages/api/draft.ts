@@ -29,14 +29,9 @@ export default async function preview(
     token: readToken,
   })
 
-  
   // This is the most common way to check for auth, but we encourage you to use your existing auth
   // infra to protect your token and securely transmit it to the client
-  const validSecret = await isValidSecret(
-    authClient,
-    previewSecretId,
-    secret
-  )
+  const validSecret = await isValidSecret(authClient, previewSecretId, secret)
   if (!validSecret) {
     return res.status(401).send('Invalid secret')
   }

@@ -24,7 +24,7 @@ import { schema } from '~/schemas'
 const iframeOptions = {
   url: defineUrlResolver({
     base: '/api/draft',
-    requiresSlug:['post'],
+    requiresSlug: ['post'],
   }),
   urlSecretId: previewSecretId,
   reload: { button: true },
@@ -46,13 +46,12 @@ export default defineConfig({
       // It's part of the Studio's “Structure Builder API” and is documented here:
       // https://www.sanity.io/docs/structure-builder-reference
       defaultDocumentNode: (S, { schemaType }) => {
-          return S.document().views([
-            // Default form view
-            S.view.form(),
-            // Preview
-            S.view.component(Iframe).options(iframeOptions).title('Preview'),
-          ])
-
+        return S.document().views([
+          // Default form view
+          S.view.form(),
+          // Preview
+          S.view.component(Iframe).options(iframeOptions).title('Preview'),
+        ])
       },
     }),
     // Add the "Open preview" action
