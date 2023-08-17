@@ -1,6 +1,6 @@
 import '~/styles/global.css'
 
-import { IBM_Plex_Mono, Inter, PT_Serif } from '@next/font/google'
+import { IBM_Plex_Mono, Inter, PT_Serif } from "next/font/google"
 import type { AppProps } from 'next/app'
 import { lazy } from 'react'
 
