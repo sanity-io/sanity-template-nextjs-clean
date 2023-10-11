@@ -23,13 +23,13 @@ jobs:
           cache: npm
           node-version: lts/*
       - run: npm ci --ignore-scripts --only-dev
-      - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
+      - uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3
         with:
           path: node_modules/.cache/prettier/.prettier-cache
           key: prettier-${{ hashFiles('package-lock.json') }}-${{ hashFiles('.gitignore') }}
       - run: npx prettier --ignore-path .gitignore --cache --write .
       - run: git restore .github/workflows
-      - uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92 # v1
+      - uses: tibdex/github-app-token@32691ba7c9e7063bd457bd8f2a5703138591fa58 # v1
         id: generate-token
         with:
           app_id: ${{ secrets.ECOSPARK_APP_ID }}
