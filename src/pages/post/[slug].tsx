@@ -2,8 +2,10 @@ import { PortableText } from '@portabletext/react'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Image from 'next/image'
 import { useLiveQuery } from 'next-sanity/preview'
+import { dataset,projectId } from 'sanity/env'
 
 import Container from '~/components/Container'
+import SchemaMarkup from '~/components/SchemaMarkup'
 import { readToken } from '~/lib/sanity.api'
 import { getClient } from '~/lib/sanity.client'
 import { urlForImage } from '~/lib/sanity.image'
@@ -54,6 +56,9 @@ export default function ProjectSlugRoute(
   return (
     <Container>
       <section className="post">
+        {
+          post.schemaMarkup ? <SchemaMarkup schema={post.schemaMarkup}  /> : null
+        }
         {post.mainImage ? (
           <Image
             className="post__cover"

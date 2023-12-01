@@ -39,6 +39,11 @@ export default defineType({
       title: 'Body',
       type: 'blockContent',
     }),
+    defineField({
+      title: 'Schema Markup',
+      name: 'schemaMarkup',
+      type: 'schemaMarkup',
+    })
   ],
   preview: {
     select: {
