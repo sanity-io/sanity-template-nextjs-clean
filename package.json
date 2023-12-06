@@ -14,7 +14,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@operationnation/sanity-plugin-schema-markup": "^0.0.1-beta.2",
+    "@operationnation/sanity-plugin-schema-markup": "^0.0.1-beta.6",
     "@portabletext/react": "3.0.11",
     "@sanity/client": "6.8.6",
     "@sanity/demo": "1.0.2",

@@ -1,8 +1,5 @@
-import { SchemaScript } from '@operationnation/sanity-plugin-schema-markup';
+import { Schema, SchemaScript } from '@operationnation/sanity-plugin-schema-markup';
 
-type Schema = {
-  [key: string]: string;
-};
 
 type Props = {
   schema: Schema[];
