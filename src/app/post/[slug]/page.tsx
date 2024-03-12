@@ -1,11 +1,11 @@
 import { PortableText } from '@portabletext/react'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Image from 'next/image'
-import { useLiveQuery } from 'next-sanity/preview'
+import { notFound } from 'next/navigation'
 
+import type { SharedPageProps } from '~/app/layout'
 import Container from '~/components/Container'
-import { readToken } from '~/lib/sanity.api'
-import { getClient } from '~/lib/sanity.client'
+import { sanityFetch } from '~/lib/sanity.fetch'
 import { urlForImage } from '~/lib/sanity.image'
 import {
   getPost,
@@ -13,43 +13,29 @@ import {
   postBySlugQuery,
   postSlugsQuery,
 } from '~/lib/sanity.queries'
-import type { SharedPageProps } from '~/pages/_app'
 import { formatDate } from '~/utils'
 
 interface Query {
   [key: string]: string
 }
 
-export const getStaticProps: GetStaticProps<
-  SharedPageProps & {
-    post: Post
-  },
-  Query
-> = async ({ draftMode = false, params = {} }) => {
-  const client = getClient(draftMode ? { token: readToken } : undefined)
-  const post = await getPost(client, params.slug)
 
-  if (!post) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: {
-      draftMode,
-      token: draftMode ? readToken : '',
-      post,
-    },
-  }
+export async function generateStaticParams() {
+  return sanityFetch({
+    query: postSlugsQuery,
+    perspective: 'published',
+    stega: false
+  })
 }
 
-export default function ProjectSlugRoute(
-  props: InferGetStaticPropsType<typeof getStaticProps>,
+export default async function PostSlugRoute(
+  {params}: {params: any}
 ) {
-  const [post] = useLiveQuery(props.post, postBySlugQuery, {
-    slug: props.post.slug.current,
-  })
+  const post = await sanityFetch({ query: postBySlugQuery, params, stega: false})
+
+  if (!post?._id) {
+    return notFound()
+  }
 
   return (
     <Container>
@@ -76,14 +62,4 @@ export default function ProjectSlugRoute(
       </section>
     </Container>
   )
-}
-
-export const getStaticPaths = async () => {
-  const client = getClient()
-  const slugs = await client.fetch(postSlugsQuery)
-
-  return {
-    paths: slugs?.map(({ slug }) => `/post/${slug}`) || [],
-    fallback: 'blocking',
-  }
 }
