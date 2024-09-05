@@ -15,15 +15,15 @@
   },
   "dependencies": {
     "@portabletext/react": "3.0.11",
-    "@sanity/client": "6.12.3",
+    "@sanity/client": "6.15.5",
     "@sanity/demo": "1.0.2",
     "@sanity/vision": "3.28.0",
     "@tailwindcss/typography": "0.5.10",
     "next": "14.1.0",
-    "next-sanity": "5.5.11",
+    "next-sanity": "8.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sanity": "3.28.0",
+    "sanity": "3.35.0",
     "sanity-plugin-iframe-pane": "2.6.1",
     "styled-components": "6.1.8"
   },
