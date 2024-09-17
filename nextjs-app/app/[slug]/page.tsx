@@ -1,23 +1,18 @@
 import Head from "next/head";
 import { notFound } from "next/navigation";
 
-import { defineQuery } from "groq";
-import { getPageQuery } from "@/sanity/lib/queries";
 import PageBuilderPage from "@/app/components/PageBuilder";
 import { sanityFetch } from "@/sanity/lib/fetch";
+import { getPageQuery, pagesSlugs } from "@/sanity/lib/queries";
 import { Page as PageType } from "@/sanity.types";
 
 type Props = {
   params: { slug: string };
 };
 
-const pageSlugs = defineQuery(
-  `*[_type == "page" && defined(slug.current)]{"slug": slug.current}`
-);
-
 export async function generateStaticParams() {
   return await sanityFetch({
-    query: pageSlugs,
+    query: pagesSlugs,
     perspective: "published",
     stega: false,
   });
@@ -33,11 +28,11 @@ export default async function Page({ params }: Props) {
   }
 
   return (
-    <div>
+    <div className="my-12 lg:my-24">
       <Head>
         <title>My page title</title>
       </Head>
-      <div className="bg-white mt-12 mb-6">
+      <div className="">
         <div className="container">
           <div className="pb-6 border-b border-gray-100">
             <div className="max-w-2xl">

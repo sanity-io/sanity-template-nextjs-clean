@@ -42,3 +42,24 @@ export const postQuery = defineQuery(`
     ${postFields}
   }
 `);
+
+export const pageSlugQuery = defineQuery(`
+  *[_type == "page" && _id == $id][0] {
+    "slug": slug.current
+  }
+`);
+export const postSlugQuery = defineQuery(`
+  *[_type == "post" && _id == $id][0] {
+    "slug": slug.current
+  }
+`);
+
+export const postPagesSlugs = defineQuery(`
+  *[_type == "post" && defined(slug.current)]
+  {"slug": slug.current}
+`);
+
+export const pagesSlugs = defineQuery(`
+  *[_type == "page" && defined(slug.current)]
+  {"slug": slug.current}
+`);

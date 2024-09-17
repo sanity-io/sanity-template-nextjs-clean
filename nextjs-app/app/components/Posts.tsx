@@ -1,9 +1,10 @@
 import Link from "next/link";
+
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { morePostsQuery, allPostsQuery } from "@/sanity/lib/queries";
 import { Post as PostType } from "@/sanity.types";
-import DateComponent from "./Date";
-import OnBoarding from "./Onboarding";
+import DateComponent from "@/app/components/Date";
+import OnBoarding from "@/app/components/Onboarding";
 
 type PostProps = {
   post: PostType;
@@ -75,7 +76,7 @@ export const MorePosts = async ({ skip, limit }: MorePostsProps) => {
 
   return (
     <Posts heading={`Recent blog posts from Sanity (${data?.length})`}>
-      {data?.map((post: PostType) => <Post key={post._id} post={post} />)}
+      {data?.map((post: any) => <Post key={post._id} post={post} />)}
     </Posts>
   );
 };
@@ -92,7 +93,7 @@ export const AllPosts = async () => {
       heading="Blog posts from Sanity"
       subHeading={`${data.length === 1 ? "This blog post is" : `These ${data.length} blog posts are`} populated from your Sanity Studio.`}
     >
-      {data.map((post: PostType) => (
+      {data.map((post: any) => (
         <Post key={post._id} post={post} />
       ))}
     </Posts>

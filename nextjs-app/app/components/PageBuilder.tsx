@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import React from "react";
 import BlockRenderer from "@/app/components/BlockRenderer";
 import { Page } from "@/sanity.types";
 import { studioUrl } from "@/sanity/lib/api";
@@ -37,7 +36,7 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Add Content to this page
+            Add content to this page
           </Link>
         </div>
       </div>

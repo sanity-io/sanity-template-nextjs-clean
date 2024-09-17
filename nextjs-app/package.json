@@ -7,9 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "presetup": "echo 'about to setup env variables, follow the guide here: https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#using-the-sanity-cli'",
-    "setup": "npx sanity@latest init --env .env.local",
-    "postsetup": "echo 'create the read token by following the rest of the guide: https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#creating-a-read-token'",
     "typegen": "sanity typegen generate"
   },
   "dependencies": {
@@ -28,7 +25,7 @@
     "postcss": "^8.4.41",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "sanity": "^3.57.0",
+    "sanity": "^3.57.3",
     "server-only": "^0.0.1",
     "styled-components": "^6.1.12",
     "tailwindcss": "^3.4.10",

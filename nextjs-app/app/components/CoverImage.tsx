@@ -1,5 +1,5 @@
-import { Image } from "next-sanity/image";
 import { stegaClean } from "@sanity/client/stega";
+import { Image } from "next-sanity/image";
 
 import { urlForImage } from "@/sanity/lib/utils";
 

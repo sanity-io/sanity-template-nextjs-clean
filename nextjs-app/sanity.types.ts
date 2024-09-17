@@ -518,6 +518,16 @@ export type PostQueryResult = {
     };
   } | null;
 } | null;
+// Variable: pageSlugQuery
+// Query: *[_type == "page" && _id == $id][0] {    "slug": slug.current  }
+export type PageSlugQueryResult = {
+  slug: string;
+} | null;
+// Variable: postSlugQuery
+// Query: *[_type == "post" && _id == $id][0] {    "slug": slug.current  }
+export type PostSlugQueryResult = {
+  slug: string;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -528,5 +538,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"post\" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": AllPostsQueryResult;
     "\n  *[_type == \"post\" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": MorePostsQueryResult;
     "\n  *[_type == \"post\" && slug.current == $slug] [0] {\n    content,\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": PostQueryResult;
+    "\n  *[_type == \"page\" && _id == $id][0] {\n    \"slug\": slug.current\n  }\n": PageSlugQueryResult;
+    "\n  *[_type == \"post\" && _id == $id][0] {\n    \"slug\": slug.current\n  }\n": PostSlugQueryResult;
   }
 }

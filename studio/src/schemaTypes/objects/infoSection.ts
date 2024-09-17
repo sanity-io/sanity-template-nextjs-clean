@@ -20,27 +20,7 @@ export default defineType({
     defineField({
       name: 'content',
       title: 'Content',
-      type: 'array',
-      of: [
-        defineArrayMember({
-          type: 'block',
-          marks: {
-            annotations: [
-              {
-                name: 'link',
-                type: 'object',
-                title: 'Link',
-                fields: [
-                  defineField({
-                    name: 'link',
-                    type: 'link',
-                  }),
-                ],
-              },
-            ],
-          },
-        }),
-      ],
+      type: 'blockContent',
     }),
   ],
 })

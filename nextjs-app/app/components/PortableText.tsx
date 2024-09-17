@@ -8,15 +8,14 @@
  *
  */
 
-import Link from "next/link";
-import { linkResolver } from "@/sanity/lib/utils";
-import { Suspense } from "react";
-import ResolvedLink from "./ResolvedLink";
 import {
   PortableText,
   type PortableTextComponents,
   type PortableTextBlock,
 } from "next-sanity";
+import { Suspense } from "react";
+
+import ResolvedLink from "@/app/components/ResolvedLink";
 
 export default function CustomPortableText({
   className,

@@ -2,18 +2,13 @@ import "./globals.css";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import {
-  VisualEditing,
-  toPlainText,
-  type PortableTextBlock,
-} from "next-sanity";
 import { Inter } from "next/font/google";
 import { draftMode } from "next/headers";
+import { VisualEditing, toPlainText } from "next-sanity";
 import { Suspense } from "react";
 
 import AlertBanner from "@/app/components/AlertBanner";
-import Header from "@/app/components/header";
-
+import Header from "@/app/components/Header";
 import * as demo from "@/sanity/lib/demo";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { settingsQuery } from "@/sanity/lib/queries";

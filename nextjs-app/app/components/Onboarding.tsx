@@ -7,6 +7,7 @@
 
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
+
 import { studioUrl } from "@/sanity/lib/api";
 
 const emptySubscribe = () => () => {};

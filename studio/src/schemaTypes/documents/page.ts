@@ -35,12 +35,22 @@ export default defineType({
       title: 'Subheading',
       type: 'string',
     }),
-    // TODA - Make thumbnails
     defineField({
       name: 'pageBuilder',
       title: 'Page builder',
       type: 'array',
       of: [{type: 'callToAction'}, {type: 'infoSection'}],
+      options: {
+        insertMenu: {
+          views: [
+            {
+              name: 'grid',
+              previewImageUrl: (schemaTypeName) =>
+                `/static/page-builder-thumbnails/${schemaTypeName}.webp`,
+            },
+          ],
+        },
+      },
     }),
   ],
 })

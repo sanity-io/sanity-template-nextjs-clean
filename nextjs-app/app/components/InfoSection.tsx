@@ -1,6 +1,7 @@
-import { InfoSection } from "@/sanity.types";
 import { type PortableTextBlock } from "next-sanity";
+
 import PortableText from "@/app/components/PortableText";
+import { InfoSection } from "@/sanity.types";
 
 type InfoProps = {
   block: InfoSection;

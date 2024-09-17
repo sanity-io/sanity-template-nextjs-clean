@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { linkResolver } from "@/sanity/lib/utils";
 import { use } from "react";
+
+import { linkResolver } from "@/sanity/lib/utils";
 
 interface ResolvedLinkProps {
   link: any;
   children: React.ReactNode;
-  className?: string; // Add className prop
+  className?: string;
 }
 
 export default function ResolvedLink({
@@ -21,11 +22,11 @@ export default function ResolvedLink({
         href={resolvedLink}
         target={link?.openInNewTab ? "_blank" : undefined}
         rel={link?.openInNewTab ? "noopener noreferrer" : undefined}
-        className={className} // Apply className to Link component
+        className={className}
       >
         {children}
       </Link>
     );
   }
-  return null;
+  return <>{children}</>;
 }
