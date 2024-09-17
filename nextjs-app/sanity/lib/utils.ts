@@ -42,7 +42,6 @@ export async function linkResolver(
           query: pageSlugQuery,
           params: { id: link.page._ref },
         });
-        console.log("pageSlug:", pageSlug);
         return pageSlug ? `/${pageSlug?.slug}` : null;
       }
       return null;
@@ -52,7 +51,6 @@ export async function linkResolver(
           query: postSlugQuery,
           params: { id: link.post._ref },
         });
-        console.log("postSlug:", postSlug);
         return postSlug ? `/posts/${postSlug?.slug}` : null;
       }
       return null;

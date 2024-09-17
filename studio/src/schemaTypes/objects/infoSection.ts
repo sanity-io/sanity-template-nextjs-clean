@@ -1,16 +1,16 @@
 import {defineArrayMember, defineField, defineType} from 'sanity'
-import {LinkIcon} from '@sanity/icons'
+import {TextIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'infoSection',
   title: 'Info Section',
   type: 'object',
+  icon: TextIcon,
   fields: [
     defineField({
       name: 'heading',
       title: 'Heading',
       type: 'string',
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'subheading',
@@ -23,4 +23,16 @@ export default defineType({
       type: 'blockContent',
     }),
   ],
+  preview: {
+    select: {
+      title: 'heading',
+      subtitle: 'subheading',
+    },
+    prepare({title, subtitle}) {
+      return {
+        title: title || 'Untitled Info Section',
+        subtitle: subtitle,
+      }
+    },
+  },
 })
