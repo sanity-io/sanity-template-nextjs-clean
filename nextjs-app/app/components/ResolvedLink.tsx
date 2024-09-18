@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { use } from "react";
 
 import { linkResolver } from "@/sanity/lib/utils";
 
@@ -14,7 +13,7 @@ export default function ResolvedLink({
   children,
   className,
 }: ResolvedLinkProps) {
-  const resolvedLink = use(linkResolver(link));
+  const resolvedLink = linkResolver(link);
 
   if (typeof resolvedLink === "string") {
     return (

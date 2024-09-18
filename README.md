@@ -80,7 +80,7 @@ Dataset: production
 You can find your project on Sanity Manage — https://www.sanity.io/manage/project/rjtcllfw
 ```
 
-Your `projectI ID` is not senseitive information
+Your `projectI ID` is not sensitive information
 
 ### Step 4. Set up environment variables
 

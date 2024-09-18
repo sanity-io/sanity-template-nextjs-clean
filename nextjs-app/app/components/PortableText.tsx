@@ -13,7 +13,6 @@ import {
   type PortableTextComponents,
   type PortableTextBlock,
 } from "next-sanity";
-import { Suspense } from "react";
 
 import ResolvedLink from "@/app/components/ResolvedLink";
 
@@ -82,11 +81,7 @@ export default function CustomPortableText({
     marks: {
       link: ({ children, value }) => {
         const { link } = value;
-        return (
-          <Suspense fallback={<span>{children}</span>}>
-            <ResolvedLink link={link}>{children}</ResolvedLink>
-          </Suspense>
-        );
+        return <ResolvedLink link={link}>{children}</ResolvedLink>;
       },
     },
   };

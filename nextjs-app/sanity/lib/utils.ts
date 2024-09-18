@@ -1,7 +1,5 @@
 import createImageUrlBuilder from "@sanity/image-url";
 import { dataset, projectId } from "@/sanity/lib/api";
-import { pageSlugQuery, postSlugQuery } from "@/sanity/lib/queries";
-import { sanityFetch } from "@/sanity/lib/fetch";
 import { Link } from "@/sanity.types";
 
 const imageBuilder = createImageUrlBuilder({
@@ -25,31 +23,21 @@ export function resolveOpenGraphImage(image: any, width = 1200, height = 627) {
   return { url, alt: image?.alt as string, width, height };
 }
 
-export async function linkResolver(
-  // Depending on the type of link, we need to fetch the corresponding page, post, or URL.  Otherwise return null.
-  link: Link | undefined
-): Promise<string | null> {
+// Depending on the type of link, we need to fetch the corresponding page, post, or URL.  Otherwise return null.
+export function linkResolver(link: Link | undefined) {
   if (!link) return null;
 
   switch (link.linkType) {
     case "url":
       return link.url || null;
     case "page":
-      if (link.page?._ref) {
-        const pageSlug = await sanityFetch({
-          query: pageSlugQuery,
-          params: { id: link.page._ref },
-        });
-        return pageSlug ? `/${pageSlug?.slug}` : null;
+      if (link?.page) {
+        return `/${link.page}`;
       }
       return null;
     case "post":
-      if (link.post?._ref) {
-        const postSlug = await sanityFetch({
-          query: postSlugQuery,
-          params: { id: link.post._ref },
-        });
-        return postSlug ? `/posts/${postSlug?.slug}` : null;
+      if (link?.post) {
+        return `/posts/${link.post}`;
       }
       return null;
     default:

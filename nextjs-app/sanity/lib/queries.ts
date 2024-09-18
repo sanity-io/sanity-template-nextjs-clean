@@ -13,6 +13,16 @@ const postFields = /* groq */ `
   "author": author->{firstName, lastName, picture},
 `;
 
+const linkFields = /* groq */ `
+  link {
+      ...,
+      _type == "link" => {
+        "page": page->slug.current,
+        "post": post->slug.current
+        }
+      }
+`;
+
 export const getPageQuery = defineQuery(`
   *[_type == 'page' && slug.current == $slug][0]{
     _id,
@@ -20,7 +30,13 @@ export const getPageQuery = defineQuery(`
     slug,
     heading,
     subheading,
-    pageBuilder,
+    "pageBuilder": pageBuilder[]{
+      ...,
+      _type == "callToAction" => {
+        ...,
+        ${linkFields},
+      }
+    },
   }
 `);
 
@@ -38,19 +54,14 @@ export const morePostsQuery = defineQuery(`
 
 export const postQuery = defineQuery(`
   *[_type == "post" && slug.current == $slug] [0] {
-    content,
+    content[]{
+    ...,
+    markDefs[]{
+      ...,
+      ${linkFields}
+    }
+  },
     ${postFields}
-  }
-`);
-
-export const pageSlugQuery = defineQuery(`
-  *[_type == "page" && _id == $id][0] {
-    "slug": slug.current
-  }
-`);
-export const postSlugQuery = defineQuery(`
-  *[_type == "post" && _id == $id][0] {
-    "slug": slug.current
   }
 `);
 
