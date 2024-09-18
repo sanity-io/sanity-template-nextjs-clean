@@ -66,8 +66,21 @@ npm install
 ### Step 3 Create a new Sanity project and dataset
 
 ```bash
-npx sanity init
+npx sanity init --bare
 ```
+
+You will be prompted with an output that contains the project ID and dataset name.
+
+```bash
+Success! Below are your project details:
+
+Project ID: rjtcllfw
+Dataset: production
+
+You can find your project on Sanity Manage — https://www.sanity.io/manage/project/rjtcllfw
+```
+
+Your `projectI ID` is not senseitive information
 
 ### Step 4. Set up environment variables
 
@@ -77,9 +90,23 @@ cp -i .env.local.example .env.local
 
 Next, populate the `.env.local` file with the project ID and dataset name provided by the Sanity CLI in the previous step, or by visiting the [Sanity Manage Console](https://manage.sanity.io/)
 
-### Step 5. Run your Sanity Studio locally
+### Step 5. Optionally import the dataset
 
-Your Presentation tool won't connect to your Next.js app just yet though, since we havent set that up yet.
+If you want to start with some sample content, you can import the provided dataset into your Sanity project. This step is optional but can be helpful for getting started quickly.
+
+To import the dataset, run the following command in your terminal:
+
+```bash
+npx sanity dataset import production.tar.gz production
+```
+
+### Step 6. Run your Sanity Studio locally
+
+At this point, when you run your Sanity Studio, you'll see a message indicating that Presentation needs to be configured.
+
+![Presentation needs configuration](presentation-needs-configuration.webp)
+
+We'll address this in the next section when we set up the Next.js app.
 
 ```bash
 npm run dev
@@ -111,14 +138,20 @@ Add your Sanity project details to the `.env.local` file. The `NEXT_PUBLIC_SANIT
 
 Before you can run the project you need to setup a read token (`SANITY_API_READ_TOKEN`), it's used for authentication by Sanity's Presentation tool and pulling content while in draft mode.
 
-1. Go to [manage.sanity.io](https://manage.sanity.io/) and select your project.
+1. Go to [manage.sanity.io](https://manage.sanity.io/) and select your project and select your project in "Project" dropdown.
 2. Click on the `🔌 API` tab.
 3. Click on `+ Add API token`.
-4. Name it "next blog live preview read token" and set `Permissions` to `Viewer` and hit `Save`.
+4. Name it "NextJS / Presentation READ Token" and set `Permissions` to `Viewer` and hit `Save`.
 5. Copy the token and add it to your `.env.local` file.
 
 ```bash
 SANITY_API_READ_TOKEN="<paste your token here>"
+```
+
+### Step 4. Run your Next.js app locally
+
+```bash
+npm run dev
 ```
 
 ## Configure your Next.js app (Using Vercel)
@@ -131,7 +164,7 @@ cd nextjs-app
 
 ### Step 2. Set up the environment
 
-Use the Deploy Button below. It will let you deploy the starter using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-sanity-example) as well as connect it to your Sanity Content Lake using [the Sanity Vercel Integration][integration].
+Use the Deploy Button below. It will let you deploy the starter using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-sanity-example) as well as connect it to your Sanity Content Lake using [the Sanity Vercel Integration][integration]. Assuming you setup a project in the previous step, you will be able to select your project when stepping through the wizard.
 
 [![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
 

@@ -25,8 +25,6 @@ export function resolveOpenGraphImage(image: any, width = 1200, height = 627) {
   return { url, alt: image?.alt as string, width, height };
 }
 
-import { client } from "@/sanity/lib/client";
-
 export async function linkResolver(
   // Depending on the type of link, we need to fetch the corresponding page, post, or URL.  Otherwise return null.
   link: Link | undefined
