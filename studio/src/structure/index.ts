@@ -6,7 +6,8 @@ export const structure = (S: any) =>
     .title('Website Content')
     .items([
       ...S.documentTypeListItems().filter(
-        (listItem: any) => !['settings'].includes(listItem.getId()),
+        // Remove the "assist.instruction.context" and "settings" content  from the list of content types
+        (listItem: any) => !['settings', 'assist.instruction.context'].includes(listItem.getId()),
       ),
       S.listItem()
         .title('Site Settings')

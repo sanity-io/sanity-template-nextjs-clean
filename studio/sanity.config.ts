@@ -10,12 +10,12 @@ import {
   defineLocations,
   type DocumentLocation,
 } from 'sanity/presentation'
+import {assist} from '@sanity/assist'
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 
-const SANITY_STUDIO_PREVIEW_URL =
-  process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000/api/draft'
+const SANITY_STUDIO_PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
 
 const homeLocation = {
   title: 'Home',
@@ -106,6 +106,7 @@ export default defineConfig({
       structure,
     }),
     unsplashImageAsset(),
+    assist(),
     visionTool(),
   ],
 

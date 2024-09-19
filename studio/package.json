@@ -10,13 +10,13 @@
     "prebuild": "npm run extract-types",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "deploy-graphql": "sanity graphql deploy",
-    "extract-types": "sanity schema extract"
+    "extract-types": "sanity schema extract --enforce-required-fields"
   },
   "keywords": [
     "sanity"
   ],
   "dependencies": {
+    "@sanity/assist": "^3.0.6",
     "@sanity/icons": "^3.3.1",
     "@sanity/vision": "^3.54.0",
     "date-fns": "^3.6.0",
