@@ -112,7 +112,7 @@ We'll address this in the next section when we set up the Next.js app.
 npm run dev
 ```
 
-## Configure your Next.js app (Not using Vercel)
+## Configure your Next.js app
 
 ### Step 1. Change directories to your Next.js app
 
@@ -154,16 +154,16 @@ SANITY_API_READ_TOKEN="<paste your token here>"
 npm run dev
 ```
 
-# Populate content
+<!-- # Populate content
 
 Open your Sanity Studio that should be running on [http://localhost:3000/studio](http://localhost:3000/studio).
 
-By default you're taken to the [Presentation tool][presentation], which has a preview of the blog on the left hand side, and a list of documents on the right hand side.
+By default you're taken to the [Presentation tool][presentation], which has a preview of the website on the left hand side, and a list of documents on the right hand side.
 
 <details>
 <summary>View screenshot ✨</summary>
 
-![screenshot](https://github.com/vercel/next.js/assets/81981/07cbc580-4a03-4837-9aa4-90b632c95630)
+![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](sanity-nextjs-presentation.webp)
 
 </details>
 
@@ -233,10 +233,10 @@ We're all set to do some content creation!
 
   </details>
 
-> [!IMPORTANT]  
-> For each post record, you need to click **Publish** after saving for it to be visible outside Draft Mode. In production new content is using [Time-based Revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#time-based-revalidation), which means it may take up to 1 minute before changes show up. Since a stale-while-revalidate pattern is used you may need to refresh a couple of times to see the changes.
+> [!IMPORTANT]
+> For each post record, you need to click **Publish** after saving for it to be visible outside Draft Mode. In production new content is using [Time-based Revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#time-based-revalidation), which means it may take up to 1 minute before changes show up. Since a stale-while-revalidate pattern is used you may need to refresh a couple of times to see the changes. -->
 
-## Step 4. Deploying the Sanity Studio and Next.js app to production
+## Deploying the Sanity Studio and Next.js app to production
 
 ### Deploy your Sanity Studio
 
