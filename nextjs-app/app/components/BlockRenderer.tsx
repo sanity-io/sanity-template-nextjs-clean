@@ -35,7 +35,7 @@ export default function BlockRenderer({ block, index }: BlockProps) {
   return React.createElement(
     () => (
       <div className="w-full bg-gray-100 text-center text-gray-500 p-20 rounded">
-        A "{block._type}" block hasn't been created
+        A &ldquo;{block._type}&rdquo; block hasn&apos;t been created
       </div>
     ),
     { key: block._id }

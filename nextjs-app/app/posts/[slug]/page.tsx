@@ -53,31 +53,35 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <>
-      <div>
-        <div className="container my-12 lg:my-24">
-          <div className="pb-6 grid gap-6 mb-6 border-b border-gray-100">
-            <div className="max-w-3xl flex flex-col gap-6">
-              <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-7xl">
-                {post.title}
-              </h2>
+      <div className="">
+        <div className="container my-12 lg:my-24 grid gap-12">
+          <div>
+            <div className="pb-6 grid gap-6 mb-6 border-b border-gray-100">
+              <div className="max-w-3xl flex flex-col gap-6">
+                <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-7xl">
+                  {post.title}
+                </h2>
+              </div>
+              <div className="max-w-3xl flex gap-4 items-center">
+                {post.author &&
+                  post.author.firstName &&
+                  post.author.lastName && (
+                    <Avatar person={post.author} date={post.date} />
+                  )}
+              </div>
             </div>
-            <div className="max-w-3xl flex gap-4 items-center">
-              {post.author && post.author.firstName && post.author.lastName && (
-                <Avatar person={post.author} date={post.date} />
+            <article className="gap-6 grid max-w-4xl">
+              <div className="">
+                <CoverImage image={post.coverImage} priority />
+              </div>
+              {post.content?.length && (
+                <PortableText
+                  className="max-w-2xl"
+                  value={post.content as PortableTextBlock[]}
+                />
               )}
-            </div>
+            </article>
           </div>
-          <article className="gap-6 grid max-w-4xl">
-            <div className="">
-              <CoverImage image={post.coverImage} priority />
-            </div>
-            {post.content?.length && (
-              <PortableText
-                className="max-w-2xl"
-                value={post.content as PortableTextBlock[]}
-              />
-            )}
-          </article>
           <aside>
             <Suspense>
               <MorePosts skip={post._id} limit={2} />

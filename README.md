@@ -154,62 +154,6 @@ SANITY_API_READ_TOKEN="<paste your token here>"
 npm run dev
 ```
 
-## Configure your Next.js app (Using Vercel)
-
-### Step 1. Change directories to your Next.js app
-
-```bash
-cd nextjs-app
-```
-
-### Step 2. Set up the environment
-
-Use the Deploy Button below. It will let you deploy the starter using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-sanity-example) as well as connect it to your Sanity Content Lake using [the Sanity Vercel Integration][integration]. Assuming you setup a project in the previous step, you will be able to select your project when stepping through the wizard.
-
-[![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
-
-### Step 3. Set up the project locally
-
-[Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) that was created for you on your GitHub account. Once cloned, run the following command from the project's root directory:
-
-```bash
-npx vercel link
-```
-
-Download the environment variables needed to connect Next.js and the Studio to your Sanity project:
-
-```bash
-npx vercel env pull
-```
-
-This will create a git-ignored `.env` file with environment variables that will be used for local development.
-
-### Step 4. Run Next.js locally in development mode
-
-```bash
-npm install && npm run dev
-```
-
-When you run this development server, the changes you make in your frontend and studio configuration will be applied live using hot reloading.
-
-Your blog should be up and running on [http://localhost:3000][localhost-3000]!
-
-### Step 5. Deploy to production
-
-To deploy your changes to production you use `git`:
-
-```bash
-git add .
-git commit
-git push
-```
-
-Alternatively, you can deploy without a `git` hosting provider using the Vercel CLI:
-
-```bash
-npx vercel --prod
-```
-
 # Populate content
 
 Open your Sanity Studio that should be running on [http://localhost:3000/studio](http://localhost:3000/studio).
@@ -292,28 +236,83 @@ We're all set to do some content creation!
 > [!IMPORTANT]  
 > For each post record, you need to click **Publish** after saving for it to be visible outside Draft Mode. In production new content is using [Time-based Revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#time-based-revalidation), which means it may take up to 1 minute before changes show up. Since a stale-while-revalidate pattern is used you may need to refresh a couple of times to see the changes.
 
-## Step 4. Deploy to production
+## Step 4. Deploying the Sanity Studio and Next.js app to production
 
-> [!NOTE]  
-> If you already [deployed with Vercel earlier](#deploy-your-own) you can skip this step.
+### Deploy your Sanity Studio
 
-To deploy your local project to Vercel, push it to [GitHub](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-locally-hosted-code-to-github)/GitLab/Bitbucket and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example).
+To deploy your Sanity Studio, follow these steps:
 
-> [!IMPORTANT]  
-> When you import your project on Vercel, make sure to click on **Environment Variables** and set them to match your `.env.local` file.
+1. You'll likely need a different .env file for production, so that you can set a different `SANITY_STUDIO_PREVIEW_URL` to match the domain you will deploy your Next.js app to. Copy the .env.local.example file to .env.production and set the correct environment variables.
 
-After it's deployed link your local code to the Vercel project:
+   ```bash
+   cp -i .env.local.example .env.production
+   ```
 
-```bash
-npx vercel link
-```
+2. In your terminal use the following command to deploy the Studio to Sanity's servers. [Learn more about deploying to Sanity](https://www.sanity.io/docs/deployment).
+
+   ```bash
+   npx sanity deploy
+   ```
+
+3. When prompted, choose a unique hostname for your Studio. This will be the URL where your Studio is accessible.
+
+4. Once the deployment is complete, you'll receive a URL for your deployed Sanity Studio. It will look something like:
+
+   ```
+   https://your-project-name.sanity.studio
+   ```
+
+5. You can now access and use your Sanity Studio from this URL from any device with an internet connection.
+
+Remember to redeploy your Studio whenever you make changes to its configuration or schema.
+
+> [!NOTE]
+> Make sure you have the necessary permissions to deploy. If you're working in a team, check with your project owner or administrator.
 
 > [!TIP]
-> In production you can exit Draft Mode by clicking on _"Back to published"_ at the top. On [Preview deployments](https://vercel.com/docs/deployments/preview-deployments) you can [toggle Draft Mode in the Vercel Toolbar](https://vercel.com/docs/workflow-collaboration/draft-mode#enabling-draft-mode-in-the-vercel-toolbar).
+> You can also set up continuous deployment for your Sanity Studio using services like Netlify or Vercel. This allows your Studio to automatically redeploy whenever you push changes to your repository.
+
+### Deploy your Next.js app to Vercel
+
+To deploy your Next.js app to Vercel, follow these steps:
+
+1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket).
+
+2. Visit [Vercel's dashboard](https://vercel.com/dashboard) and click on "New Project".
+
+3. Import your Git repository:
+
+   - Select your Git provider (GitHub, GitLab, or Bitbucket)
+   - Choose the repository containing your Next.js app
+
+4. Configure your project:
+
+   - **Set the Root Directory to the directory of your NextJS app**
+   - Vercel will automatically detect that it's a Next.js app
+   - Adjust the build settings if needed (usually not necessary for Next.js apps)
+
+5. Set up environment variables:
+
+   - Click on "Environment Variables"
+   - Add all the variables from your `.env` file. Don't forget to set `NEXT_PUBLIC_SANITY_STUDIO_URL` the url of your deployed studio.
+
+6. Click "Deploy" to start the deployment process.
+
+7. Once deployed, Vercel will provide you with a URL for your live app.
+
+8. (Optional) Set up a custom domain in the Vercel dashboard.
+
+9. Now you can add your App's domain to the list of CORS orgins in your Sanity Manage console, under the `🔌 API` tab.
+
+For subsequent deployments, simply push changes to your Git repository. Vercel will automatically rebuild and redeploy your app.
+
+> [!TIP]
+> You can also use the Vercel CLI for deployment. Install it globally with `npm i -g vercel`, then run `vercel` in your nextjs-app directory and follow the prompts.
 
 ## Next steps
 
 - [Join the Sanity community](https://slack.sanity.io/)
+- [Embedding Sanity Studio](https://www.sanity.io/docs/embedding-sanity-studio)
 
 [vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fsanity-template-nextjs-clean&repository-name=nextjs-sanity-clean&project-name=nextjs-sanity-clean&demo-title=Clean+Sanity+%2B+Next.js+app&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F835514%2F212771865-7a603a28-0416-45e8-84d3-2aafe02b0c7f.png&demo-description=A+clean+example+of+Next.js+with+embedded+Sanity+ready+for+recomposition.&demo-url=https%3A%2F%2Ftemplate-nextjs-clean.sanity.build&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&external-id=nextjs%3Btemplate%3Dnextjs-sanity-clean
 [integration]: https://www.sanity.io/docs/vercel-integration
