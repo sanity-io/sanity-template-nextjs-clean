@@ -92,12 +92,12 @@ Next, populate the `.env.local` file with the project ID and dataset name provid
 
 ### Step 5. Optionally seed content by importing a dataset
 
-If you want to start with some sample content, you can import the provided dataset into your Sanity project. This step is optional but can be helpful for getting started quickly.
+If you want to start with some sample content, you can import the provided dataset (demoData.tar.gz) into your Sanity project. This step is optional but can be helpful for getting started quickly.
 
 To import the dataset, run the following command in your terminal:
 
 ```bash
-npx sanity dataset import production.tar.gz production
+npx sanity dataset import demoData.tar.gz production
 ```
 
 ### Step 6. Run your Sanity Studio locally
