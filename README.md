@@ -174,7 +174,7 @@ npm run dev
 npm run extract-types
 ```
 
-This command is running `sanity schema extract --enforce-required-fields` under the hood. Learn more about [extracting types](https://www.sanity.io/docs/schema-types#extracting-types).
+This command is running `sanity typegen generate` under the hood. Learn more about [generating types](https://www.sanity.io/docs/sanity-typegen).
 
 ## Deploying the Sanity Studio and Next.js app to production
 
@@ -182,7 +182,7 @@ This command is running `sanity schema extract --enforce-required-fields` under 
 
 To deploy your Sanity Studio, follow these steps:
 
-1. You'll likely need a different .env.production file for production, so that you can set a different `SANITY_STUDIO_PREVIEW_URL` to match the domain you will deploy your Next.js app to. Copy the .env.local.example file to .env.production and set the correct environment variables.
+1. You'll likely need a different .env file for production, so that you can set a different `SANITY_STUDIO_PREVIEW_URL` to match the domain you will deploy your Next.js app to. Copy the .env.local file to .env.production and set the correct environment variables.
 
    ```bash
    cp -i .env.local .env.production
@@ -214,6 +214,10 @@ To deploy your Sanity Studio, follow these steps:
 
 ### Deploy your Next.js app to Vercel
 
+[!NOTE]
+
+> You can deploy your Next.js app anywhere, but for the sake of this demo we will be using Vercel.
+
 To deploy your Next.js app to Vercel, follow these steps:
 
 1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket).
@@ -242,12 +246,14 @@ To deploy your Next.js app to Vercel, follow these steps:
 
 8. (Optional) Set up a custom domain in the Vercel dashboard.
 
-9. Now you can add your App's domain to the list of CORS orgins in your Sanity Manage console, under the `🔌 API` tab.
+9. Now you can add your App's domain to the list of CORS origins in your Sanity Manage console, under the `🔌 API` tab.
 
 For subsequent deployments, simply push changes to your Git repository. Vercel will automatically rebuild and redeploy your app.
 
 > [!TIP]
 > You can also use the Vercel CLI for deployment. Install it globally with `npm i -g vercel`, then run `vercel` in your nextjs-app directory and follow the prompts.
+> [!NOTE]
+> You may need to disable or configure "Protection Bypass for Automation" in your Vercel settings to get Presentation to work in your Sanity Studio.
 
 ## Next steps
 
