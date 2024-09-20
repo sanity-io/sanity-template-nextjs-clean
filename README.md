@@ -100,6 +100,8 @@ To import the dataset, run the following command in your terminal:
 npx sanity dataset import demoData.tar.gz production
 ```
 
+This assumes your dataset is named `production`. If your dataset is named differently, replace `production` with the name of your dataset.
+
 ### Step 6. Run your Sanity Studio locally
 
 At this point, when you run your Sanity Studio, you'll see a message indicating that Presentation needs to be configured.
