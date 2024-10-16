@@ -7,10 +7,6 @@ This starter is a statically generated blog that uses Next.js App Router for the
 
 The Studio connects to Sanity Content Lake, which gives you hosted content APIs with a flexible query language, on-demand image transformations, powerful patching, and more. You can use this starter to kick-start a website, blog or learn these technologies.
 
-## Video Introduction & Setup
-
-https://cdn.sanity.io/files/fkfgfb3d/production/c28164479eac80957a61e84d7e09c19db5709a09.mp4
-
 ## Features
 
 - A performant, static Next.js website with pages and a blog.
@@ -52,6 +48,14 @@ https://cdn.sanity.io/files/fkfgfb3d/production/c28164479eac80957a61e84d7e09c19d
 | `sanity-typegen.json`    | TypeGen config                                          |
 | `sanity.types.ts`        | Generated file of schema and query types                |
 | `tailwind.config.ts`     | Tailwind config`                                        |
+
+<!-- Coming Soon -->
+
+<!-- ## Video Introduction & Setup
+
+For those who are visual learners and prefer video content, we've prepared a comprehensive video introduction and setup guide. Click the link below to watch:
+
+https://cdn.sanity.io/files/fkfgfb3d/production/c28164479eac80957a61e84d7e09c19db5709a09.mp4 -->
 
 ## Configure your Sanity Studio
 
