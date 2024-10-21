@@ -82,6 +82,10 @@ export default async function PostPage({ params }: Props) {
               )}
             </article>
           </div>
+        </div>
+      </div>
+      <div className="border-t border-gray-100">
+        <div className="container my-12 lg:my-24 grid gap-12">
           <aside>
             <Suspense>
               <MorePosts skip={post._id} limit={2} />

@@ -11,9 +11,10 @@ export default defineType({
       name: 'linkType',
       title: 'Link Type',
       type: 'string',
+      initialValue: 'url',
       options: {
         list: [
-          {title: 'URL', value: 'url'},
+          {title: 'URL', value: 'href'},
           {title: 'Page', value: 'page'},
           {title: 'Post', value: 'post'},
         ],
@@ -21,13 +22,13 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'url',
+      name: 'href',
       title: 'URL',
       type: 'url',
-      hidden: ({parent}) => parent?.linkType !== 'url',
+      hidden: ({parent}) => parent?.linkType !== 'href',
       validation: (Rule) =>
         Rule.custom((value, context: any) => {
-          if (context.parent?.linkType === 'url' && !value) {
+          if (context.parent?.linkType === 'href' && !value) {
             return 'URL is required when Link Type is URL'
           }
           return true

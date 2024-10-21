@@ -66,21 +66,11 @@ export default function Header() {
               className="flex items-center gap-4 md:gap-6 leading-5 text-sm md:text-base tracking-tight font-normal"
             >
               <li>
-                <Link
-                  className="text text-gray-700 transition hover:text-black"
-                  href="/"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="text text-gray-700 transition hover:text-black"
-                  href="/about"
-                >
+                <Link href="/about" className="">
                   About
                 </Link>
               </li>
+
               <li className="sm:before:w-[1px] sm:before:bg-gray-100 before:block flex sm:gap-4 md:gap-6">
                 <Link
                   className="rounded-full flex gap-2 items-center bg-black hover:bg-red-500 focus:bg-cyan-500 py-3 px-3 sm:px-6 text-white transition-colors duration-200"

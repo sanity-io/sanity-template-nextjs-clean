@@ -79,8 +79,7 @@ export default function CustomPortableText({
       },
     },
     marks: {
-      link: ({ children, value }) => {
-        const { link } = value;
+      link: ({ children, value: link }) => {
         return <ResolvedLink link={link}>{children}</ResolvedLink>;
       },
     },
