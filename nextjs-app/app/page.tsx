@@ -30,7 +30,7 @@ export default async function Page() {
               <p>
                 This starter is a statically generated site that uses Next.js
                 for the frontend and Sanity to handle its content. It comes with
-                a native Sanity Studio that offers features like real-time
+                a standalone Sanity Studio that offers features like real-time
                 collaboration, instant side-by-side content previews, and
                 intuitive editing.
               </p>

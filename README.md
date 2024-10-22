@@ -49,14 +49,6 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 | `sanity.types.ts`        | Generated file of schema and query types                |
 | `tailwind.config.ts`     | Tailwind config`                                        |
 
-<!-- Coming Soon -->
-
-<!-- ## Video Introduction & Setup
-
-For those who are visual learners and prefer video content, we've prepared a comprehensive video introduction and setup guide. Click the link below to watch:
-
-https://cdn.sanity.io/files/fkfgfb3d/production/c28164479eac80957a61e84d7e09c19db5709a09.mp4 -->
-
 ## Configure your Sanity Studio
 
 ### Step 1. Change directories to your Sanity Studio
