@@ -39,7 +39,7 @@ export default async function Page() {
               <GetStartedCode code="npm create sanity@latest" />
               <Link
                 href="https://www.sanity.io/docs"
-                className="inline-flex text-red-500 text-xs md:text-sm hover:underline"
+                className="inline-flex text-red-500 text-xs md:text-sm underline hover:text-gray-900"
                 target="_blank"
                 rel="noopener noreferrer"
               >

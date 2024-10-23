@@ -24,7 +24,7 @@ const Post = ({ post }: PostProps) => {
 
       <h3 className="mt-3 text-2xl font-semibold">
         <Link
-          className="hover:text-red-500 hover:underline transition-colors"
+          className="hover:text-red-500 underline transition-colors"
           href={`/posts/${slug}`}
         >
           {title}

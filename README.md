@@ -218,9 +218,13 @@ To deploy your Sanity Studio, follow these steps:
 
 [!NOTE]
 
-> You can deploy your Next.js app anywhere, but for the sake of this demo we will be using Vercel.
+> You can deploy your Next.js app wherever you'd like, but for the sake of this demo we will be using Vercel.
 
-To deploy your Next.js app to Vercel, follow these steps:
+#### The quickest way to deploy your Next.js app to Vercel is to use this button:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fsanity-template-nextjs-clean%2Ftree%2Ffeature%2Ftemplate-upgrade&env=NEXT_PUBLIC_SANITY_STUDIO_URL&project-name=nextjs-sanity-app&repository-name=nextjs-sanity-app&demo-title=NextJS%20Sanity%20Clean%20Starter%20Demo&demo-url=https%3A%2F%2Fsanity-template-nextjs-clean-preview.sanity.dev%2F&demo-image=https%3A%2F%2Fraw.githubusercontent.com%2Fsanity-io%2Fsanity-template-nextjs-clean%2Ffeature%2Ftemplate-upgrade%2Fsanity-nextjs-preview.webp&demo-description=A%20starter%20template%20for%20using%20NextJS%20with%20Sanity&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&root-directory=nextjs-app)
+
+#### To deploy manually deploy your Next.js app to Vercel, follow these steps:
 
 1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket).
 
@@ -263,7 +267,7 @@ For subsequent deployments, simply push changes to your Git repository. Vercel w
 - [Embedding Sanity Studio](https://www.sanity.io/docs/embedding-sanity-studio)
 - [Join the Sanity community](https://slack.sanity.io/)
 
-[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fsanity-template-nextjs-clean&repository-name=nextjs-sanity-clean&project-name=nextjs-sanity-clean&demo-title=Clean+Sanity+%2B+Next.js+app&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F835514%2F212771865-7a603a28-0416-45e8-84d3-2aafe02b0c7f.png&demo-description=A+clean+example+of+Next.js+with+embedded+Sanity+ready+for+recomposition.&demo-url=https%3A%2F%2Ftemplate-nextjs-clean.sanity.build&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&external-id=nextjs%3Btemplate%3Dnextjs-sanity-clean
+[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fsanity-template-nextjs-clean%2Ftree%2Ffeature%2Ftemplate-upgrade&env=NEXT_PUBLIC_SANITY_STUDIO_URL&project-name=nextjs-sanity-app&repository-name=nextjs-sanity-app&demo-title=NextJS%20Sanity%20Clean%20Starter%20Demo&demo-url=https%3A%2F%2Fsanity-template-nextjs-clean-preview.sanity.dev%2F&demo-image=https%3A%2F%2Fraw.githubusercontent.com%2Fsanity-io%2Fsanity-template-nextjs-clean%2Ffeature%2Ftemplate-upgrade%2Fsanity-nextjs-preview.webp&demo-description=A%20starter%20template%20for%20using%20NextJS%20with%20Sanity&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&root-directory=nextjs-app
 [integration]: https://www.sanity.io/docs/vercel-integration
 [`.env.local.example`]: .env.local.example
 [unsplash]: https://unsplash.com
