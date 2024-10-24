@@ -1,7 +1,9 @@
-# A statically generated blog example using Next.js and Sanity
+# Next.js + Sanity: A Powerful Website Starter with Real-time Visual Editing
 
 ![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](sanity-nextjs-preview.webp)
+_the website this template generates_
 ![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](sanity-nextjs-presentation.webp)
+_Visual Editing using Sanity's Presentation Tool_
 
 This starter is a statically generated blog that uses Next.js App Router for the frontend and [Sanity][sanity-homepage] to handle its content. It comes with a standalone Sanity Studio that offers features like real-time collaboration and visual editing with live updates using [Presentation][presentation].
 
@@ -9,268 +11,128 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 
 ## Features
 
-- A performant, static Next.js website with pages and a blog.
-  - Pages are configured with a page builder.
-  - Blog posts with connected authors.
-- Visual editing with live updates with Sanity's [Presentation](https://www.sanity.io/docs/presentation).
-- TypeScript setup with [Sanity TypeGen](https://www.sanity.io/docs/sanity-typegen)
-- A native and customizable authoring environment. You can [deploy and host the studio with Sanity](https://www.sanity.io/docs/deployment) or your hosting environment of choice.
-- Real-time and collaborative content editing with fine-grained revision history.
-- Support for block content and the most advanced custom fields capability in the industry.
-- Incremental Static Revalidation; no need to wait for a rebuild to publish new content.
-- Unsplash integration setup for easy media management.
-- [Sanity AI Assist preconfigured for image alt text generation](https://www.sanity.io/docs/ai-assist?utm_source=github.com).
+- **Fast and Performant:** Static site built with Next.js App Router for excellent speed and SEO.
+- **Real-time Visual Editing:** Use Sanity's [Presentation](https://www.sanity.io/docs/presentation) tools to see live updates as you edit.
+- **Customizable Pages:** Create and manage pages using a page builder with dynamic components.
+- **Powerful Content Management:** Collaborate with team members in real-time, with fine-grained revision history.
+- **AI-powered Media Support:** Auto-generate alt texts with Sanity AI Assist.
+- **On-demand Publishing:** No waiting for rebuilds—new content is live instantly with Incremental Static Revalidation.
+- **Easy Media Management:** Integrated Unsplash support for seamless media handling.
 
 ## Demo
 
-### [https://next-blog.sanity.build](https://next-blog.sanity.build)
+🌐 [https://sanity-template-nextjs-clean-preview.sanity.dev/](https://sanity-template-nextjs-clean-preview.sanity.dev/)
 
-## Important files and folders
+## Get Started Quickly
 
-| File/Directory           | Description                                             |
-| ------------------------ | ------------------------------------------------------- |
-| **studio/**              |                                                         |
-| `src/schemaTypes/`       | Directory where Sanity Studio content types are defined |
-| `env.local`              | Environment variables for local development             |
-| `sanity.cli.ts`          | Config file for Sanity CLI                              |
-| `sanity.config.ts`       | Sanity config                                           |
-| **nextjs-app/**          |                                                         |
-| `app/[slug]/page.tsx`    | Route for a page                                        |
-| `app/api/draft/route.ts` | Serverless route for triggering Next.js Draft Mode      |
-| `app/components/`        | Shared components                                       |
-| `app/posts/page.tsx`     | Route for a blog posts                                  |
-| `app/layout.tsx`         | Global layout for the app                               |
-| `app/page.tsx`           | Route for index page                                    |
-| `sanity/lib/client.ts`   | Sanity client configured                                |
-| `sanity/lib/fetch.ts`    | Utility for fetching data from Sanity                   |
-| `sanity/lib/queries.ts`  | GROQ queries used across the app                        |
-| `env.local`              | Environment variables for local development             |
-| `sanity-typegen.json`    | TypeGen config                                          |
-| `sanity.types.ts`        | Generated file of schema and query types                |
-| `tailwind.config.ts`     | Tailwind config`                                        |
+The easiest way to start is by deploying your app to **Vercel** with the button below. This will:
 
-## Configure your Sanity Studio
+- Clone the repo to your GitHub account.
+- Link or set up a Sanity project.
+- Deploy your Next.js app on Vercel.
 
-### Step 1. Change directories to your Sanity Studio
+### 🚀 1\. **Deploy to Vercel**
 
-```bash
-cd studio
-```
+[![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
 
-### Step 2. Install dependencies
+Click the button to begin the setup wizard for your Next.js and Sanity project.
 
-```bash
-npm install
-```
+> **Note:** Prefer manual installation? See [manual-installation.md](manual-installation.md).
 
-### Step 3 Create a new Sanity project and dataset
+---
 
-```bash
-npx sanity init --bare
-```
+### 🛠 2\. **Deploy Sanity Studio**
 
-You will be prompted with an output that contains the project ID and dataset name.
-
-```bash
-Success! Below are your project details:
-
-Project ID: rjtcllfw
-Dataset: production
-
-You can find your project on Sanity Manage — https://www.sanity.io/manage/project/rjtcllfw
-```
-
-Your `projectI ID` is not sensitive information
-
-### Step 4. Set up environment variables
-
-```bash
-cp -i .env.local.example .env.local
-```
-
-Next, populate the `.env.local` file with the project ID and dataset name provided by the Sanity CLI in the previous step, or by visiting the [Sanity Manage Console](https://manage.sanity.io/)
-
-### Step 5. Optionally seed content by importing a dataset
-
-If you want to start with some sample content, you can import the provided dataset (demoData.tar.gz) into your Sanity project. This step is optional but can be helpful for getting started quickly.
-
-To import the dataset, run the following command in your terminal:
-
-```bash
-npx sanity dataset import demoData.tar.gz production
-```
-
-This assumes your dataset is named `production`. If your dataset is named differently, replace `production` with the name of your dataset.
-
-### Step 6. Run your Sanity Studio locally
-
-At this point, when you run your Sanity Studio, you'll see a message indicating that Presentation needs to be configured.
-
-![Presentation needs configuration](presentation-needs-configuration.webp)
-
-We'll address this in the next section when we set up the Next.js app.
-
-```bash
-npm run dev
-```
-
-> [!TIP]
-> In this demo starter, we are using TypeScript. After making changes to your schema, you'll need to extract the Sanity Studio Schema so that you can use that JSON file to generate TypeScript types for your Next.js app.
-
-```bash
-npm run extract-types
-```
-
-This command is running `sanity schema extract --enforce-required-fields` under the hood. Learn more about [extracting types](https://www.sanity.io/docs/sanity-typegen#b79c963e4cf4).
-
-## Configure your Next.js app
-
-### Step 1. Change directories to your Next.js app
-
-```bash
-cd nextjs-app # from the root of the repo
-```
-
-### Step 2. Install dependencies
-
-```bash
-npm install
-```
-
-### Step 3. Set up environment variables
-
-```bash
-cp -i .env.local.example .env.local
-```
-
-You can now populate `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` by running the following command. Select your project and dataset when prompted and select NO when asked "Would you like to add configuration files for a Sanity project":
-
-```bash
-npm create sanity@latest -- --env=.env.local
-```
-
-#### Creating a read token
-
-Before you can run the project you need to setup a read token (`SANITY_API_READ_TOKEN`), it's used for authentication by Sanity's Presentation tool and pulling content while in draft mode.
-
-1. Go to [manage.sanity.io](https://manage.sanity.io/) and select your project and select your project in "Project" dropdown.
-2. Click on the `🔌 API` tab.
-3. Click on `+ Add API token`.
-4. Name it "NextJS / Presentation READ Token" and set `Permissions` to `Viewer` and hit `Save`.
-5. Copy the token and add it to your `.env.local` file.
-
-```bash
-SANITY_API_READ_TOKEN="<paste your token here>"
-```
-
-### Step 4. Run your Next.js app locally
-
-```bash
-npm run dev
-```
-
-> [!Note]
-> we are generating types automatically by running `"predev": "npm run typegen"` in our package.json file. This is optional, but will build your `sanity.types.ts` file automatically. Learn more about [Sanity TypeGen](https://www.sanity.io/docs/sanity-typegen).
-
-```bash
-npm run extract-types
-```
-
-This command is running `sanity typegen generate` under the hood. Learn more about [generating types](https://www.sanity.io/docs/sanity-typegen).
-
-## Deploying the Sanity Studio and Next.js app to production
-
-### Deploy your Sanity Studio
-
-To deploy your Sanity Studio, follow these steps:
-
-1. You'll likely need a different .env file for production, so that you can set a different `SANITY_STUDIO_PREVIEW_URL` to match the domain you will deploy your Next.js app to. Copy the .env.local file to .env.production and set the correct environment variables.
+1. **Clone your repository**:
 
    ```bash
-   cp -i .env.local .env.production
+   git clone <your-repo-url>
+   cd studio
    ```
 
-2. In your terminal use the following command to deploy the Studio to Sanity's servers. [Learn more about deploying to Sanity](https://www.sanity.io/docs/deployment).
+2. **Initialize Sanity Studio**:
+
+   ```bash
+   npx sanity init --env
+   ```
+
+   This will generate a `.env` file in the `studio` directory.
+
+3. _Configure environment variables:_ In the generated .env file, add the following:
+
+   ```bash
+   SANITY_STUDIO_PREVIEW_URL="<your-vercel-app-url>"
+   ```
+
+   Replace `<your-vercel-app-url>` with the URL of your Vercel hosted Next.js app.
+
+4. **Deploy your Studio**:
 
    ```bash
    npx sanity deploy
    ```
 
-3. When prompted, choose a unique hostname for your Studio. This will be the URL where your Studio is accessible.
+   You'll be promted to set a URL for your deployed Sanity Studio (e.g., `https://your-project-name.sanity.studio`). Take note of this URL as you'll need it in the next step.
 
-4. Once the deployment is complete, you'll receive a URL for your deployed Sanity Studio. It will look something like:
+---
 
+### 🔧 3. **Configure Next.js with Sanity Studio URL**
+
+1.  Go to **Vercel Dashboard** > Settings > Environment Variables.
+2.  Add:
+    - **Name**: `NEXT_PUBLIC_SANITY_STUDIO_URL`
+    - **Value**: Your Sanity Studio's URL (e.g., `https://your-project.sanity.studio`).
+3.  **Redeploy** your Next.js app to apply changes.
+
+---
+
+## Running Locally
+
+When developing your app, you'll run the files locally. Git Pushing your changes to the repo will trigger a build on Vercel and your changes will be deployed. You can deploy your Sanity Studio at any time by running `npx sanity deploy` in the `studio` directory, as we did earlier.
+
+### Run Next.js App Locally
+
+1. **Set environment variables**:
+
+   - Use the [Vercel CLI](https://vercel.com/docs/cli) to link and pull environment variables:
+     ```bash
+     vercel link
+     vercel env pull .env.development.local
+     ```
+   - Alternatively, copy `.env.local.example` to `.env.local` and fill in required values. Your `projectId` and `dataset` can be found in your Sanity project's [**Manage Console**](https://www.sanity.io/manage) and selecting your project.
+
+2. **Install dependencies and run the NextJS app**:
+
+   ```bash
+   npm install
+   npm run dev
    ```
-   https://your-project-name.sanity.studio
-   ```
 
-5. You can now access and use your Sanity Studio from this URL from any device with an internet connection.
+---
 
-   Remember to redeploy your Studio whenever you make changes to its configuration or schema.
+### Run Sanity Studio Locally
 
-> [!NOTE]
-> Make sure you have the necessary permissions to deploy. If you're working in a team, check with your project owner or administrator.
+1.  **Set up environment variables**:
 
-> [!TIP]
-> You can also set up continuous deployment for your Sanity Studio using services like Netlify or Vercel. This allows your Studio to automatically redeploy whenever you push changes to your repository.
+- Change directories to the `studio` directory:
+- Duplicate the `.env` file or copy `.env.local.example` and fill in the `projectId` and `dataset` values, same as the Next.js app.
+- Set `SANITY_STUDIO_PREVIEW_URL` to the localhost URL of your Next.js app or you can leave it blank and the app will fallback to the default `localhost:3000`.
 
-### Deploy your Next.js app to Vercel
+2.  **Install dependencies and run the Sanity Studio**:
 
-[!NOTE]
+    ```bash
+    npm install
+    npm run dev
+    ```
 
-> You can deploy your Next.js app wherever you'd like, but for the sake of this demo we will be using Vercel.
+---
 
-#### The quickest way to deploy your Next.js app to Vercel is to use this button:
+## 📚 Additional Resources
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fsanity-template-nextjs-clean%2Ftree%2Ffeature%2Ftemplate-upgrade&env=NEXT_PUBLIC_SANITY_STUDIO_URL&project-name=nextjs-sanity-app&repository-name=nextjs-sanity-app&demo-title=NextJS%20Sanity%20Clean%20Starter%20Demo&demo-url=https%3A%2F%2Fsanity-template-nextjs-clean-preview.sanity.dev%2F&demo-image=https%3A%2F%2Fraw.githubusercontent.com%2Fsanity-io%2Fsanity-template-nextjs-clean%2Ffeature%2Ftemplate-upgrade%2Fsanity-nextjs-preview.webp&demo-description=A%20starter%20template%20for%20using%20NextJS%20with%20Sanity&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&root-directory=nextjs-app)
+- 🎓 [Sanity Learn: Work-ready Next.js](https://www.sanity.io/learn/track/work-ready-next-js)
+- 📖 [Sanity Documentation](https://www.sanity.io/docs)
+- 💬 [Join the Sanity Community](https://slack.sanity.io)
 
-#### To deploy manually deploy your Next.js app to Vercel, follow these steps:
-
-1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket).
-
-2. Visit [Vercel's dashboard](https://vercel.com/dashboard) and click on "New Project".
-
-3. Import your Git repository:
-
-   - Select your Git provider (GitHub, GitLab, or Bitbucket)
-   - Choose the repository containing your Next.js app
-
-4. Configure your project:
-
-   - **Set the Root Directory to the directory of your NextJS app**
-   - Vercel will automatically detect that it's a Next.js app
-   - Adjust the build settings if needed (usually not necessary for Next.js apps)
-
-5. Set up environment variables:
-
-   - Click on "Environment Variables"
-   - Add all the variables from your `.env` file. Don't forget to set `NEXT_PUBLIC_SANITY_STUDIO_URL` the url of your deployed studio.
-
-6. Click "Deploy" to start the deployment process.
-
-7. Once deployed, Vercel will provide you with a URL for your live app.
-
-8. (Optional) Set up a custom domain in the Vercel dashboard.
-
-9. Now you can add your App's domain to the list of CORS origins in your Sanity Manage console, under the `🔌 API` tab.
-
-For subsequent deployments, simply push changes to your Git repository. Vercel will automatically rebuild and redeploy your app.
-
-> [!TIP]
-> You can also use the Vercel CLI for deployment. Install it globally with `npm i -g vercel`, then run `vercel` in your nextjs-app directory and follow the prompts.
-> [!NOTE]
-> You may need to disable or configure "Protection Bypass for Automation" in your Vercel settings to get Presentation to work in your Sanity Studio.
-
-## Next steps
-
-- [Sanity Learn: Work-ready Next.js](https://www.sanity.io/learn/track/work-ready-next-js)
-- [Embedding Sanity Studio](https://www.sanity.io/docs/embedding-sanity-studio)
-- [Join the Sanity community](https://slack.sanity.io/)
-
-[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fsanity-template-nextjs-clean%2Ftree%2Ffeature%2Ftemplate-upgrade&env=NEXT_PUBLIC_SANITY_STUDIO_URL&project-name=nextjs-sanity-app&repository-name=nextjs-sanity-app&demo-title=NextJS%20Sanity%20Clean%20Starter%20Demo&demo-url=https%3A%2F%2Fsanity-template-nextjs-clean-preview.sanity.dev%2F&demo-image=https%3A%2F%2Fraw.githubusercontent.com%2Fsanity-io%2Fsanity-template-nextjs-clean%2Ffeature%2Ftemplate-upgrade%2Fsanity-nextjs-preview.webp&demo-description=A%20starter%20template%20for%20using%20NextJS%20with%20Sanity&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&root-directory=nextjs-app
-[integration]: https://www.sanity.io/docs/vercel-integration
-[`.env.local.example`]: .env.local.example
-[unsplash]: https://unsplash.com
 [sanity-homepage]: https://www.sanity.io?utm_source=github.com&utm_medium=referral&utm_campaign=nextjs-v3vercelstarter
 [presentation]: https://www.sanity.io/docs/presentation
-[enable-ai-assist]: https://www.sanity.io/plugins/ai-assist#enabling-the-ai-assist-api
+[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fkenjonespizza%2Fsanity-template-nextjs-clean.git&env=NEXT_PUBLIC_SANITY_STUDIO_URL&project-name=nextjs-sanity-app&repository-name=nextjs-sanity-app&demo-title=NextJS%20Sanity%20Clean%20Starter%20Demo&demo-url=https%3A%2F%2Fsanity-template-nextjs-clean-preview.sanity.dev%2F&demo-image=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Ffkfgfb3d%2Fproduction%2Fbdec8dc8bd60198c011b888d700009e28841601b-1490x878.png%3Ffm-jpg&demo-description=A%20starter%20template%20for%20using%20NextJS%20with%20Sanity&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&root-directory=nextjs-app
