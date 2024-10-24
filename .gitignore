@@ -1,12 +1,11 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-.vscode
-
 # dependencies
 /node_modules
 /studio/node_modules
 /.pnp
 .pnp.js
+.yarn/install-state.gz
 
 # testing
 /coverage
@@ -15,20 +14,18 @@
 /.next/
 /out/
 
-# production
-/build
-/studio/dist
+# sanity
+/.sanity/
+/dist/
 
 # misc
 .DS_Store
 *.pem
-.vscode
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
 # local env files
 .env*.local
@@ -36,13 +33,10 @@ yarn-error.log*
 # vercel
 .vercel
 
-# IntelliJ
-.idea
-*.iml
-
 # typescript
 *.tsbuildinfo
+next-env.d.ts
 
 # Env files created by scripts for working locally
 .env
-studio/.env.development
+.env.local
