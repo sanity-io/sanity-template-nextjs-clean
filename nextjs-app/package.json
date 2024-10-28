@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@sanity/image-url": "^1.0.2",
-    "@sanity/preview-url-secret": "^1.6.19",
+    "@sanity/preview-url-secret": "^2.0.0",
     "@tailwindcss/typography": "^0.5.13",
     "@types/node": "^20.14.13",
     "@types/react": "^18.3.3",
@@ -32,6 +32,6 @@
   },
   "devDependencies": {
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.5"
+    "eslint-config-next": "^15.0.1"
   }
 }

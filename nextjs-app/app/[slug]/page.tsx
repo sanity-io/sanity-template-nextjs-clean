@@ -1,3 +1,4 @@
+import type { Metadata, ResolvingMetadata } from "next";
 import Head from "next/head";
 import { notFound } from "next/navigation";
 
@@ -18,7 +19,18 @@ export async function generateStaticParams() {
   });
 }
 
-export default async function Page({ params }: Props) {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+  const page = await sanityFetch({ query: getPageQuery, params, stega: false });
+
+  return {
+    title: page?.name,
+    description: page?.heading,
+  } satisfies Metadata;
+}
+
+export default async function Page(props: Props) {
+  const params = await props.params;
   const [page] = await Promise.all([
     sanityFetch({ query: getPageQuery, params }),
   ]);
@@ -30,7 +42,7 @@ export default async function Page({ params }: Props) {
   return (
     <div className="my-12 lg:my-24">
       <Head>
-        <title>My page title</title>
+        <title>{page.heading}</title>
       </Head>
       <div className="">
         <div className="container">

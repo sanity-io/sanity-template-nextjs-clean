@@ -1,5 +1,5 @@
-import { notFound } from "next/navigation";
 import type { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
 import { type PortableTextBlock } from "next-sanity";
 import { Suspense } from "react";
 
@@ -24,9 +24,10 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  { params }: Props,
+  props: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const params = await props.params;
   const post = await sanityFetch({ query: postQuery, params, stega: false });
   const previousImages = (await parent).openGraph?.images || [];
   const ogImage = resolveOpenGraphImage(post?.coverImage);
@@ -44,7 +45,8 @@ export async function generateMetadata(
   } satisfies Metadata;
 }
 
-export default async function PostPage({ params }: Props) {
+export default async function PostPage(props: Props) {
+  const params = await props.params;
   const [post] = await Promise.all([sanityFetch({ query: postQuery, params })]);
 
   if (!post?._id) {
