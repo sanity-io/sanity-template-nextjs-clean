@@ -7,7 +7,7 @@ import { getPageQuery, pagesSlugs } from "@/sanity/lib/queries";
 import { Page as PageType } from "@/sanity.types";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
