@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { sanityFetch } from "@/sanity/lib/fetch";
+import { sanityFetch } from "@/sanity/lib/live";
 import { morePostsQuery, allPostsQuery } from "@/sanity/lib/queries";
 import { Post as PostType } from "@/sanity.types";
 import DateComponent from "@/app/components/Date";
@@ -65,7 +65,7 @@ type MorePostsProps = {
 };
 
 export const MorePosts = async ({ skip, limit }: MorePostsProps) => {
-  const data = await sanityFetch({
+  const { data } = await sanityFetch({
     query: morePostsQuery,
     params: { skip, limit },
   });
@@ -82,7 +82,7 @@ export const MorePosts = async ({ skip, limit }: MorePostsProps) => {
 };
 
 export const AllPosts = async () => {
-  const data = await sanityFetch({ query: allPostsQuery });
+  const { data } = await sanityFetch({ query: allPostsQuery });
 
   if (!data || data.length === 0) {
     return <OnBoarding />;

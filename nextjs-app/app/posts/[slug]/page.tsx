@@ -7,7 +7,7 @@ import Avatar from "@/app/components/Avatar";
 import CoverImage from "@/app/components/CoverImage";
 import { MorePosts } from "@/app/components/Posts";
 import PortableText from "@/app/components/PortableText";
-import { sanityFetch } from "@/sanity/lib/fetch";
+import { sanityFetch } from "@/sanity/lib/live";
 import { postPagesSlugs, postQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
@@ -16,11 +16,12 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  return await sanityFetch({
+  const { data } = await sanityFetch({
     query: postPagesSlugs,
     perspective: "published",
     stega: false,
   });
+  return data;
 }
 
 export async function generateMetadata(
@@ -28,7 +29,11 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const params = await props.params;
-  const post = await sanityFetch({ query: postQuery, params, stega: false });
+  const { data: post } = await sanityFetch({
+    query: postQuery,
+    params,
+    stega: false,
+  });
   const previousImages = (await parent).openGraph?.images || [];
   const ogImage = resolveOpenGraphImage(post?.coverImage);
 
@@ -47,7 +52,9 @@ export async function generateMetadata(
 
 export default async function PostPage(props: Props) {
   const params = await props.params;
-  const [post] = await Promise.all([sanityFetch({ query: postQuery, params })]);
+  const [{ data: post }] = await Promise.all([
+    sanityFetch({ query: postQuery, params }),
+  ]);
 
   if (!post?._id) {
     return notFound();

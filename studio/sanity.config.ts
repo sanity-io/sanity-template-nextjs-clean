@@ -54,11 +54,11 @@ export default defineConfig({
         mainDocuments: defineDocuments([
           {
             route: '/:slug',
-            filter: `_type == "page" && slug.current == $slug`,
+            filter: `_type == "page" && slug.current == $slug || _id == $slug`,
           },
           {
             route: '/posts/:slug',
-            filter: `_type == "post" && slug.current == $slug`,
+            filter: `_type == "post" && slug.current == $slug || _id == $slug`,
           },
         ]),
         locations: {
@@ -96,7 +96,7 @@ export default defineConfig({
                   title: 'Home',
                   href: '/',
                 } satisfies DocumentLocation,
-              ],
+              ].filter(Boolean) as DocumentLocation[],
             }),
           }),
         },

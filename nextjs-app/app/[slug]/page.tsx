@@ -1,9 +1,9 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import Head from "next/head";
 import { notFound } from "next/navigation";
 
 import PageBuilderPage from "@/app/components/PageBuilder";
-import { sanityFetch } from "@/sanity/lib/fetch";
+import { sanityFetch } from "@/sanity/lib/live";
 import { getPageQuery, pagesSlugs } from "@/sanity/lib/queries";
 import { Page as PageType } from "@/sanity.types";
 
@@ -12,16 +12,21 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  return await sanityFetch({
+  const { data } = await sanityFetch({
     query: pagesSlugs,
     perspective: "published",
     stega: false,
   });
+  return data;
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
-  const page = await sanityFetch({ query: getPageQuery, params, stega: false });
+  const { data: page } = await sanityFetch({
+    query: getPageQuery,
+    params,
+    stega: false,
+  });
 
   return {
     title: page?.name,
@@ -31,7 +36,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function Page(props: Props) {
   const params = await props.params;
-  const [page] = await Promise.all([
+  const [{ data: page }] = await Promise.all([
     sanityFetch({ query: getPageQuery, params }),
   ]);
 

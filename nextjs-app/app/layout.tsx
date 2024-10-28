@@ -5,17 +5,19 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { draftMode } from "next/headers";
 import { VisualEditing, toPlainText } from "next-sanity";
+import { Toaster } from "sonner";
 
-import AlertBanner from "@/app/components/AlertBanner";
+import DraftModeToast from "@/app/components/DraftModeToast";
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
+import { LiveErrorBoundary } from "@/app/components/LiveErrorBoundary";
 import * as demo from "@/sanity/lib/demo";
-import { sanityFetch } from "@/sanity/lib/fetch";
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await sanityFetch({
+  const { data: settings } = await sanityFetch({
     query: settingsQuery,
     // Metadata should never contain stega
     stega: false,
@@ -62,7 +64,16 @@ export default async function RootLayout({
     <html lang="en" className={`${inter.variable} bg-white text-black`}>
       <body>
         <section className="min-h-screen pt-24">
-          {isDraftMode && <AlertBanner />}
+          <Toaster />
+          {isDraftMode && (
+            <>
+              <DraftModeToast />
+              <VisualEditing />
+            </>
+          )}
+          <LiveErrorBoundary>
+            <SanityLive />
+          </LiveErrorBoundary>
           <Header />
           <main className="">{children}</main>
           <Footer />
