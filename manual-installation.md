@@ -25,8 +25,8 @@ You will be prompted with an output that contains the project ID and dataset nam
 ```bash
 Success! Below are your project details:
 
-Project ID: rjtcllfw
-Dataset: production
+Project ID: <projectId>
+Dataset: <dataset>
 
 You can find your project on Sanity Manage — https://www.sanity.io/manage/project/rjtcllfw
 ```

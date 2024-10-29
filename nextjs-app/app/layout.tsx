@@ -78,7 +78,6 @@ export default async function RootLayout({
           <main className="">{children}</main>
           <Footer />
         </section>
-        {isDraftMode && <VisualEditing />}
         <SpeedInsights />
       </body>
     </html>

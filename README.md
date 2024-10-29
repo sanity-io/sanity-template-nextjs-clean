@@ -5,19 +5,20 @@ _the website this template generates_
 ![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](sanity-nextjs-presentation.webp)
 _Visual Editing using Sanity's Presentation Tool_
 
-This starter is a statically generated blog that uses Next.js App Router for the frontend and [Sanity][sanity-homepage] to handle its content. It comes with a standalone Sanity Studio that offers features like real-time collaboration and visual editing with live updates using [Presentation][presentation].
+This starter is a statically generated website and blog built with [Next.js 15](https://nextjs.org/blog/next-15) (App Router) for the frontend and powered by [Sanity][sanity-homepage] for content management. It includes a standalone Sanity Studio, providing features like real-time collaboration, visual editing, and live updates through its [Presentation][presentation] mode.
 
-The Studio connects to Sanity Content Lake, which gives you hosted content APIs with a flexible query language, on-demand image transformations, powerful patching, and more. You can use this starter to kick-start a website, blog or learn these technologies.
+The Studio integrates with Sanity's Content Lake, offering hosted content APIs with a flexible query language, on-demand image transformations, advanced patching, and more. These capabilities seamlessly connect to your frontend via Sanity’s [Live Content API](https://www.sanity.io/live), enabling live, dynamic updates without requiring page reloads. Whether you're launching a blog, building a website, or exploring new technologies, this starter gives you a solid foundation to get started.
 
 ## Features
 
-- **Fast and Performant:** Static site built with Next.js App Router for excellent speed and SEO.
+- **Next.js 15, Fast and Performant:** Static site built with Next.js App Router for excellent speed and SEO.
 - **Real-time Visual Editing:** Use Sanity's [Presentation](https://www.sanity.io/docs/presentation) tools to see live updates as you edit.
+- **Live Content:** The [Live Content API](https://www.sanity.io/live) allows you to deliver live, dynamic experiences to your users without the complexity and scalability challenges that typically come with building real-time functionality.
 - **Customizable Pages:** Create and manage pages using a page builder with dynamic components.
 - **Powerful Content Management:** Collaborate with team members in real-time, with fine-grained revision history.
-- **AI-powered Media Support:** Auto-generate alt texts with Sanity AI Assist.
+- **AI-powered Media Support:** Auto-generate alt texts with [Sanity AI Assist](https://www.sanity.io/ai-assist).
 - **On-demand Publishing:** No waiting for rebuilds—new content is live instantly with Incremental Static Revalidation.
-- **Easy Media Management:** Integrated Unsplash support for seamless media handling.
+- **Easy Media Management:** [Integrated Unsplash support](https://www.sanity.io/plugins/sanity-plugin-asset-source-unsplash) for seamless media handling.
 
 ## Demo
 
@@ -66,7 +67,17 @@ Click the button to begin the setup wizard for your Next.js and Sanity project.
 
    Replace `<your-vercel-app-url>` with the URL of your Vercel hosted Next.js app.
 
-4. **Deploy your Studio**:
+4. **Import Demo Data (optional)**:
+
+   If you want to start with some sample content, you can import the provided dataset (demoData.tar.gz) into your Sanity project. This step is optional but can be helpful for getting started quickly.
+
+   To import the dataset, run the following command in your terminal:
+
+   ```bash
+   npx sanity dataset import demoData.tar.gz production
+   ```
+
+5. **Deploy your Studio**:
 
    ```bash
    npx sanity deploy
@@ -115,8 +126,8 @@ When developing your app, you'll run the files locally. Git Pushing your changes
 1.  **Set up environment variables**:
 
 - Change directories to the `studio` directory:
-- Duplicate the `.env` file or copy `.env.local.example` and fill in the `projectId` and `dataset` values, same as the Next.js app.
-- Set `SANITY_STUDIO_PREVIEW_URL` to the localhost URL of your Next.js app or you can leave it blank and the app will fallback to the default `localhost:3000`.
+- Duplicate the `.env` file or copy `.env.local.example` and fill in the `projectId` and `dataset` values, same as the Next.js app. Set `SANITY_STUDIO_PREVIEW_URL` to the localhost URL of your Next.js app or you can leave it blank and the app will fallback to the default `localhost:3000`.
+- Lastly, you'll want to add `localhost:3000` as a CORS origin in your Sanity [**Manage Console**](https://www.sanity.io/manage), located under **API** > **CORS Origins**.
 
 2.  **Install dependencies and run the Sanity Studio**:
 
