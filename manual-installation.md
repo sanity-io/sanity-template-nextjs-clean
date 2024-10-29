@@ -104,7 +104,7 @@ npm create sanity@latest -- --env=.env.local
 
 Before you can run the project you need to setup a read token (`SANITY_API_READ_TOKEN`), it's used for authentication by Sanity's Presentation tool and pulling content while in draft mode.
 
-1. Go to [manage.sanity.io](https://manage.sanity.io/) and select your project and select your project in "Project" dropdown.
+1. Go to [manage.sanity.io](https://manage.sanity.io/) and select your project in the "Project" dropdown.
 2. Click on the `🔌 API` tab.
 3. Click on `+ Add API token`.
 4. Name it "NextJS / Presentation READ Token" and set `Permissions` to `Viewer` and hit `Save`.

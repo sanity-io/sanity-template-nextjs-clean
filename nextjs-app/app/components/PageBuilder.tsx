@@ -24,7 +24,7 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
     <>
       <div className="container">
         <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
-          This page is has no content!
+          This page has no content!
         </h1>
         <p className="mt-2 text-base text-gray-500">
           Open the page in Sanity Studio to add content.
