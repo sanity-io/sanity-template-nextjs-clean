@@ -1,0 +1,43 @@
+{
+  "name": "starter-template",
+  "private": true,
+  "version": "1.0.0",
+  "main": "package.json",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "prebuild": "npm run extract-types",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "extract-types": "sanity schema extract --enforce-required-fields"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@sanity/assist": "^3.0.6",
+    "@sanity/icons": "^3.3.1",
+    "@sanity/vision": "^3.54.0",
+    "date-fns": "^3.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rxjs": "^7.8.1",
+    "sanity": "^3.62.2",
+    "sanity-plugin-asset-source-unsplash": "^3.0.1",
+    "styled-components": "^6.1.8"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^4.0.0",
+    "@types/react": "^18.0.25",
+    "eslint": "^8.6.0",
+    "prettier": "^3.0.2",
+    "typescript": "^5.1.6"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 100,
+    "bracketSpacing": false,
+    "singleQuote": true
+  }
+}
