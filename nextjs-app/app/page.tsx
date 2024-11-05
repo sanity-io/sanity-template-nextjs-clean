@@ -22,7 +22,7 @@ export default async function Page() {
                 </Link>{" "}
                 +{" "}
                 <Link className="text-[#000] " href="https://nextjs.org/">
-                  NextJS
+                  Next.js
                 </Link>
               </h1>
             </div>

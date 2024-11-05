@@ -107,7 +107,7 @@ Before you can run the project you need to setup a read token (`SANITY_API_READ_
 1. Go to [manage.sanity.io](https://manage.sanity.io/) and select your project in the "Project" dropdown.
 2. Click on the `🔌 API` tab.
 3. Click on `+ Add API token`.
-4. Name it "NextJS / Presentation READ Token" and set `Permissions` to `Viewer` and hit `Save`.
+4. Name it "Next.js / Presentation READ Token" and set `Permissions` to `Viewer` and hit `Save`.
 5. Copy the token and add it to your `.env.local` file.
 
 ```bash
@@ -184,7 +184,7 @@ To deploy your Sanity Studio, follow these steps:
 
 4. Configure your project:
 
-   - **Set the Root Directory to the directory of your NextJS app**
+   - **Set the Root Directory to the directory of your Next.js app**
    - Vercel will automatically detect that it's a Next.js app
    - Adjust the build settings if needed (usually not necessary for Next.js apps)
 
@@ -214,7 +214,7 @@ For subsequent deployments, simply push changes to your Git repository. Vercel w
 - [Embedding Sanity Studio](https://www.sanity.io/docs/embedding-sanity-studio)
 - [Join the Sanity community](https://slack.sanity.io/)
 
-[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fsanity-template-nextjs-clean%2Ftree%2Ffeature%2Ftemplate-upgrade&env=NEXT_PUBLIC_SANITY_STUDIO_URL&project-name=nextjs-sanity-app&repository-name=nextjs-sanity-app&demo-title=NextJS%20Sanity%20Clean%20Starter%20Demo&demo-url=https%3A%2F%2Fsanity-template-nextjs-clean-preview.sanity.dev%2F&demo-image=https%3A%2F%2Fraw.githubusercontent.com%2Fsanity-io%2Fsanity-template-nextjs-clean%2Ffeature%2Ftemplate-upgrade%2Fsanity-nextjs-preview.webp&demo-description=A%20starter%20template%20for%20using%20NextJS%20with%20Sanity&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&root-directory=nextjs-app
+[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fsanity-template-nextjs-clean&project-name=nextjs-sanity-app&repository-name=nextjs-sanity-app&demo-title=Next.js%20%2B%20Sanity%20Starter&demo-description=A%20starter%20template%20for%20using%20Next.js%20with%20Sanity&demo-url=template-nextjs-clean.sanity.build&demo-image=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Ffkfgfb3d%2Fproduction%2F24fe6ac08e17d7b4263701af217dc153ad31b3a9-1319x892.webp&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&root-directory=nextjs-app
 [integration]: https://www.sanity.io/docs/vercel-integration
 [`.env.local.example`]: .env.local.example
 [unsplash]: https://unsplash.com
