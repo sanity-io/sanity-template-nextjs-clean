@@ -7,7 +7,7 @@ _Visual Editing using Sanity's Presentation Tool_
 
 This starter is a statically generated website and blog built with [Next.js 15](https://nextjs.org/blog/next-15) (App Router) for the frontend and powered by [Sanity][sanity-homepage] for content management. It includes a standalone Sanity Studio, providing features like real-time collaboration, visual editing, and live updates through its [Presentation][presentation] mode.
 
-The Studio integrates with Sanity's Content Lake, offering hosted content APIs with a flexible query language, on-demand image transformations, advanced patching, and more. These capabilities seamlessly connect to your frontend via Sanity’s [Live Content API](https://www.sanity.io/live), enabling live, dynamic updates without requiring page reloads. Whether you're launching a blog, building a website, or exploring new technologies, this starter gives you a solid foundation to get started.
+The Studio integrates with Sanity's Content Lake, offering hosted content APIs with a flexible query language, on-demand image transformations, advanced patching, and more. These capabilities seamlessly connect to your frontend via Sanity’s [Live Content API](https://www.sanity.io/live), enabling live, dynamic updates without requiring page reloads. Whether you are launching a blog, building a website, or exploring new technologies, this starter gives you a solid foundation to get started.
 
 ## Features
 
@@ -16,13 +16,13 @@ The Studio integrates with Sanity's Content Lake, offering hosted content APIs w
 - **Live Content:** The [Live Content API](https://www.sanity.io/live) allows you to deliver live, dynamic experiences to your users without the complexity and scalability challenges that typically come with building real-time functionality.
 - **Customizable Pages:** Create and manage pages using a page builder with dynamic components.
 - **Powerful Content Management:** Collaborate with team members in real-time, with fine-grained revision history.
-- **AI-powered Media Support:** Auto-generate alt texts with [Sanity AI Assist](https://www.sanity.io/ai-assist).
+- **AI-powered Media Support:** Auto-generate alt text with [Sanity AI Assist](https://www.sanity.io/ai-assist).
 - **On-demand Publishing:** No waiting for rebuilds—new content is live instantly with Incremental Static Revalidation.
 - **Easy Media Management:** [Integrated Unsplash support](https://www.sanity.io/plugins/sanity-plugin-asset-source-unsplash) for seamless media handling.
 
 ## Demo
 
-🌐 [https://sanity-template-nextjs-clean-preview.sanity.dev/](https://sanity-template-nextjs-clean-preview.sanity.dev/)
+🌐 [https://template-nextjs-clean.sanity.dev](https://template-nextjs-clean.sanity.dev/)
 
 ## Get Started Quickly
 
@@ -40,6 +40,10 @@ Click the button to begin the setup wizard for your Next.js and Sanity project.
 
 > **Note:** Prefer manual installation? See [manual-installation.md](manual-installation.md).
 
+After your Vercel build completes, you'll see a toast error "Couldn't connect to Live Content API". To fix this, you'll need to set the URL of your app (Ex: https://nextjs-sanity-app.vercel.app) as a CORS origin in your Sanity [**Manage Console**](https://www.sanity.io/manage), located under **API** > **CORS Origins**. You don't need to allow credentials.
+
+To account for development and preview deployments, you might also want to add CORS Origin with a wildcard `*`, like `https://nextjs-sanity-app-*.vercel.app`.
+
 ---
 
 ### 🛠 2\. **Deploy Sanity Studio**
@@ -48,24 +52,27 @@ Click the button to begin the setup wizard for your Next.js and Sanity project.
 
    ```bash
    git clone <your-repo-url>
-   cd studio
+   cd your-repo-name/studio
    ```
 
 2. **Initialize Sanity Studio**:
 
    ```bash
+   npm install
    npx sanity init --env
    ```
 
    This will generate a `.env` file in the `studio` directory.
 
-3. _Configure environment variables:_ In the generated .env file, add the following:
+3. **Configure environment variables:**
+
+   In the generated .env file, add the following:
 
    ```bash
    SANITY_STUDIO_PREVIEW_URL="<your-vercel-app-url>"
    ```
 
-   Replace `<your-vercel-app-url>` with the URL of your Vercel hosted Next.js app.
+   Replace `<your-vercel-app-url>` with the URL of your Vercel-hosted Next.js app.
 
 4. **Import Demo Data (optional)**:
 
@@ -76,6 +83,8 @@ Click the button to begin the setup wizard for your Next.js and Sanity project.
    ```bash
    npx sanity dataset import demoData.tar.gz production
    ```
+
+   > **Note:** If you're using a different dataset name, replace `production` with your dataset name.
 
 5. **Deploy your Studio**:
 
@@ -89,17 +98,21 @@ Click the button to begin the setup wizard for your Next.js and Sanity project.
 
 ### 🔧 3. **Configure Next.js with Sanity Studio URL**
 
-1.  Go to **Vercel Dashboard** > Settings > Environment Variables.
-2.  Add:
-    - **Name**: `NEXT_PUBLIC_SANITY_STUDIO_URL`
-    - **Value**: Your Sanity Studio's URL (e.g., `https://your-project.sanity.studio`).
-3.  **Redeploy** your Next.js app to apply changes.
+1. Go to your **Vercel Project's Dashboard** > Settings > Environment Variables.
+2. Add:
+   - **Name**: `NEXT_PUBLIC_SANITY_STUDIO_URL`
+   - **Value**: Your Sanity Studio's URL (e.g., `https://your-project.sanity.studio`).
+3. Redeploy your Next.js app to apply changes.
+
+> **Tip:** You can redeploy your Next.js app by clicking **Deployments** and clicking the three dots on the right of your latest deployment and selecting **Redeploy**.
+
+![Screenshot of the website generated by this template](https://cdn.sanity.io/images/fkfgfb3d/production/a51cc21fe671c76cf34b8c06b2b1478283276c14-323x231.jpg)
 
 ---
 
 ## Running Locally
 
-When developing your app, you'll run the files locally. Git Pushing your changes to the repo will trigger a build on Vercel and your changes will be deployed. You can deploy your Sanity Studio at any time by running `npx sanity deploy` in the `studio` directory, as we did earlier.
+When developing your app, you'll run the files locally. Pushing your changes to the repo will trigger a build on Vercel and your changes will be deployed automatically. You can deploy your Sanity Studio at any time by running `npx sanity deploy` in the `studio` directory, as we did earlier.
 
 ### Run Next.js App Locally
 
@@ -107,12 +120,13 @@ When developing your app, you'll run the files locally. Git Pushing your changes
 
    - Use the [Vercel CLI](https://vercel.com/docs/cli) to link and pull environment variables:
      ```bash
+     cd nextjs-app
      vercel link
      vercel env pull .env.development.local
      ```
-   - Alternatively, copy `.env.local.example` to `.env.local` and fill in required values. Your `projectId` and `dataset` can be found in your Sanity project's [**Manage Console**](https://www.sanity.io/manage) and selecting your project.
+   - You can also copy `.env.local.example` to `.env.local` and complete the required values. Your `projectId` and `dataset` can be found in your Sanity project's [**Manage Console**](https://www.sanity.io/manage) and selecting your project.
 
-2. **Install dependencies and run the NextJS app**:
+2. **Install dependencies and run the Next.js app**:
 
    ```bash
    npm install
@@ -126,7 +140,9 @@ When developing your app, you'll run the files locally. Git Pushing your changes
 1.  **Set up environment variables**:
 
 - Change directories to the `studio` directory:
-- Duplicate the `.env` file or copy `.env.local.example` and fill in the `projectId` and `dataset` values, same as the Next.js app. Set `SANITY_STUDIO_PREVIEW_URL` to the localhost URL of your Next.js app or you can leave it blank and the app will fallback to the default `localhost:3000`.
+- Create a `.env.local` file by duplicating the `.env` file or copying `.env.local.example`
+- Fill in the `projectId` and `dataset` values, same as the Next.js app.
+- Set `SANITY_STUDIO_PREVIEW_URL` to the localhost URL of your Next.js app or you can leave it blank and the app will fallback to the default `localhost:3000`.
 - Lastly, you'll want to add `localhost:3000` as a CORS origin in your Sanity [**Manage Console**](https://www.sanity.io/manage), located under **API** > **CORS Origins**.
 
 2.  **Install dependencies and run the Sanity Studio**:
