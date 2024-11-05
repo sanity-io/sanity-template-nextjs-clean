@@ -56,7 +56,7 @@ export default function Header() {
               </g>
             </svg>
             <span className="hidden lg:block text-lg pl-2 font-semibold">
-              Sanity + NextJS
+              Sanity + Next.js
             </span>
           </Link>
 
