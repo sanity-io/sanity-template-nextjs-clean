@@ -22,7 +22,7 @@ The Studio integrates with Sanity's Content Lake, offering hosted content APIs w
 
 ## Demo
 
-🌐 [https://sanity-template-nextjs-clean-preview.sanity.dev/](https://sanity-template-nextjs-clean-preview.sanity.dev/)
+🌐 [https://template-nextjs-clean.sanity.dev](https://template-nextjs-clean.sanity.dev/)
 
 ## Get Started Quickly
 
