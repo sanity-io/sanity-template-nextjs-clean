@@ -6,7 +6,6 @@
  */
 
 import {defineCliConfig} from 'sanity/cli'
-import {type UserConfig} from 'vite'
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
