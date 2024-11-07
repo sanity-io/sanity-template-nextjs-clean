@@ -1,3 +1,10 @@
+/**
+ * Sanity CLI Configuration
+ * This file configures the Sanity CLI tool with project-specific settings
+ * and customizes the Vite bundler configuration.
+ * Learn more: https://www.sanity.io/docs/cli
+ */
+
 import {defineCliConfig} from 'sanity/cli'
 import {type UserConfig} from 'vite'
 
@@ -8,15 +15,5 @@ export default defineCliConfig({
   api: {
     projectId,
     dataset,
-  },
-  vite(viteConfig: UserConfig): UserConfig {
-    return {
-      ...viteConfig,
-      define: {
-        ...viteConfig.define,
-        // `sanity dev` enables speedy in both development and production, this line restores the default `styled-components` behaviour of only enabling it in production
-        'process.env.SC_DISABLE_SPEEDY': JSON.stringify(process.env.NODE_ENV !== 'production'),
-      },
-    }
   },
 })
