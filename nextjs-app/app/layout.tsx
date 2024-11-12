@@ -10,11 +10,11 @@ import { Toaster } from "sonner";
 import DraftModeToast from "@/app/components/DraftModeToast";
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
-import { LiveErrorBoundary } from "@/app/components/LiveErrorBoundary";
 import * as demo from "@/sanity/lib/demo";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
+import { handleError } from "./client-utils";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data: settings } = await sanityFetch({
@@ -71,9 +71,7 @@ export default async function RootLayout({
               <VisualEditing />
             </>
           )}
-          <LiveErrorBoundary>
-            <SanityLive />
-          </LiveErrorBoundary>
+          <SanityLive onError={handleError} />
           <Header />
           <main className="">{children}</main>
           <Footer />
