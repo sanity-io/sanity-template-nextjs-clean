@@ -16,23 +16,23 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity/assist": "^3.0.6",
-    "@sanity/icons": "^3.3.1",
-    "@sanity/vision": "^3.54.0",
+    "@sanity/assist": "^3.0.8",
+    "@sanity/icons": "^3.4.0",
+    "@sanity/vision": "^3.63.0",
     "date-fns": "^3.6.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "rxjs": "^7.8.1",
-    "sanity": "^3.62.2",
+    "sanity": "^3.63.0",
     "sanity-plugin-asset-source-unsplash": "^3.0.1",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.13"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^4.0.0",
-    "@types/react": "^18.0.25",
+    "@types/react": "^18.3.12",
     "eslint": "^8.6.0",
-    "prettier": "^3.0.2",
-    "typescript": "^5.1.6"
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
   },
   "prettier": {
     "semi": false,
