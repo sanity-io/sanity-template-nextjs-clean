@@ -6,6 +6,7 @@ import PageBuilderPage from "@/app/components/PageBuilder";
 import { sanityFetch } from "@/sanity/lib/live";
 import { getPageQuery, pagesSlugs } from "@/sanity/lib/queries";
 import { Page as PageType } from "@/sanity.types";
+import { PageOnboarding } from "@/app/components/Onboarding";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -41,7 +42,11 @@ export default async function Page(props: Props) {
   ]);
 
   if (!page?._id) {
-    return notFound();
+    return (
+      <div className="py-40">
+        <PageOnboarding />
+      </div>
+    );
   }
 
   return (
