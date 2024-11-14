@@ -1,9 +1,4 @@
 {
   "extends": "next/core-web-vitals",
-  "root": true,
-  "plugins": ["eslint-plugin-react-hooks"],
-  "rules": {
-    "react-hooks/rule-of-hooks": "error",
-    "react-hooks/exhaustive-dependencies": "error"
-  }
+  "root": true
 }

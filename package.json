@@ -1,5 +1,7 @@
 {
   "scripts": {
-    "lint": "pnpm --filter=nextjs-app --filter=studio lint"
-  }
+    "lint": "pnpm -r lint",
+    "type-check": "pnpm -r type-check"
+  },
+  "packageManager": "pnpm@9.13.0"
 }

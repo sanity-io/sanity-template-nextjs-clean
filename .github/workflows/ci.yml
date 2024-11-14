@@ -1,4 +1,4 @@
-name: Lint
+name: CI
 
 on:
   push:
@@ -19,3 +19,4 @@ jobs:
           node-version: lts/*
       - run: pnpm install
       - run: pnpm lint
+      - run: pnpm type-check
