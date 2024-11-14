@@ -3,7 +3,7 @@ name: Prettier
 
 on:
   push:
-    branches: [main]
+    branches: [main, scratchpad]
   workflow_dispatch:
 
 concurrency:
