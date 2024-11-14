@@ -1,15 +1,15 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import {useState} from 'react'
 
-export default function GetStartedCode({ code }: { code: string }) {
-  const [showTooltip, setShowTooltip] = useState(false);
+export default function GetStartedCode({code}: {code: string}) {
+  const [showTooltip, setShowTooltip] = useState(false)
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(code);
-    setShowTooltip(true);
-    setTimeout(() => setShowTooltip(false), 2000);
-  };
+    navigator.clipboard.writeText(code)
+    setShowTooltip(true)
+    setTimeout(() => setShowTooltip(false), 2000)
+  }
 
   return (
     <div className="inline-flex border rounded-full bg-gray-50/20 bg-white border-gray-200 px-6 py-2 md:px-8 md:py-4 text-gray-700 text-sm md:text-base mt-6 font-mono gap-4 items-center">
@@ -25,12 +25,12 @@ export default function GetStartedCode({ code }: { code: string }) {
         </svg>
         <span
           className={`absolute bottom-full left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 transition-opacity duration-300 ${
-            showTooltip ? "opacity-100" : "opacity-0 pointer-events-none"
+            showTooltip ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
         >
           Copied!
         </span>
       </button>
     </div>
-  );
+  )
 }

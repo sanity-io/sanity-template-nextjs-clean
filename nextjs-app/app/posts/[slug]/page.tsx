@@ -1,63 +1,58 @@
-import type { Metadata, ResolvingMetadata } from "next";
-import { notFound } from "next/navigation";
-import { type PortableTextBlock } from "next-sanity";
-import { Suspense } from "react";
+import type {Metadata, ResolvingMetadata} from 'next'
+import {notFound} from 'next/navigation'
+import {type PortableTextBlock} from 'next-sanity'
+import {Suspense} from 'react'
 
-import Avatar from "@/app/components/Avatar";
-import CoverImage from "@/app/components/CoverImage";
-import { MorePosts } from "@/app/components/Posts";
-import PortableText from "@/app/components/PortableText";
-import { sanityFetch } from "@/sanity/lib/live";
-import { postPagesSlugs, postQuery } from "@/sanity/lib/queries";
-import { resolveOpenGraphImage } from "@/sanity/lib/utils";
+import Avatar from '@/app/components/Avatar'
+import CoverImage from '@/app/components/CoverImage'
+import {MorePosts} from '@/app/components/Posts'
+import PortableText from '@/app/components/PortableText'
+import {sanityFetch} from '@/sanity/lib/live'
+import {postPagesSlugs, postQuery} from '@/sanity/lib/queries'
+import {resolveOpenGraphImage} from '@/sanity/lib/utils'
 
 type Props = {
-  params: Promise<{ slug: string }>;
-};
-
-export async function generateStaticParams() {
-  const { data } = await sanityFetch({
-    query: postPagesSlugs,
-    perspective: "published",
-    stega: false,
-  });
-  return data;
+  params: Promise<{slug: string}>
 }
 
-export async function generateMetadata(
-  props: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const params = await props.params;
-  const { data: post } = await sanityFetch({
+export async function generateStaticParams() {
+  const {data} = await sanityFetch({
+    query: postPagesSlugs,
+    perspective: 'published',
+    stega: false,
+  })
+  return data
+}
+
+export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
+  const params = await props.params
+  const {data: post} = await sanityFetch({
     query: postQuery,
     params,
     stega: false,
-  });
-  const previousImages = (await parent).openGraph?.images || [];
-  const ogImage = resolveOpenGraphImage(post?.coverImage);
+  })
+  const previousImages = (await parent).openGraph?.images || []
+  const ogImage = resolveOpenGraphImage(post?.coverImage)
 
   return {
     authors:
       post?.author?.firstName && post?.author?.lastName
-        ? [{ name: `${post.author.firstName} ${post.author.lastName}` }]
+        ? [{name: `${post.author.firstName} ${post.author.lastName}`}]
         : [],
     title: post?.title,
     description: post?.excerpt,
     openGraph: {
       images: ogImage ? [ogImage, ...previousImages] : previousImages,
     },
-  } satisfies Metadata;
+  } satisfies Metadata
 }
 
 export default async function PostPage(props: Props) {
-  const params = await props.params;
-  const [{ data: post }] = await Promise.all([
-    sanityFetch({ query: postQuery, params }),
-  ]);
+  const params = await props.params
+  const [{data: post}] = await Promise.all([sanityFetch({query: postQuery, params})])
 
   if (!post?._id) {
-    return notFound();
+    return notFound()
   }
 
   return (
@@ -72,11 +67,9 @@ export default async function PostPage(props: Props) {
                 </h2>
               </div>
               <div className="max-w-3xl flex gap-4 items-center">
-                {post.author &&
-                  post.author.firstName &&
-                  post.author.lastName && (
-                    <Avatar person={post.author} date={post.date} />
-                  )}
+                {post.author && post.author.firstName && post.author.lastName && (
+                  <Avatar person={post.author} date={post.date} />
+                )}
               </div>
             </div>
             <article className="gap-6 grid max-w-4xl">
@@ -84,10 +77,7 @@ export default async function PostPage(props: Props) {
                 <CoverImage image={post.coverImage} priority />
               </div>
               {post.content?.length && (
-                <PortableText
-                  className="max-w-2xl"
-                  value={post.content as PortableTextBlock[]}
-                />
+                <PortableText className="max-w-2xl" value={post.content as PortableTextBlock[]} />
               )}
             </article>
           </div>
@@ -103,5 +93,5 @@ export default async function PostPage(props: Props) {
         </div>
       </div>
     </>
-  );
+  )
 }
