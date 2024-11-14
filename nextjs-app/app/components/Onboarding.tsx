@@ -1,23 +1,23 @@
-"use client";
+'use client'
 
 /**
  * This file is used for onboarding when you don't have content yet and are using the template for the first time.
  * Once you have provided a url for the environment variable NEXT_PUBLIC_SANITY_STUDIO_URL, and have content, you can delete this file.
  */
 
-import Link from "next/link";
-import { useSyncExternalStore } from "react";
+import Link from 'next/link'
+import {useSyncExternalStore} from 'react'
 
-import { studioUrl } from "@/sanity/lib/api";
+import {studioUrl} from '@/sanity/lib/api'
 
-const emptySubscribe = () => () => {};
+const emptySubscribe = () => () => {}
 
 export default function Onboarding() {
   const target = useSyncExternalStore(
     emptySubscribe,
-    () => (window.top === window ? undefined : "_blank"),
-    () => "_blank"
-  );
+    () => (window.top === window ? undefined : '_blank'),
+    () => '_blank',
+  )
 
   return (
     <div className="max-w-2xl mx-auto grid grid-flow-row gap-6 py-12 text-center bg-red-500 text-white rounded-lg p-8">
@@ -49,11 +49,11 @@ export default function Onboarding() {
       {process.env.NEXT_PUBLIC_SANITY_STUDIO_URL ? ( // if NEXT_PUBLIC_SANITY_STUDIO_URL environment variable is set, show create post button
         <OnboardingMessage
           message={{
-            title: "No posts yet",
-            description: "Get started by creating a new post.",
+            title: 'No posts yet',
+            description: 'Get started by creating a new post.',
           }}
           link={{
-            title: "Create Post",
+            title: 'Create Post',
             href: `${studioUrl}/structure/intent/create/template=post;type=post;path=title`,
           }}
         />
@@ -61,34 +61,34 @@ export default function Onboarding() {
         // if NEXT_PUBLIC_SANITY_STUDIO_URL environment variable is not set, Link to documentation to deploy a studio
         <OnboardingMessage
           message={{
-            title: "Deploy a Sanity Studio",
+            title: 'Deploy a Sanity Studio',
             description:
-              "You must first deploy a Sanity Studio and add the URL to your .env.local file.",
+              'You must first deploy a Sanity Studio and add the URL to your .env.local file.',
           }}
           link={{
-            title: "Learn how to deploy a Sanity Studio",
-            href: "https://github.com/sanity-io/sanity-template-nextjs-clean?tab=readme-ov-file#-2-deploy-sanity-studio",
+            title: 'Learn how to deploy a Sanity Studio',
+            href: 'https://github.com/sanity-io/sanity-template-nextjs-clean?tab=readme-ov-file#-2-deploy-sanity-studio',
             showIcon: false,
           }}
         />
       )}
     </div>
-  );
+  )
 }
 
 type OnboardingMessageProps = {
   message: {
-    title: string;
-    description: string;
-  };
+    title: string
+    description: string
+  }
   link: {
-    title: string;
-    href: string;
-    showIcon?: boolean;
-  };
-};
+    title: string
+    href: string
+    showIcon?: boolean
+  }
+}
 
-const OnboardingMessage = ({ message, link }: OnboardingMessageProps) => {
+const OnboardingMessage = ({message, link}: OnboardingMessageProps) => {
   return (
     <>
       <div>
@@ -104,27 +104,22 @@ const OnboardingMessage = ({ message, link }: OnboardingMessageProps) => {
         >
           {link.title}
           {(link.showIcon ?? true) && (
-            <svg
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
+            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
             </svg>
           )}
         </Link>
       </div>
     </>
-  );
-};
+  )
+}
 
 export function PageOnboarding() {
   const target = useSyncExternalStore(
     emptySubscribe,
-    () => (window.top === window ? undefined : "_blank"),
-    () => "_blank"
-  );
+    () => (window.top === window ? undefined : '_blank'),
+    () => '_blank',
+  )
 
   return (
     <div className="max-w-2xl mx-auto grid grid-flow-row gap-6 py-12 text-center bg-red-500 text-white rounded-lg p-8">
@@ -156,11 +151,11 @@ export function PageOnboarding() {
       {process.env.NEXT_PUBLIC_SANITY_STUDIO_URL ? ( // if NEXT_PUBLIC_SANITY_STUDIO_URL environment variable is set, show create post button
         <OnboardingMessage
           message={{
-            title: "About Page (/about) does not exist yet",
-            description: "Get started by creating an about page.",
+            title: 'About Page (/about) does not exist yet',
+            description: 'Get started by creating an about page.',
           }}
           link={{
-            title: "Create Page",
+            title: 'Create Page',
             href: `${studioUrl}/structure/intent/create/template=page;type=page;path=name`,
           }}
         />
@@ -168,17 +163,17 @@ export function PageOnboarding() {
         // if NEXT_PUBLIC_SANITY_STUDIO_URL environment variable is not set, Link to documentation to deploy a studio
         <OnboardingMessage
           message={{
-            title: "Deploy a Sanity Studio",
+            title: 'Deploy a Sanity Studio',
             description:
-              "You must first deploy a Sanity Studio and add the URL to your .env.local file.",
+              'You must first deploy a Sanity Studio and add the URL to your .env.local file.',
           }}
           link={{
-            title: "Learn how to deploy a Sanity Studio",
-            href: "https://github.com/sanity-io/sanity-template-nextjs-clean?tab=readme-ov-file#-2-deploy-sanity-studio",
+            title: 'Learn how to deploy a Sanity Studio',
+            href: 'https://github.com/sanity-io/sanity-template-nextjs-clean?tab=readme-ov-file#-2-deploy-sanity-studio',
             showIcon: false,
           }}
         />
       )}
     </div>
-  );
+  )
 }

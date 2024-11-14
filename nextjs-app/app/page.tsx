@@ -1,8 +1,8 @@
-import { Suspense } from "react";
-import Link from "next/link";
+import {Suspense} from 'react'
+import Link from 'next/link'
 
-import { AllPosts } from "@/app/components/Posts";
-import GetStartedCode from "@/app/components/GetStartedCode";
+import {AllPosts} from '@/app/components/Posts'
+import GetStartedCode from '@/app/components/GetStartedCode'
 
 export default async function Page() {
   return (
@@ -13,14 +13,12 @@ export default async function Page() {
         <div className="container relative">
           <div className="mx-auto max-w-2xl py-20 lg:max-w-4xl lg:px-12 text-center">
             <div className="flex flex-col gap-4 items-center">
-              <div className=" text-md leading-6 prose uppercase">
-                A starter template for
-              </div>
+              <div className=" text-md leading-6 prose uppercase">A starter template for</div>
               <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-black">
                 <Link className="text-red-500 " href="https://sanity.io/">
                   Sanity
-                </Link>{" "}
-                +{" "}
+                </Link>{' '}
+                +{' '}
                 <Link className="text-[#000] " href="https://nextjs.org/">
                   Next.js
                 </Link>
@@ -28,10 +26,9 @@ export default async function Page() {
             </div>
             <div className="mt-6 space-y-6 prose sm:prose-lg md:prose-xl lg:prose-2xl text-gray-700">
               <p>
-                This starter is a statically generated site that uses Next.js
-                for the frontend and Sanity to handle its content. It comes with
-                a standalone Sanity Studio that offers features like real-time
-                collaboration, instant side-by-side content previews, and
+                This starter is a statically generated site that uses Next.js for the frontend and
+                Sanity to handle its content. It comes with a standalone Sanity Studio that offers
+                features like real-time collaboration, instant side-by-side content previews, and
                 intuitive editing.
               </p>
             </div>
@@ -67,5 +64,5 @@ export default async function Page() {
         </div>
       </div>
     </>
-  );
+  )
 }

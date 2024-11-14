@@ -1,14 +1,14 @@
-import Link from "next/link";
+import Link from 'next/link'
 
-import BlockRenderer from "@/app/components/BlockRenderer";
-import { Page } from "@/sanity.types";
-import { studioUrl } from "@/sanity/lib/api";
+import BlockRenderer from '@/app/components/BlockRenderer'
+import {Page} from '@/sanity.types'
+import {studioUrl} from '@/sanity/lib/api'
 
 type PageBuilderPageProps = {
-  page: Page;
-};
+  page: Page
+}
 
-export default function PageBuilder({ page }: PageBuilderPageProps) {
+export default function PageBuilder({page}: PageBuilderPageProps) {
   if (page?.pageBuilder && page.pageBuilder.length > 0) {
     return (
       <>
@@ -16,7 +16,7 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
           <BlockRenderer key={block._key} index={index} block={block} />
         ))}
       </>
-    );
+    )
   }
 
   // If there are no blocks in the page builder.
@@ -41,5 +41,5 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
         </div>
       </div>
     </>
-  );
+  )
 }

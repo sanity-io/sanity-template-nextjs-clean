@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 export default function Header() {
   return (
@@ -55,9 +55,7 @@ export default function Header() {
                 ></path>
               </g>
             </svg>
-            <span className="hidden lg:block text-lg pl-2 font-semibold">
-              Sanity + Next.js
-            </span>
+            <span className="hidden lg:block text-lg pl-2 font-semibold">Sanity + Next.js</span>
           </Link>
 
           <nav className="">
@@ -94,5 +92,5 @@ export default function Header() {
         </div>
       </div>
     </header>
-  );
+  )
 }

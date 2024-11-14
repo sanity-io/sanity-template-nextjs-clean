@@ -1,52 +1,50 @@
-import type { Metadata } from "next";
-import Head from "next/head";
-import { notFound } from "next/navigation";
+import type {Metadata} from 'next'
+import Head from 'next/head'
+import {notFound} from 'next/navigation'
 
-import PageBuilderPage from "@/app/components/PageBuilder";
-import { sanityFetch } from "@/sanity/lib/live";
-import { getPageQuery, pagesSlugs } from "@/sanity/lib/queries";
-import { Page as PageType } from "@/sanity.types";
-import { PageOnboarding } from "@/app/components/Onboarding";
+import PageBuilderPage from '@/app/components/PageBuilder'
+import {sanityFetch} from '@/sanity/lib/live'
+import {getPageQuery, pagesSlugs} from '@/sanity/lib/queries'
+import {Page as PageType} from '@/sanity.types'
+import {PageOnboarding} from '@/app/components/Onboarding'
 
 type Props = {
-  params: Promise<{ slug: string }>;
-};
+  params: Promise<{slug: string}>
+}
 
 export async function generateStaticParams() {
-  const { data } = await sanityFetch({
+  const {data} = await sanityFetch({
     query: pagesSlugs,
-    perspective: "published",
+    perspective: 'published',
     stega: false,
-  });
-  return data;
+  })
+  return data
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params;
-  const { data: page } = await sanityFetch({
+  const params = await props.params
+  const {data: page} = await sanityFetch({
     query: getPageQuery,
     params,
     stega: false,
-  });
+  })
 
   return {
     title: page?.name,
     description: page?.heading,
-  } satisfies Metadata;
+  } satisfies Metadata
 }
 
 export default async function Page(props: Props) {
-  const params = await props.params;
-  const [{ data: page }] = await Promise.all([
-    sanityFetch({ query: getPageQuery, params }),
-  ]);
+  const params = await props.params
+  const [{data: page}] = await Promise.all([sanityFetch({query: getPageQuery, params})])
 
   if (!page?._id) {
     return (
       <div className="py-40">
         <PageOnboarding />
       </div>
-    );
+    )
   }
 
   return (
@@ -70,5 +68,5 @@ export default async function Page(props: Props) {
       </div>
       <PageBuilderPage page={page as PageType} />
     </div>
-  );
+  )
 }
