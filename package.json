@@ -1,7 +1,8 @@
 {
   "scripts": {
     "lint": "pnpm -r lint",
-    "type-check": "pnpm -r type-check"
+    "type-check": "pnpm -r type-check",
+    "format": "echo todo"
   },
   "packageManager": "pnpm@9.13.0"
 }
