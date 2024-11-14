@@ -1,7 +1,5 @@
 {
   "scripts": {
-    "lint": "pnpm lint:nextjs-app && pnpm lint:studio",
-    "lint:nextjs-app": "(cd nextjs-app && pnpm lint)",
-    "lint:studio": "(cd studio && pnpm lint)"
+    "lint": "pnpm --filter=nextjs-app --filter=studio lint"
   }
 }
