@@ -2,7 +2,12 @@
   "scripts": {
     "lint": "pnpm -r lint",
     "type-check": "pnpm -r type-check",
-    "format": "echo todo"
+    "format": "prettier --cache --write ."
   },
-  "packageManager": "pnpm@9.13.0"
+  "prettier": "@sanity/prettier-config",
+  "packageManager": "pnpm@9.13.0",
+  "dependencies": {
+    "@sanity/prettier-config": "^1.0.3",
+    "prettier": "^3.3.3"
+  }
 }
