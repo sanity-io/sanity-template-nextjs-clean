@@ -10,6 +10,7 @@
     "typegen": "sanity typegen generate"
   },
   "dependencies": {
+    "@sanity/client": "^6.22.5",
     "@sanity/image-url": "^1.1.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^20.14.13",
