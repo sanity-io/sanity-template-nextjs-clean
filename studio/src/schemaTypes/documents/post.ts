@@ -1,17 +1,10 @@
 import {DocumentTextIcon} from '@sanity/icons'
 import {format, parseISO} from 'date-fns'
-import {defineField, defineType, defineArrayMember} from 'sanity'
+import {defineField, defineType} from 'sanity'
 
 /**
- * This file is the schema definition for a post.
- *
- * Here you'll be able to edit the different fields that appear when you 
- * create or edit a post in the studio.
- * 
- * Here you can see the different schema types that are available:
-
-  https://www.sanity.io/docs/schema-types
-
+ * Post schema.  Define and edit the fields for the 'post' content type.
+ * Learn more: https://www.sanity.io/docs/schema-types
  */
 
 export default defineType({
@@ -63,8 +56,9 @@ export default defineType({
           name: 'alt',
           type: 'string',
           title: 'Alternative text',
-          description: 'Important for SEO and accessiblity.',
+          description: 'Important for SEO and accessibility.',
           validation: (rule) => {
+            // Custom validation to ensure alt text is provided if the image is present. https://www.sanity.io/docs/validation
             return rule.custom((alt, context) => {
               if ((context.document?.coverImage as any)?.asset?._ref && !alt) {
                 return 'Required'
@@ -89,6 +83,7 @@ export default defineType({
       to: [{type: 'person'}],
     }),
   ],
+  // List preview configuration. https://www.sanity.io/docs/previews-list-views
   preview: {
     select: {
       title: 'title',

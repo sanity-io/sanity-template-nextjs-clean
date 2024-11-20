@@ -22,6 +22,9 @@ const Blocks: BlocksType = {
   infoSection: Info,
 };
 
+/**
+ * Used by the <PageBuilder>, this component renders a the component that matches the block type.
+ */
 export default function BlockRenderer({ block, index }: BlockProps) {
   // Block does exist
   if (typeof Blocks[block._type] !== "undefined") {

@@ -8,6 +8,9 @@ type PageBuilderPageProps = {
   page: Page;
 };
 
+/**
+ * The PageBuilder component is used to render the blocks from the `pageBuilder` field in the Page type in your Sanity Studio.
+ */
 export default function PageBuilder({ page }: PageBuilderPageProps) {
   if (page?.pageBuilder && page.pageBuilder.length > 0) {
     return (

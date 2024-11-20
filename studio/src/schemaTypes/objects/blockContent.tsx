@@ -9,6 +9,8 @@ import {defineArrayMember, defineType, defineField} from 'sanity'
  *    title: 'Some title',
  *    type: 'blockContent'
  *  }
+ *
+ * Learn more: https://www.sanity.io/docs/block-content
  */
 export default defineType({
   title: 'Block Content',
