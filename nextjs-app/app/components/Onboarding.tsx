@@ -6,19 +6,10 @@
  */
 
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
 
 import { studioUrl } from "@/sanity/lib/api";
 
-const emptySubscribe = () => () => {};
-
 export default function Onboarding() {
-  const target = useSyncExternalStore(
-    emptySubscribe,
-    () => (window.top === window ? undefined : "_blank"),
-    () => "_blank"
-  );
-
   return (
     <div className="max-w-2xl mx-auto grid grid-flow-row gap-6 py-12 text-center bg-red-500 text-white rounded-lg p-8">
       <svg
@@ -120,12 +111,6 @@ const OnboardingMessage = ({ message, link }: OnboardingMessageProps) => {
 };
 
 export function PageOnboarding() {
-  const target = useSyncExternalStore(
-    emptySubscribe,
-    () => (window.top === window ? undefined : "_blank"),
-    () => "_blank"
-  );
-
   return (
     <div className="max-w-2xl mx-auto grid grid-flow-row gap-6 py-12 text-center bg-red-500 text-white rounded-lg p-8">
       <svg
