@@ -1,6 +1,6 @@
 import createImageUrlBuilder from "@sanity/image-url";
-import { dataset, projectId } from "@/sanity/lib/api";
 import { Link } from "@/sanity.types";
+import { dataset, projectId, studioUrl } from "@/sanity/lib/api";
 
 const imageBuilder = createImageUrlBuilder({
   projectId: projectId || "",
@@ -36,16 +36,31 @@ export function linkResolver(link: Link | undefined) {
     case "href":
       return link.href || null;
     case "page":
-      if (link?.page) {
+      if (link?.page && typeof link.page === "string") {
         return `/${link.page}`;
       }
-      return null;
     case "post":
-      if (link?.post) {
+      if (link?.post && typeof link.post === "string") {
         return `/posts/${link.post}`;
       }
-      return null;
     default:
       return null;
   }
+}
+
+type DataAttributeConfig = {
+  id: string;
+  type: string;
+  path: string;
+};
+
+export function createDataAttributeConfig(config: DataAttributeConfig) {
+  return {
+    projectId,
+    dataset,
+    baseUrl: studioUrl,
+    id: config.id,
+    type: config.type,
+    path: config.path,
+  };
 }

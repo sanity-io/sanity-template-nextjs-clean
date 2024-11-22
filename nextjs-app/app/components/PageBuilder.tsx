@@ -1,8 +1,12 @@
+"use client";
+
+import { createDataAttribute, SanityDocument } from "next-sanity";
+import { useOptimistic } from "next-sanity/hooks";
 import Link from "next/link";
 
 import BlockRenderer from "@/app/components/BlockRenderer";
 import { Page } from "@/sanity.types";
-import { studioUrl } from "@/sanity/lib/api";
+import { createDataAttributeConfig } from "@/sanity/lib/utils";
 
 type PageBuilderPageProps = {
   page: Page;
@@ -12,13 +16,47 @@ type PageBuilderPageProps = {
  * The PageBuilder component is used to render the blocks from the `pageBuilder` field in the Page type in your Sanity Studio.
  */
 export default function PageBuilder({ page }: PageBuilderPageProps) {
-  if (page?.pageBuilder && page.pageBuilder.length > 0) {
+  const pageBuilderSections = useOptimistic(
+    page.pageBuilder,
+    (currentSections, action) => {
+      // The action contains updated document data from Sanity
+      // when someone makes an edit in the Studio
+
+      // If the edit was to a different document, ignore it
+      if (action.id !== page._id) {
+        return currentSections;
+      }
+
+      // If there are sections in the updated document, use them
+      if (action.document.pageBuilder) {
+        return action.document.pageBuilder;
+      }
+
+      // Otherwise keep the current sections
+      return currentSections;
+    }
+  );
+
+  if (pageBuilderSections && pageBuilderSections.length > 0) {
     return (
-      <>
-        {page.pageBuilder.map((block: any, index: number) => (
-          <BlockRenderer key={block._key} index={index} block={block} />
+      <div
+        data-sanity={createDataAttribute(
+          createDataAttributeConfig({
+            id: page._id,
+            type: page._type,
+            path: `pageBuilder`,
+          })
+        ).toString()}
+      >
+        {pageBuilderSections.map((block: any, index: number) => (
+          <BlockRenderer
+            key={block._key}
+            index={index}
+            block={block}
+            page={page}
+          />
         ))}
-      </>
+      </div>
     );
   }
 
