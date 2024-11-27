@@ -343,7 +343,7 @@
           "value": {
             "type": "string"
           },
-          "optional": true
+          "optional": false
         },
         "text": {
           "type": "objectAttribute",

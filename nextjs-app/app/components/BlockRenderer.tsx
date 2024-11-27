@@ -18,7 +18,8 @@ type BlockType = {
 type BlockProps = {
   index: number;
   block: BlockType;
-  page: Page;
+  pageId: string;
+  pageType: string;
 };
 
 const Blocks: BlocksType = {
@@ -29,7 +30,12 @@ const Blocks: BlocksType = {
 /**
  * Used by the <PageBuilder>, this component renders a the component that matches the block type.
  */
-export default function BlockRenderer({ block, index, page }: BlockProps) {
+export default function BlockRenderer({
+  block,
+  index,
+  pageId,
+  pageType,
+}: BlockProps) {
   // Block does exist
   if (typeof Blocks[block._type] !== "undefined") {
     return (
@@ -37,8 +43,8 @@ export default function BlockRenderer({ block, index, page }: BlockProps) {
         key={block._key}
         data-sanity={createDataAttribute(
           createDataAttributeConfig({
-            id: page._id,
-            type: page._type,
+            id: pageId,
+            type: pageType,
             path: `pageBuilder[_key=="${block._key}"]`,
           })
         ).toString()}
@@ -58,6 +64,6 @@ export default function BlockRenderer({ block, index, page }: BlockProps) {
         A &ldquo;{block._type}&rdquo; block hasn&apos;t been created
       </div>
     ),
-    { key: block._id }
+    { key: block._key }
   );
 }

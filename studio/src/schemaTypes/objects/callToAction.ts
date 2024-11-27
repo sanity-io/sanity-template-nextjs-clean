@@ -8,7 +8,7 @@ import {BulbOutlineIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'callToAction',
-  title: 'Call to action',
+  title: 'Call to Action',
   type: 'object',
   icon: BulbOutlineIcon,
   validation: (Rule) =>
@@ -25,6 +25,7 @@ export default defineType({
       name: 'heading',
       title: 'Heading',
       type: 'string',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'text',
@@ -42,4 +43,17 @@ export default defineType({
       type: 'link',
     }),
   ],
+  preview: {
+    select: {
+      title: 'heading',
+    },
+    prepare(selection) {
+      const {title} = selection
+
+      return {
+        title: title,
+        subtitle: 'Call to Action',
+      }
+    },
+  },
 })
