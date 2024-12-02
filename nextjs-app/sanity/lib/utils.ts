@@ -1,6 +1,7 @@
 import createImageUrlBuilder from "@sanity/image-url";
 import { Link } from "@/sanity.types";
 import { dataset, projectId, studioUrl } from "@/sanity/lib/api";
+import { createDataAttribute, CreateDataAttributeProps } from "next-sanity";
 
 const imageBuilder = createImageUrlBuilder({
   projectId: projectId || "",
@@ -48,19 +49,13 @@ export function linkResolver(link: Link | undefined) {
   }
 }
 
-type DataAttributeConfig = {
-  id: string;
-  type: string;
-  path: string;
-};
+type DataAttributeConfig = CreateDataAttributeProps &
+  Required<Pick<CreateDataAttributeProps, "id" | "type" | "path">>;
 
-export function createDataAttributeConfig(config: DataAttributeConfig) {
-  return {
+export function dataAttr(config: DataAttributeConfig) {
+  return createDataAttribute({
     projectId,
     dataset,
     baseUrl: studioUrl,
-    id: config.id,
-    type: config.type,
-    path: config.path,
-  };
+  }).combine(config);
 }

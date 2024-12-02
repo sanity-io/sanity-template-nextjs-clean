@@ -1,12 +1,12 @@
 "use client";
 
-import { createDataAttribute, SanityDocument } from "next-sanity";
+import { SanityDocument } from "next-sanity";
 import { useOptimistic } from "next-sanity/hooks";
 import Link from "next/link";
 
 import BlockRenderer from "@/app/components/BlockRenderer";
 import { Page } from "@/sanity.types";
-import { createDataAttributeConfig } from "@/sanity/lib/utils";
+import { dataAttr } from "@/sanity/lib/utils";
 import { studioUrl } from "@/sanity/lib/api";
 
 type PageBuilderPageProps = {
@@ -31,13 +31,11 @@ type PageData = {
 function renderSections(pageBuilderSections: PageBuilderSection[], page: Page) {
   return (
     <div
-      data-sanity={createDataAttribute(
-        createDataAttributeConfig({
-          id: page._id,
-          type: page._type,
-          path: `pageBuilder`,
-        })
-      ).toString()}
+      data-sanity={dataAttr({
+        id: page._id,
+        type: page._type,
+        path: `pageBuilder`,
+      }).toString()}
     >
       {pageBuilderSections.map((block: any, index: number) => (
         <BlockRenderer

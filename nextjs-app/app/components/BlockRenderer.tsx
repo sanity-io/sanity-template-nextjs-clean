@@ -2,9 +2,7 @@ import React from "react";
 
 import Cta from "@/app/components/Cta";
 import Info from "@/app/components/InfoSection";
-import { createDataAttribute } from "next-sanity";
-import { createDataAttributeConfig } from "@/sanity/lib/utils";
-import { Page } from "@/sanity.types";
+import { dataAttr } from "@/sanity/lib/utils";
 
 type BlocksType = {
   [key: string]: React.FC<any>;
@@ -41,13 +39,11 @@ export default function BlockRenderer({
     return (
       <div
         key={block._key}
-        data-sanity={createDataAttribute(
-          createDataAttributeConfig({
-            id: pageId,
-            type: pageType,
-            path: `pageBuilder[_key=="${block._key}"]`,
-          })
-        ).toString()}
+        data-sanity={dataAttr({
+          id: pageId,
+          type: pageType,
+          path: `pageBuilder[_key=="${block._key}"]`,
+        }).toString()}
       >
         {React.createElement(Blocks[block._type], {
           key: block._key,
