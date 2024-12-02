@@ -28,10 +28,10 @@ export default defineType({
       title: 'heading',
       subtitle: 'subheading',
     },
-    prepare({title, subtitle}) {
+    prepare({title}) {
       return {
         title: title || 'Untitled Info Section',
-        subtitle: subtitle,
+        subtitle: 'Info Section',
       }
     },
   },

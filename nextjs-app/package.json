@@ -20,14 +20,14 @@
     "autoprefixer": "^10.4.20",
     "date-fns": "^3.6.0",
     "next": "^15.0.3",
-    "next-sanity": "^9.8.11",
+    "next-sanity": "^9.8.18",
     "postcss": "^8.4.49",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "sanity": "^3.63.0",
+    "sanity": "^3.65.0",
     "sonner": "^1.7.0",
     "styled-components": "^6.1.13",
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^3.4.15",
     "typescript": "5.6.3"
   },
   "devDependencies": {
