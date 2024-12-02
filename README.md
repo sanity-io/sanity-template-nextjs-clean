@@ -14,7 +14,7 @@ The Studio integrates with Sanity's Content Lake, offering hosted content APIs w
 - **Next.js 15, Fast and Performant:** Static site built with Next.js App Router for excellent speed and SEO.
 - **Real-time Visual Editing:** Use Sanity's [Presentation](https://www.sanity.io/docs/presentation) tools to see live updates as you edit.
 - **Live Content:** The [Live Content API](https://www.sanity.io/live) allows you to deliver live, dynamic experiences to your users without the complexity and scalability challenges that typically come with building real-time functionality.
-- **Customizable Pages:** Create and manage pages using a page builder with dynamic components.
+- **Customizable Pages with Drag-and-Drop:** Create and manage pages using a page builder with dynamic components and [Drag-and-Drop Visual Editing](https://www.sanity.io/visual-editing-for-structured-content).
 - **Powerful Content Management:** Collaborate with team members in real-time, with fine-grained revision history.
 - **AI-powered Media Support:** Auto-generate alt text with [Sanity AI Assist](https://www.sanity.io/ai-assist).
 - **On-demand Publishing:** No waiting for rebuilds—new content is live instantly with Incremental Static Revalidation.
