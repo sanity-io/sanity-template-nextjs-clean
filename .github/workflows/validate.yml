@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Validate Sanity Template
-        uses: sanity-io/template-validator@v0.1.5
+        uses: sanity-io/template-validator@v0.1.6
         with:
           repository: ${{ github.repository }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
