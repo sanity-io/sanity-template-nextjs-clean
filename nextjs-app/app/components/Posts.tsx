@@ -75,7 +75,7 @@ export const MorePosts = async ({ skip, limit }: MorePostsProps) => {
   }
 
   return (
-    <Posts heading={`Recent blog posts from Sanity (${data?.length})`}>
+    <Posts heading={`Recent Posts (${data?.length})`}>
       {data?.map((post: any) => <Post key={post._id} post={post} />)}
     </Posts>
   );
@@ -90,7 +90,7 @@ export const AllPosts = async () => {
 
   return (
     <Posts
-      heading="Blog posts from Sanity"
+      heading="Recent Posts"
       subHeading={`${data.length === 1 ? "This blog post is" : `These ${data.length} blog posts are`} populated from your Sanity Studio.`}
     >
       {data.map((post: any) => (
