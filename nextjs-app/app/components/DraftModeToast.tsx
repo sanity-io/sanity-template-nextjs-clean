@@ -28,11 +28,12 @@ export default function DraftModeToast() {
         duration: Infinity,
         action: {
           label: "Disable",
-          onClick: () =>
-            startTransition(async () => {
-              await disableDraftMode();
-              startTransition(() => router.refresh());
-            }),
+          onClick: async () => {
+            await disableDraftMode();
+            startTransition(() => {
+              router.refresh();
+            });
+          },
         },
       });
       return () => {

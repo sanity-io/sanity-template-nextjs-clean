@@ -1,6 +1,5 @@
 {
   "name": "sanity-template-nextjs-clean",
-  "version": "2.0.0",
   "description": "Next.js + Sanity: A Powerful Website Starter with Real-time Visual Editing",
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=nextjs-app\" \"npm run dev --workspace=studio\""
