@@ -44,7 +44,7 @@ npx sanity dataset import demoData.tar.gz <your dataset name>
 
 #### 3. Run both the website and Sanity Studio locally
 
-To run both apps locally you can simply run. the first command here. However, you still have the ability of running your website app and Sanity Studio app separately by changing directories into each of them and running `dev`
+To run both apps locally you can simply run the first command here. However, you still have the ability to run your website app and Sanity Studio app separately by changing directories into each of them and running `npm run dev`.
 
 ```shell
 npm run dev
@@ -68,7 +68,7 @@ npm run dev
 
 Use this command to deploy your Studio. If you’ve set a `SANITY_STUDIO_STUDIO_HOST` in `.env.production`, your Studio will deploy to `<SANITY_STUDIO_STUDIO_HOST>.sanity.studio` _if the subdomain is available_. Otherwise you'll be prompted to enter a Studio Hostname.
 
-> Optionally, you have the freedom to host your Studiowith the provider of your choice. [Learn more](https://www.sanity.io/docs/deployment) about hosting you Sanity Studio.
+> Optionally, you have the freedom to host your Studio with the provider of your choice. [Learn more](https://www.sanity.io/docs/deployment) about hosting you Sanity Studio.
 
 ```shell
 npx sanity deploy
