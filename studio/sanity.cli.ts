@@ -16,4 +16,5 @@ export default defineCliConfig({
     dataset,
   },
   studioHost: process.env.SANITY_STUDIO_STUDIO_HOST,
+  autoUpdates: true,
 })
