@@ -60,6 +60,6 @@ export default function BlockRenderer({
         A &ldquo;{block._type}&rdquo; block hasn&apos;t been created
       </div>
     ),
-    { key: block._key }
+    { key: block._key },
   );
 }
