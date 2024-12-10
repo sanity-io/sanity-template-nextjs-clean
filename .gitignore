@@ -2,21 +2,9 @@
 
 # dependencies
 /node_modules
-/studio/node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# sanity
-/.sanity/
-/dist/
 
 # misc
 .DS_Store
@@ -29,6 +17,8 @@ yarn-error.log*
 
 # env files
 .env*
+!.env.template
+!.env.*.template
 
 # vercel
 .vercel

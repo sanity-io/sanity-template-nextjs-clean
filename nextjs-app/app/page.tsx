@@ -36,7 +36,7 @@ export default async function Page() {
               </p>
             </div>
             <div className="flex items-center flex-col gap-4">
-              <GetStartedCode code="npm create sanity@latest" />
+              <GetStartedCode />
               <Link
                 href="https://www.sanity.io/docs"
                 className="inline-flex text-red-500 text-xs md:text-sm underline hover:text-gray-900"
@@ -60,9 +60,7 @@ export default async function Page() {
       <div className="border-t border-gray-10">
         <div className="container">
           <aside className="py-12 sm:py-20">
-            <Suspense>
-              <AllPosts />
-            </Suspense>
+            <Suspense>{await AllPosts()}</Suspense>
           </aside>
         </div>
       </div>
