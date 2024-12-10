@@ -91,7 +91,7 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
       // Reconcile References. https://www.sanity.io/docs/enabling-drag-and-drop#ffe728eea8c1
       return action.document.pageBuilder.map(
         (section) =>
-          currentSections?.find((s) => s._key === section?._key) || section
+          currentSections?.find((s) => s._key === section?._key) || section,
       );
     }
 
