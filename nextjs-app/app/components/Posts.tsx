@@ -6,11 +6,7 @@ import { Post as PostType } from "@/sanity.types";
 import DateComponent from "@/app/components/Date";
 import OnBoarding from "@/app/components/Onboarding";
 
-type PostProps = {
-  post: PostType;
-};
-
-const Post = ({ post }: PostProps) => {
+const Post = ({ post }: { post: PostType }) => {
   const { _id, title, slug, excerpt, date } = post;
 
   return (
@@ -37,13 +33,15 @@ const Post = ({ post }: PostProps) => {
   );
 };
 
-type PostsProps = {
+const Posts = ({
+  children,
+  heading,
+  subHeading,
+}: {
   children: React.ReactNode;
   heading?: string;
   subHeading?: string;
-};
-
-const Posts = ({ children, heading, subHeading }: PostsProps) => (
+}) => (
   <div>
     {heading && (
       <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
@@ -59,12 +57,13 @@ const Posts = ({ children, heading, subHeading }: PostsProps) => (
   </div>
 );
 
-type MorePostsProps = {
+export const MorePosts = async ({
+  skip,
+  limit,
+}: {
   skip: string;
   limit: number;
-};
-
-export const MorePosts = async ({ skip, limit }: MorePostsProps) => {
+}) => {
   const { data } = await sanityFetch({
     query: morePostsQuery,
     params: { skip, limit },
