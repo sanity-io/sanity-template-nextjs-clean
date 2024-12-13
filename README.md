@@ -57,9 +57,9 @@ From the Studio, click "+ Create" and select the `Post` document type. Go ahead 
 
 Your content should now appear in your Next.js app ([http://localhost:3000](http://localhost:3000)) as well as in the Studio on the "Presentation" Tab
 
-#### 2. Import Demo Data (optional)
+#### 2. Import Sample Data (optional)
 
-You may want to start with some sample content and we've got you covered. Run this command from `/studio` directory to import the provided dataset (demoData.tar.gz) into your Sanity project. This step is optional but can be helpful for getting started quickly.
+You may want to start with some sample content and we've got you covered. Run this command from the root of your project to import the provided dataset (sample-data.tar.gz) into your Sanity project. This step is optional but can be helpful for getting started quickly.
 
 ```shell
 npx sanity dataset import demoData.tar.gz <your dataset name>
