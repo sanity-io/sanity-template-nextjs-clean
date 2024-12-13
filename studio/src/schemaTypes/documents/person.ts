@@ -8,7 +8,7 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'person',
-  title: 'People',
+  title: 'Person',
   icon: UserIcon,
   type: 'document',
   fields: [

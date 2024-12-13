@@ -9,7 +9,7 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'post',
-  title: 'Posts',
+  title: 'Post',
   icon: DocumentTextIcon,
   type: 'document',
   fields: [
