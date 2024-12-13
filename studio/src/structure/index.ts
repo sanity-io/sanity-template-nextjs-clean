@@ -1,4 +1,5 @@
 import {CogIcon} from '@sanity/icons'
+import type {StructureResolver} from 'sanity/structure'
 
 /**
  * Structure builder is useful whenever you want to control how documents are grouped and
@@ -6,15 +7,14 @@ import {CogIcon} from '@sanity/icons'
  * Learn more: https://www.sanity.io/docs/structure-builder-introduction
  */
 
-export const structure = (S: any) =>
+export const structure: StructureResolver = (S: any) =>
   S.list()
     .title('Website Content')
     .items([
-      // Filter out "AI Assist Context" and "Settings" content from the list of content types
-      ...S.documentTypeListItems().filter(
-        (listItem: any) => !['settings', 'assist.instruction.context'].includes(listItem.getId()),
-      ),
-      // Manually add the Settings Singleton in order to view/edit the one particular document for Settings.  Learn more about Singletons: https://www.sanity.io/docs/create-a-link-to-a-single-edit-page-in-your-main-document-type-list
+      S.documentTypeListItem('post').title('Posts'),
+      S.documentTypeListItem('page').title('Pages'),
+      S.documentTypeListItem('person').title('People'),
+      // Settings Singleton in order to view/edit the one particular document for Settings.  Learn more about Singletons: https://www.sanity.io/docs/create-a-link-to-a-single-edit-page-in-your-main-document-type-list
       S.listItem()
         .title('Site Settings')
         .child(S.document().schemaType('settings').documentId('siteSettings'))
