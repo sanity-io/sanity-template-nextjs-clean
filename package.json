@@ -2,7 +2,8 @@
   "name": "sanity-template-nextjs-clean",
   "description": "Next.js + Sanity: A Powerful Website Starter with Real-time Visual Editing",
   "scripts": {
-    "dev": "concurrently \"npm run dev --workspace=nextjs-app\" \"npm run dev --workspace=studio\""
+    "dev": "concurrently \"npm run dev --workspace=nextjs-app\" \"npm run dev --workspace=studio\"",
+    "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --replace"
   },
   "keywords": [
     "Sanity",
