@@ -6,7 +6,7 @@ import {DocumentIcon} from '@sanity/icons'
  * Learn more: https://www.sanity.io/docs/schema-types
  */
 
-export default defineType({
+export const page = defineType({
   name: 'page',
   title: 'Page',
   type: 'document',

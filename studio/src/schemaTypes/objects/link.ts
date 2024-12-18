@@ -7,7 +7,7 @@ import {LinkIcon} from '@sanity/icons'
  * Learn more: https://www.sanity.io/docs/object-type
  */
 
-export default defineType({
+export const link = defineType({
   name: 'link',
   title: 'Link',
   type: 'object',

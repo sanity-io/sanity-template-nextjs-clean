@@ -8,7 +8,7 @@ import * as demo from '../../lib/initialValues'
  * Learn more: https://www.sanity.io/docs/create-a-link-to-a-single-edit-page-in-your-main-document-type-list
  */
 
-export default defineType({
+export const settings = defineType({
   name: 'settings',
   title: 'Settings',
   type: 'document',
