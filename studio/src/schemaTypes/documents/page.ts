@@ -8,7 +8,7 @@ import {DocumentIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'page',
-  title: 'Pages',
+  title: 'Page',
   type: 'document',
   icon: DocumentIcon,
   fields: [
