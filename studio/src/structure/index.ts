@@ -1,5 +1,6 @@
 import {CogIcon} from '@sanity/icons'
 import type {StructureBuilder, StructureResolver} from 'sanity/structure'
+import pluralize from 'pluralize-esm'
 
 /**
  * Structure builder is useful whenever you want to control how documents are grouped and
@@ -13,10 +14,13 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
   S.list()
     .title('Website Content')
     .items([
-      ...S.documentTypeListItems().filter(
+      ...S.documentTypeListItems()
         // Remove the "assist.instruction.context" and "settings" content  from the list of content types
-        (listItem: any) => !DISABLED_TYPES.includes(listItem.getId()),
-      ),
+        .filter((listItem: any) => !DISABLED_TYPES.includes(listItem.getId()))
+        // Pluralize the title of each document type.  This is not required but just an option to consider.
+        .map((listItem) => {
+          return listItem.title(pluralize(listItem.getTitle() as string))
+        }),
       // Settings Singleton in order to view/edit the one particular document for Settings.  Learn more about Singletons: https://www.sanity.io/docs/create-a-link-to-a-single-edit-page-in-your-main-document-type-list
       S.listItem()
         .title('Site Settings')
