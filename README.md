@@ -21,7 +21,7 @@ https://template-nextjs-clean.sanity.dev
 
 ## Getting Started
 
-### Install the template
+### Installing the template
 
 #### 1. Initialize template with Sanity CLI
 

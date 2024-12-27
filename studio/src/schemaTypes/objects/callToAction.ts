@@ -6,7 +6,7 @@ import {BulbOutlineIcon} from '@sanity/icons'
  * Learn more: https://www.sanity.io/docs/object-type
  */
 
-export default defineType({
+export const callToAction = defineType({
   name: 'callToAction',
   title: 'Call to Action',
   type: 'object',
