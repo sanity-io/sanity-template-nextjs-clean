@@ -7,7 +7,7 @@ import {defineField, defineType} from 'sanity'
  * Learn more: https://www.sanity.io/docs/schema-types
  */
 
-export default defineType({
+export const post = defineType({
   name: 'post',
   title: 'Post',
   icon: DocumentTextIcon,

@@ -6,7 +6,7 @@ import {defineField, defineType} from 'sanity'
  * Learn more: https://www.sanity.io/docs/schema-types
  */
 
-export default defineType({
+export const person = defineType({
   name: 'person',
   title: 'Person',
   icon: UserIcon,
