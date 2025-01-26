@@ -13,13 +13,17 @@ const postFields = /* groq */ `
   "author": author->{firstName, lastName, picture},
 `;
 
+const linkReference = /* groq */ `
+  _type == "link" => {
+    "page": page->slug.current,
+    "post": post->slug.current
+  }
+`;
+
 const linkFields = /* groq */ `
   link {
       ...,
-      _type == "link" => {
-        "page": page->slug.current,
-        "post": post->slug.current
-        }
+      ${linkReference}
       }
 `;
 
@@ -59,7 +63,7 @@ export const postQuery = defineQuery(`
     ...,
     markDefs[]{
       ...,
-      ${linkFields}
+      ${linkReference}
     }
   },
     ${postFields}
