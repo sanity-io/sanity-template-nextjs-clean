@@ -15,25 +15,25 @@
     "@sanity/image-url": "^1.1.0",
     "@sanity/uuid": "^3.0.2",
     "@tailwindcss/typography": "^0.5.15",
-    "@types/node": "^20.14.13",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
     "@vercel/speed-insights": "^1.1.0",
     "autoprefixer": "^10.4.20",
     "date-fns": "^3.6.0",
-    "next": "^15.0.4",
-    "next-sanity": "^9.8.18",
-    "postcss": "^8.4.49",
+    "next": "^15.1.6",
+    "next-sanity": "^9.8.42",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sanity": "^3.65.0",
+    "sanity": "^3.71.2",
     "sonner": "^1.7.0",
-    "styled-components": "^6.1.13",
-    "tailwindcss": "^3.4.15",
-    "typescript": "5.6.3"
+    "styled-components": "^6.1.13"
   },
   "devDependencies": {
+    "typescript": "5.6.3",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^15.0.3"
+    "@types/react-dom": "^18.3.1",
+    "@types/node": "^20.14.13",
+    "@types/react": "^18.3.12",
+    "eslint-config-next": "^15.0.3",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15"
   }
 }
