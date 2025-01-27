@@ -4,7 +4,7 @@ import Head from "next/head";
 import PageBuilderPage from "@/app/components/PageBuilder";
 import { sanityFetch } from "@/sanity/lib/live";
 import { getPageQuery, pagesSlugs } from "@/sanity/lib/queries";
-import { Page as PageType } from "@/sanity.types";
+import { GetPageQueryResult } from "@/sanity.types";
 import { PageOnboarding } from "@/app/components/Onboarding";
 
 type Props = {
@@ -77,7 +77,7 @@ export default async function Page(props: Props) {
           </div>
         </div>
       </div>
-      <PageBuilderPage page={page as PageType} />
+      <PageBuilderPage page={page as GetPageQueryResult} />
     </div>
   );
 }

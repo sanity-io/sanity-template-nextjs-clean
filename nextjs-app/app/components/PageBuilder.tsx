@@ -5,12 +5,12 @@ import { useOptimistic } from "next-sanity/hooks";
 import Link from "next/link";
 
 import BlockRenderer from "@/app/components/BlockRenderer";
-import { Page } from "@/sanity.types";
+import { GetPageQueryResult } from "@/sanity.types";
 import { dataAttr } from "@/sanity/lib/utils";
 import { studioUrl } from "@/sanity/lib/api";
 
 type PageBuilderPageProps = {
-  page: Page;
+  page: GetPageQueryResult;
 };
 
 type PageBuilderSection = {
@@ -28,7 +28,13 @@ type PageData = {
  * The PageBuilder component is used to render the blocks from the `pageBuilder` field in the Page type in your Sanity Studio.
  */
 
-function renderSections(pageBuilderSections: PageBuilderSection[], page: Page) {
+function renderSections(
+  pageBuilderSections: PageBuilderSection[],
+  page: GetPageQueryResult
+) {
+  if (!page) {
+    return null;
+  }
   return (
     <div
       data-sanity={dataAttr({
@@ -50,7 +56,10 @@ function renderSections(pageBuilderSections: PageBuilderSection[], page: Page) {
   );
 }
 
-function renderEmptyState(page: Page) {
+function renderEmptyState(page: GetPageQueryResult) {
+  if (!page) {
+    return null;
+  }
   return (
     <div className="container">
       <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
@@ -77,12 +86,12 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
   const pageBuilderSections = useOptimistic<
     PageBuilderSection[] | undefined,
     SanityDocument<PageData>
-  >(page?.pageBuilder, (currentSections, action) => {
+  >(page?.pageBuilder || [], (currentSections, action) => {
     // The action contains updated document data from Sanity
     // when someone makes an edit in the Studio
 
     // If the edit was to a different document, ignore it
-    if (action.id !== page._id) {
+    if (action.id !== page?._id) {
       return currentSections;
     }
 
@@ -91,13 +100,17 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
       // Reconcile References. https://www.sanity.io/docs/enabling-drag-and-drop#ffe728eea8c1
       return action.document.pageBuilder.map(
         (section) =>
-          currentSections?.find((s) => s._key === section?._key) || section,
+          currentSections?.find((s) => s._key === section?._key) || section
       );
     }
 
     // Otherwise keep the current sections
     return currentSections;
   });
+
+  if (!page) {
+    return renderEmptyState(page);
+  }
 
   return pageBuilderSections && pageBuilderSections.length > 0
     ? renderSections(pageBuilderSections, page)
