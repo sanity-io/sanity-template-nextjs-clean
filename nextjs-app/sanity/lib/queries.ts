@@ -45,21 +45,11 @@ export const getPageQuery = defineQuery(`
   }
 `);
 
-export const allPagesQuery = defineQuery(`
-  *[_type == "page" && defined(slug.current)] | order(date desc, _updatedAt desc) {
-    _id,
+export const sitemapData = defineQuery(`
+  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {
+    "slug": slug.current,
     _type,
-    name,
-    slug,
-    heading,
-    subheading,
-    "pageBuilder": pageBuilder[]{
-      ...,
-      _type == "callToAction" => {
-        ...,
-        ${linkFields},
-      }
-    },
+    _updatedAt,
   }
 `);
 
