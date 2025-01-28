@@ -45,6 +45,24 @@ export const getPageQuery = defineQuery(`
   }
 `);
 
+export const allPagesQuery = defineQuery(`
+  *[_type == "page" && defined(slug.current)] | order(date desc, _updatedAt desc) {
+    _id,
+    _type,
+    name,
+    slug,
+    heading,
+    subheading,
+    "pageBuilder": pageBuilder[]{
+      ...,
+      _type == "callToAction" => {
+        ...,
+        ${linkFields},
+      }
+    },
+  }
+`);
+
 export const allPostsQuery = defineQuery(`
   *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {
     ${postFields}

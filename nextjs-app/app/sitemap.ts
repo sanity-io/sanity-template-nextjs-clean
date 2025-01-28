@@ -1,29 +1,41 @@
 import { MetadataRoute } from "next";
 import { sanityFetch } from "@/sanity/lib/live";
-import { allPostsQuery } from "@/sanity/lib/queries";
+import { allPagesQuery, allPostsQuery } from "@/sanity/lib/queries";
 import { headers } from 'next/headers';
 
-
+// TODO change Frequency accordingly
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const { data } = await sanityFetch({query: allPostsQuery});
+    const allPosts = await sanityFetch({query: allPostsQuery});
+    const allPages = await sanityFetch({query: allPagesQuery});
     const headersList = await headers();
     const sitemap: MetadataRoute.Sitemap = [];
-
+    const domain: String = headersList.get("host") as string;
     sitemap.push({
-        url: headersList.get("host") as string,
+        url: domain as string,
         lastModified: new Date(),
         priority: 1,
-        changeFrequency: "monthly" // Change accordingly
+        changeFrequency: "monthly"
     })
 
-    if (data.length != 0) {
-        for (const p of data) {
+    if (allPosts != null && allPosts.data.length != 0) {
+        for (const p of allPosts.data) {
+            sitemap.push({
+                lastModified: new Date(),
+                priority: .5,
+                changeFrequency: "never",
+                url: `${domain}/posts/${p.slug}`
+            });
+        }
+    }
+
+    if (allPosts != null && allPages.data.length != 0) {
+        for (const p of allPages.data) {
             sitemap.push({
                 lastModified: new Date(),
                 priority: .8,
-                changeFrequency: "never",
-                url: `posts/${p.slug}`
-            })
+                changeFrequency: "monthly",
+                url: `${domain}/${p.slug}`
+            });
         }
     }
 

@@ -48,7 +48,7 @@ If you want to start with some sample content, you can import the provided datas
 To import the dataset, run the following command in your terminal:
 
 ```bash
-npx sanity dataset import demoData.tar.gz production
+npx sanity dataset import sample-data.tar.gz production
 ```
 
 This assumes your dataset is named `production`. If your dataset is named differently, replace `production` with the name of your dataset.
