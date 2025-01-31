@@ -11,7 +11,7 @@
     "typegen": "sanity typegen generate"
   },
   "dependencies": {
-    "@sanity/client": "^6.22.5",
+    "@sanity/client": "^6.24.0",
     "@sanity/image-url": "^1.1.0",
     "@sanity/uuid": "^3.0.2",
     "@tailwindcss/typography": "^0.5.15",
@@ -19,10 +19,10 @@
     "autoprefixer": "^10.4.20",
     "date-fns": "^3.6.0",
     "next": "^15.1.6",
-    "next-sanity": "^9.8.42",
+    "next-sanity": "^9.8.32",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sanity": "^3.71.2",
+    "sanity": "3.72.2-corel.577",
     "sonner": "^1.7.0",
     "styled-components": "^6.1.13"
   },

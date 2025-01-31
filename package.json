@@ -5,7 +5,7 @@
     "dev": "npm-run-all --parallel dev:*",
     "dev:next": "npm run dev --workspace=nextjs-app",
     "dev:studio": "npm run dev --workspace=studio",
-    "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --replace"
+    "import-sample-data": "cd studio && npx sanity dataset import sample-data.tar.gz --replace"
   },
   "keywords": [
     "Sanity",
