@@ -532,7 +532,7 @@ export type GetPageQueryResult = {
     _type: "infoSection";
     heading?: string;
     subheading?: string;
-    content?: Array<{
+    content: Array<{
       children?: Array<{
         marks?: Array<string>;
         text?: string;
@@ -541,29 +541,19 @@ export type GetPageQueryResult = {
       }>;
       style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
       listItem?: "bullet" | "number";
-      markDefs?: Array<{
+      markDefs: Array<{
         linkType?: "href" | "page" | "post";
         href?: string;
-        page?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "page";
-        };
-        post?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "post";
-        };
+        page: string | null;
+        post: string | null;
         openInNewTab?: boolean;
         _type: "link";
         _key: string;
-      }>;
+      }> | null;
       level?: number;
       _type: "block";
       _key: string;
-    }>;
+    }> | null;
   }> | null;
 } | null;
 // Variable: sitemapData
