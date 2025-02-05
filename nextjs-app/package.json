@@ -11,10 +11,10 @@
     "typegen": "sanity typegen generate"
   },
   "dependencies": {
-    "@sanity/client": "^6.22.5",
+    "@sanity/client": "^6.27.2",
     "@sanity/image-url": "^1.1.0",
     "@sanity/uuid": "^3.0.2",
-    "@tailwindcss/typography": "^0.5.15",
+    "@tailwindcss/typography": "^0.5.16",
     "@vercel/speed-insights": "^1.1.0",
     "autoprefixer": "^10.4.20",
     "date-fns": "^3.6.0",
@@ -22,17 +22,17 @@
     "next-sanity": "^9.8.42",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sanity": "^3.71.2",
+    "sanity": "^3.74.0",
     "sonner": "^1.7.0",
     "styled-components": "^6.1.13"
   },
   "devDependencies": {
     "typescript": "5.6.3",
     "eslint": "^8.57.0",
-    "@types/react-dom": "^18.3.1",
-    "@types/node": "^20.14.13",
-    "@types/react": "^18.3.12",
-    "eslint-config-next": "^15.0.3",
+    "@types/react-dom": "^18.3.5",
+    "@types/node": "^20.17.17",
+    "@types/react": "^18.3.18",
+    "eslint-config-next": "^15.1.6",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15"
   }
