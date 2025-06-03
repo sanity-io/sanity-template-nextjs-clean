@@ -14,6 +14,7 @@
     "@sanity/client": "^7.4.0",
     "@sanity/image-url": "^1.1.0",
     "@sanity/uuid": "^3.0.2",
+    "@tailwindcss/postcss": "^4.1.8",
     "@tailwindcss/typography": "^0.5.16",
     "@vercel/speed-insights": "^1.1.0",
     "autoprefixer": "^10.4.20",
@@ -25,7 +26,7 @@
     "sanity": "^3.74.0",
     "sonner": "^1.7.0",
     "styled-components": "^6.1.13",
-    "postcss": "^8.4.49",
+    "postcss": "^8.5.4",
     "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
