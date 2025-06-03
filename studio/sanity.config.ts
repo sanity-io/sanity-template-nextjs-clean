@@ -65,6 +65,10 @@ export default defineConfig({
         // The Main Document Resolver API provides a method of resolving a main document from a given route or route pattern. https://www.sanity.io/docs/presentation-resolver-api#57720a5678d9
         mainDocuments: defineDocuments([
           {
+            route: '/',
+            filter: `_type == "settings" && _id == "siteSettings"`,
+          },
+          {
             route: '/:slug',
             filter: `_type == "page" && slug.current == $slug || _id == $slug`,
           },
