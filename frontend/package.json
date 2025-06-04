@@ -23,7 +23,7 @@
     "next-sanity": "^9.8.42",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sanity": "^3.74.0",
+    "sanity": "^3.91.0",
     "sonner": "^1.7.0",
     "styled-components": "^6.1.13",
     "postcss": "^8.5.4",

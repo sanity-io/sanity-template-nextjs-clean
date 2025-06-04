@@ -47,7 +47,7 @@ function resolveHref(documentType?: string, slug?: string): string | undefined {
 // Main Sanity configuration
 export default defineConfig({
   name: 'default',
-  title: 'Clean Next.js + Sanity',
+  title: 'Sanity + Next.js Starter Template',
 
   projectId,
   dataset,
