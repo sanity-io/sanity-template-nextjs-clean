@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+@utility container {
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@theme {
+  --shadow-layer: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+
+  --color-framework: #000;
+  --color-black: #0b0b0b;
+  --color-white: #fff;
+  --color-brand: #f50;
+  --color-blue: #0052ff;
+  --color-yellow: #cdea19;
+  --color-gray-50: #f6f6f8;
+  --color-gray-100: #eeeef1;
+  --color-gray-200: #e3e4e8;
+  --color-gray-300: #bbbdc9;
+  --color-gray-400: #9499ad;
+  --color-gray-500: #727892;
+  --color-gray-600: #515870;
+  --color-gray-700: #383d51;
+  --color-gray-800: #252837;
+  --color-gray-900: #1b1d27;
+  --color-gray-950: #13141b;
+
+  --font-display: "Inter", "sans-serif";
+  --font-sans: "Inter", "sans-serif";
+
+  --default-transition-duration: 250ms;
+}

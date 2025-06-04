@@ -47,7 +47,7 @@ function resolveHref(documentType?: string, slug?: string): string | undefined {
 // Main Sanity configuration
 export default defineConfig({
   name: 'default',
-  title: 'Clean Next.js + Sanity',
+  title: 'Sanity + Next.js Starter Template',
 
   projectId,
   dataset,
@@ -64,6 +64,10 @@ export default defineConfig({
       resolve: {
         // The Main Document Resolver API provides a method of resolving a main document from a given route or route pattern. https://www.sanity.io/docs/presentation-resolver-api#57720a5678d9
         mainDocuments: defineDocuments([
+          {
+            route: '/',
+            filter: `_type == "settings" && _id == "siteSettings"`,
+          },
           {
             route: '/:slug',
             filter: `_type == "page" && slug.current == $slug || _id == $slug`,

@@ -35,7 +35,7 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata(
   props: Props,
-  parent: ResolvingMetadata,
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
   const params = await props.params;
   const { data: post } = await sanityFetch({
@@ -91,7 +91,9 @@ export default async function PostPage(props: Props) {
             </div>
             <article className="gap-6 grid max-w-4xl">
               <div className="">
-                <CoverImage image={post.coverImage} priority />
+                {post?.coverImage && (
+                  <CoverImage image={post.coverImage} priority />
+                )}
               </div>
               {post.content?.length && (
                 <PortableText
@@ -103,8 +105,8 @@ export default async function PostPage(props: Props) {
           </div>
         </div>
       </div>
-      <div className="border-t border-gray-100">
-        <div className="container my-12 lg:my-24 grid gap-12">
+      <div className="border-t border-gray-100 bg-gray-50">
+        <div className="container py-12 lg:py-24 grid gap-12">
           <aside>
             <Suspense>{await MorePosts({ skip: post._id, limit: 2 })}</Suspense>
           </aside>

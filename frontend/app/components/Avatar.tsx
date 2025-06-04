@@ -9,25 +9,26 @@ type Props = {
     lastName: string | null;
     picture?: any;
   };
-  date: string;
+  date?: string;
+  small?: boolean;
 };
 
-export default function Avatar({ person, date }: Props) {
+export default function Avatar({ person, date, small = false }: Props) {
   const { firstName, lastName, picture } = person;
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center font-mono">
       {picture?.asset?._ref ? (
-        <div className="mr-4 h-9 w-9">
+        <div className={`${small ? "h-6 w-6 mr-2" : "h-9 w-9 mr-4"}`}>
           <Image
             alt={picture?.alt || ""}
             className="h-full rounded-full object-cover"
-            height={48}
-            width={48}
+            height={small ? 32 : 48}
+            width={small ? 32 : 48}
             src={
               urlForImage(picture)
-                ?.height(96)
-                .width(96)
+                ?.height(small ? 64 : 96)
+                .width(small ? 64 : 96)
                 .fit("crop")
                 .url() as string
             }
@@ -38,11 +39,11 @@ export default function Avatar({ person, date }: Props) {
       )}
       <div className="flex flex-col">
         {firstName && lastName && (
-          <div className="font-bold">
+          <div className={`font-bold ${small ? "text-sm" : ""}`}>
             {firstName} {lastName}
           </div>
         )}
-        <div className="text-gray-500 text-sm">
+        <div className={`text-gray-500 ${small ? "text-xs" : "text-sm"}`}>
           <DateComponent dateString={date} />
         </div>
       </div>

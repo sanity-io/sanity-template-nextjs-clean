@@ -30,7 +30,7 @@ type PageData = {
 
 function renderSections(
   pageBuilderSections: PageBuilderSection[],
-  page: GetPageQueryResult,
+  page: GetPageQueryResult
 ) {
   if (!page) {
     return null;
@@ -70,7 +70,7 @@ function renderEmptyState(page: GetPageQueryResult) {
       </p>
       <div className="mt-10 flex">
         <Link
-          className="rounded-full flex gap-2 mr-6 items-center bg-black hover:bg-red-500 focus:bg-cyan-500 py-3 px-6 text-white transition-colors duration-200"
+          className="rounded-full flex gap-2 mr-6 items-center bg-black hover:bg-brand focus:bg-blue py-3 px-6 text-white transition-colors duration-200"
           href={`${studioUrl}/structure/intent/edit/template=page;type=page;path=pageBuilder;id=${page._id}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -100,7 +100,7 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
       // Reconcile References. https://www.sanity.io/docs/enabling-drag-and-drop#ffe728eea8c1
       return action.document.pageBuilder.map(
         (section) =>
-          currentSections?.find((s) => s._key === section?._key) || section,
+          currentSections?.find((s) => s._key === section?._key) || section
       );
     }
 
