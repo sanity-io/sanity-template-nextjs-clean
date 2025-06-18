@@ -11,23 +11,23 @@
     "typegen": "sanity typegen generate"
   },
   "dependencies": {
-    "@sanity/client": "^7.4.0",
+    "@sanity/client": "^7.6.0",
     "@sanity/image-url": "^1.1.0",
     "@sanity/uuid": "^3.0.2",
-    "@tailwindcss/postcss": "^4.1.8",
+    "@tailwindcss/postcss": "^4.1.10",
     "@tailwindcss/typography": "^0.5.16",
     "@vercel/speed-insights": "^1.1.0",
     "autoprefixer": "^10.4.20",
     "date-fns": "^3.6.0",
-    "next": "^15.1.6",
-    "next-sanity": "^9.8.42",
+    "next": "^15.3.4",
+    "next-sanity": "^9.12.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sanity": "^3.91.0",
+    "sanity": "^3.93.0",
     "sonner": "^1.7.0",
     "styled-components": "^6.1.13",
-    "postcss": "^8.5.4",
-    "tailwindcss": "^4.1.8"
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.10"
   },
   "devDependencies": {
     "typescript": "5.6.3",
