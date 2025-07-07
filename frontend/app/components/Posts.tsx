@@ -90,7 +90,9 @@ export const MorePosts = async ({
 
   return (
     <Posts heading={`Recent Posts (${data?.length})`}>
-      {data?.map((post: any) => <Post key={post._id} post={post} />)}
+      {data?.map((post: any) => (
+        <Post key={post._id} post={post} />
+      ))}
     </Posts>
   );
 };
