@@ -1,8 +1,5 @@
-import { Suspense } from "react";
 import Image from "next/image";
-import { PortableText } from "@portabletext/react";
 
-import { AllPosts } from "@/app/components/Posts";
 import { getPageQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/live";
 import { client } from "@/sanity/lib/client";
@@ -125,15 +122,6 @@ export default async function Page() {
           </div>
         </section>
       )}
-
-      {/* Original content sections */}
-      <div className="border-t border-gray-100 bg-gray-50">
-        <div className="container">
-          <aside className="py-12 sm:py-20">
-            <Suspense>{await AllPosts()}</Suspense>
-          </aside>
-        </div>
-      </div>
 
       <footer className="bg-gray-900 text-white text-center py-6">
         <p>&copy; {new Date().getFullYear()} {data.title || "Your Business"}. All rights reserved.</p>
