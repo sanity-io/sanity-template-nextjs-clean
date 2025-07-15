@@ -60,16 +60,7 @@ export const page = defineType({
       name: 'services',
       title: 'Services',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'title', type: 'string', title: 'Service Title' },
-            { name: 'description', type: 'text', title: 'Description' },
-            { name: 'icon', type: 'image', title: 'Service Icon' },
-          ],
-        },
-      ],
+      of: [{type: 'service'}],
     }),
     defineField({
       name: 'carouselImages',
@@ -81,25 +72,12 @@ export const page = defineType({
       name: 'testimonials',
       title: 'Testimonials',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'name', type: 'string', title: 'Customer Name' },
-            { name: 'quote', type: 'text', title: 'Testimonial' },
-          ],
-        },
-      ],
+      of: [{type: 'testimonial'}],
     }),
     defineField({
       name: 'contactInfo',
       title: 'Contact Info',
-      type: 'object',
-      fields: [
-        { name: 'phone', type: 'string', title: 'Phone Number' },
-        { name: 'email', type: 'string', title: 'Email Address' },
-        { name: 'address', type: 'string', title: 'Address' },
-      ],
+      type: 'contactInfo',
     }),
     defineField({
       name: 'pageBuilder',
