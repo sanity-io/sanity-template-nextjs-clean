@@ -41,6 +41,67 @@ export const page = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'title',
+      title: 'Page Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'heroImage',
+      title: 'Hero Image',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'heroText',
+      title: 'Hero Text',
+      type: 'string',
+    }),
+    defineField({
+      name: 'services',
+      title: 'Services',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'title', type: 'string', title: 'Service Title' },
+            { name: 'description', type: 'text', title: 'Description' },
+            { name: 'icon', type: 'image', title: 'Service Icon' },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'carouselImages',
+      title: 'Carousel Images',
+      type: 'array',
+      of: [{ type: 'image' }],
+    }),
+    defineField({
+      name: 'testimonials',
+      title: 'Testimonials',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'name', type: 'string', title: 'Customer Name' },
+            { name: 'quote', type: 'text', title: 'Testimonial' },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'contactInfo',
+      title: 'Contact Info',
+      type: 'object',
+      fields: [
+        { name: 'phone', type: 'string', title: 'Phone Number' },
+        { name: 'email', type: 'string', title: 'Email Address' },
+        { name: 'address', type: 'string', title: 'Address' },
+      ],
+    }),
+    defineField({
       name: 'pageBuilder',
       title: 'Page builder',
       type: 'array',
