@@ -1,78 +1,132 @@
 import { Suspense } from "react";
-import Link from "next/link";
+import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 
 import { AllPosts } from "@/app/components/Posts";
-import GetStartedCode from "@/app/components/GetStartedCode";
-import SideBySideIcons from "@/app/components/SideBySideIcons";
-import { settingsQuery } from "@/sanity/lib/queries";
+import { getPageQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/live";
+import { client } from "@/sanity/lib/client";
+import imageUrlBuilder from "@sanity/image-url";
+
+const builder = imageUrlBuilder(client);
+
+function urlFor(source: any) {
+  return builder.image(source);
+}
 
 export default async function Page() {
-  const { data: settings } = await sanityFetch({
-    query: settingsQuery,
+
+  const { data: pageData } = await sanityFetch({
+    query: getPageQuery,
+    params: { slug: "home" }, // Assuming your home page has slug "home"
   });
 
+  // Fallback data if no page is found
+  const data = pageData || {
+    title: "Welcome",
+    heroText: "Your Hero Text Here",
+    services: [],
+    carouselImages: [],
+    testimonials: [],
+    contactInfo: {
+      phone: "",
+      email: "",
+      address: "",
+    },
+  };
+
   return (
-    <>
-      <div className="relative">
-        <div className="relative bg-[url(/images/tile-1-black.png)] bg-size-[5px]">
-          <div className="bg-gradient-to-b from-white w-full h-full absolute top-0"></div>
-          <div className="container">
-            <div className="relative min-h-[40vh] mx-auto max-w-2xl pt-10 xl:pt-20 pb-30 space-y-6 lg:max-w-4xl lg:px-12 flex flex-col items-center justify-center">
-              <div className="flex flex-col gap-4 items-center">
-                <div className="text-md leading-6 prose uppercase py-1 px-3 bg-white font-mono italic">
-                  A starter template for
-                </div>
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-black">
-                  <Link
-                    className="underline decoration-brand hover:text-brand underline-offset-8 hover:underline-offset-4 transition-all ease-out"
-                    href="https://sanity.io/"
-                  >
-                    Sanity
-                  </Link>
-                  +
-                  <Link
-                    className="underline decoration-black text-framework underline-offset-8 hover:underline-offset-4 transition-all ease-out"
-                    href="https://nextjs.org/"
-                  >
-                    Next.js
-                  </Link>
-                </h1>
-              </div>
-            </div>
+    <div className="text-gray-800">
+      <header className="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-10">
+        <h1 className="text-xl font-bold">{data.title || "Your Business"}</h1>
+        <nav>
+          <a href="#services" className="mx-2">Services</a>
+          <a href="#gallery" className="mx-2">Gallery</a>
+          <a href="#contact" className="mx-2">Contact</a>
+        </nav>
+      </header>
+
+      {data.heroImage && (
+        <section className="relative h-[60vh]">
+          <Image
+            src={urlFor(data.heroImage).width(1200).url()}
+            fill
+            alt="Hero"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <h2 className="text-4xl text-white font-bold">{data.heroText}</h2>
           </div>
-        </div>
-        <div className=" flex flex-col items-center">
-          <SideBySideIcons />
-          <div className="container relative mx-auto max-w-2xl pb-20 pt-10 space-y-6 lg:max-w-4xl lg:px-12 flex flex-col items-center">
-            <div className="prose sm:prose-lg md:prose-xl xl:prose-2xl text-gray-700 prose-a:text-gray-700 font-light text-center">
-              {settings?.description && (
-                <PortableText value={settings.description} />
-              )}
-              <div className="flex items-center flex-col gap-4">
-                <GetStartedCode />
-                <Link
-                  href="https://www.sanity.io/docs"
-                  className="inline-flex text-brand text-xs md:text-sm underline hover:text-gray-900"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Sanity Documentation
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="w-4 h-4 ml-1 inline"
-                    fill="currentColor"
-                  >
-                    <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V12L17.206 8.207L11.2071 14.2071L9.79289 12.7929L15.792 6.793L12 3H21Z"></path>
-                  </svg>
-                </Link>
+        </section>
+      )}
+
+      {data.services && data.services.length > 0 && (
+        <section id="services" className="py-12 px-6 bg-gray-50">
+          <h3 className="text-3xl font-semibold text-center mb-8">Our Services</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            {data.services.map((service: any, i: number) => (
+              <div key={i} className="bg-white p-4 rounded shadow">
+                {service.icon && (
+                  <Image
+                    src={urlFor(service.icon).width(100).url()}
+                    alt={service.title}
+                    width={100}
+                    height={100}
+                  />
+                )}
+                <h4 className="text-xl font-semibold">{service.title}</h4>
+                <p>{service.description}</p>
               </div>
-            </div>
+            ))}
           </div>
-        </div>
-      </div>
+        </section>
+      )}
+
+      {data.carouselImages && data.carouselImages.length > 0 && (
+        <section id="gallery" className="py-12 px-6">
+          <h3 className="text-3xl font-semibold text-center mb-8">Previous Jobs</h3>
+          <div className="flex gap-4 overflow-x-scroll">
+            {data.carouselImages.map((img: any, i: number) => (
+              <div key={i} className="min-w-[300px]">
+                <Image
+                  src={urlFor(img).width(600).url()}
+                  alt={`Job ${i + 1}`}
+                  width={300}
+                  height={200}
+                  className="rounded shadow"
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {data.testimonials && data.testimonials.length > 0 && (
+        <section className="py-12 px-6 bg-gray-100">
+          <h3 className="text-3xl font-semibold text-center mb-8">What Our Clients Say</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            {data.testimonials.map((t: any, i: number) => (
+              <div key={i} className="bg-white p-4 rounded shadow">
+                <p className="italic">"{t.quote}"</p>
+                <p className="mt-2 text-sm text-right">— {t.name}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {data.contactInfo && (
+        <section id="contact" className="py-12 px-6 bg-blue-50">
+          <h3 className="text-3xl font-semibold text-center mb-8">Contact Us</h3>
+          <div className="max-w-lg mx-auto text-center">
+            {data.contactInfo.phone && <p>📞 {data.contactInfo.phone}</p>}
+            {data.contactInfo.email && <p>📧 {data.contactInfo.email}</p>}
+            {data.contactInfo.address && <p>📍 {data.contactInfo.address}</p>}
+          </div>
+        </section>
+      )}
+
+      {/* Original content sections */}
       <div className="border-t border-gray-100 bg-gray-50">
         <div className="container">
           <aside className="py-12 sm:py-20">
@@ -80,6 +134,10 @@ export default async function Page() {
           </aside>
         </div>
       </div>
-    </>
+
+      <footer className="bg-gray-900 text-white text-center py-6">
+        <p>&copy; {new Date().getFullYear()} {data.title || "Your Business"}. All rights reserved.</p>
+      </footer>
+    </div>
   );
 }

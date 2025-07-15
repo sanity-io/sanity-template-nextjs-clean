@@ -35,6 +35,24 @@ export const getPageQuery = defineQuery(`
     slug,
     heading,
     subheading,
+    title,
+    heroImage,
+    heroText,
+    services[]{
+      title,
+      description,
+      icon
+    },
+    carouselImages,
+    testimonials[]{
+      name,
+      quote
+    },
+    contactInfo{
+      phone,
+      email,
+      address
+    },
     "pageBuilder": pageBuilder[]{
       ...,
       _type == "callToAction" => {
