@@ -3,6 +3,9 @@ import {page} from './documents/page'
 import {post} from './documents/post'
 import {callToAction} from './objects/callToAction'
 import {infoSection} from './objects/infoSection'
+import {service} from './objects/service'
+import {testimonial} from './objects/testimonial'
+import {contactInfo} from './objects/contactInfo'
 import {settings} from './singletons/settings'
 import {link} from './objects/link'
 import {blockContent} from './objects/blockContent'
@@ -20,5 +23,8 @@ export const schemaTypes = [
   blockContent,
   infoSection,
   callToAction,
+  service,
+  testimonial,
+  contactInfo,
   link,
 ]
