@@ -193,6 +193,7 @@ export type Post = {
   slug: Slug;
   content?: BlockContent;
   excerpt?: string;
+  excerpt2?: string;
   coverImage: {
     asset?: {
       _ref: string;

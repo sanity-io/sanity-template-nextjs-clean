@@ -2,9 +2,11 @@
   "name": "sanity-template-nextjs-clean",
   "description": "Next.js + Sanity: A Powerful Website Starter with Real-time Visual Editing",
   "scripts": {
-    "dev": "npm-run-all --parallel --print-label dev:*",
+    "dev": "npm-run-all --parallel --print-label dev:* watch:schema",
     "dev:next": "npm run dev --workspace=frontend",
     "dev:studio": "npm run dev --workspace=studio",
+    "generate-types": "cd studio && sanity schema extract --enforce-required-fields && cd ../frontend && sanity typegen generate",
+    "watch:schema": "chokidar 'studio/src/**/*' -c 'npm run generate-types'",
     "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --replace"
   },
   "keywords": [
@@ -24,6 +26,7 @@
     "frontend"
   ],
   "devDependencies": {
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "chokidar-cli": "^3.0.0"
   }
 }

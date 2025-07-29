@@ -42,6 +42,11 @@ export const post = defineType({
       type: 'text',
     }),
     defineField({
+      name: 'excerpt2',
+      title: 'Excerpt',
+      type: 'text',
+    }),
+    defineField({
       name: 'coverImage',
       title: 'Cover Image',
       type: 'image',

@@ -1249,6 +1249,13 @@
         },
         "optional": true
       },
+      "excerpt2": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "coverImage": {
         "type": "objectAttribute",
         "value": {
