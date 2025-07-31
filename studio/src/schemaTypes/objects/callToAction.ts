@@ -57,7 +57,6 @@ export const callToAction = defineType({
     defineField({
       name: "image",
       type: "image",
-      description: "You can either provide an image or a video, but not both. To provide a video, clear this image field.",
       group: "media",
       options: {
         hotspot: true,

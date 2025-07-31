@@ -11,7 +11,6 @@
     "typegen": "sanity typegen generate"
   },
   "dependencies": {
-    "@mux/mux-player-react": "^3.5.1",
     "@sanity/client": "^7.6.0",
     "@sanity/image-url": "^1.1.0",
     "@sanity/uuid": "^3.0.2",
