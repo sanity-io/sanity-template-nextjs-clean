@@ -36,8 +36,8 @@ export default function CustomPortableText({
           <figure className="my-8">
             <CoverImage
               image={value}
-              scalingFactorX={3}
-              scalingFactorY={3}
+              widthAsViewportPercentage={33}
+              heightAsViewportPercentage={33}
               className="rounded-xl"
             />
           </figure>

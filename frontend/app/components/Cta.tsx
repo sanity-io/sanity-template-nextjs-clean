@@ -75,8 +75,8 @@ export default function CTA({ block }: CtaProps) {
       {image && (
         <CoverImage
           image={block.image}
-          scalingFactorX={2}
-          scalingFactorY={2}
+          widthAsViewportPercentage={50}
+          heightAsViewportPercentage={50}
           className="rounded-xl"
         />
       )}

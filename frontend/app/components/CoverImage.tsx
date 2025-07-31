@@ -10,21 +10,27 @@ interface CoverImageProps {
   image: any;
   priority?: boolean;
   className?: string;
-  width?: number;
-  height?: number;
-  scalingFactorX?: number;
-  scalingFactorY?: number;
+  widthAsPixels?: number;
+  heightAsPixels?: number;
+  widthAsViewportPercentage?: number;
+  heightAsViewportPercentage?: number;
 }
 
 export default function CoverImage(props: CoverImageProps) {
-  const { image: source, priority, width, height, scalingFactorX, scalingFactorY } = props;
-  const dimensions = getImageDimensions(source);
-  const mediaDimensions = useMediaDimensions(scalingFactorX || 1, scalingFactorY || 1);
+  const { image: source, priority, widthAsPixels, heightAsPixels, widthAsViewportPercentage, heightAsViewportPercentage } = props;
 
-  // We go in order of preference: the direct numberic width and height props, then the media dimensions based on the viewport size and scaling factors, 
+  if((widthAsPixels || heightAsPixels) && (widthAsViewportPercentage || heightAsViewportPercentage)) {
+    throw new Error("Provide width and height either as pixels or as viewport percentages.");
+  }
+
+  const dimensions = getImageDimensions(source);
+  const mediaDimensions = useMediaDimensions(widthAsViewportPercentage, heightAsViewportPercentage)
+
+  // We go in order of preference: the direct numberic width and height props, 
+  // then the media dimensions based on the viewport size and the two scaling factors (if both are provided), 
   // then the dimensions from the image asset itself as a fallback.
-  const imageWidth = width || mediaDimensions.width || dimensions.width;
-  const imageHeight = height || mediaDimensions.height || dimensions.height;
+  const imageWidth = widthAsPixels || mediaDimensions.width || dimensions.width;
+  const imageHeight = heightAsPixels || mediaDimensions.height || dimensions.height;
   
   const image = source?.asset?._ref ? (
     <Image
