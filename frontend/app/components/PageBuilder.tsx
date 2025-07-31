@@ -8,14 +8,10 @@ import BlockRenderer from "@/app/components/BlockRenderer";
 import { GetPageQueryResult } from "@/sanity.types";
 import { dataAttr } from "@/sanity/lib/utils";
 import { studioUrl } from "@/sanity/lib/api";
+import { PageBuilderSection } from "@/sanity/lib/types";
 
 type PageBuilderPageProps = {
   page: GetPageQueryResult;
-};
-
-type PageBuilderSection = {
-  _key: string;
-  _type: string;
 };
 
 type PageData = {
@@ -43,7 +39,7 @@ function renderSections(
         path: `pageBuilder`,
       }).toString()}
     >
-      {pageBuilderSections.map((block: any, index: number) => (
+      {pageBuilderSections.map((block: PageBuilderSection, index: number) => (
         <BlockRenderer
           key={block._key}
           index={index}
