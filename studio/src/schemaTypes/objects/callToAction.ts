@@ -87,11 +87,11 @@ export const callToAction = defineType({
           title: "Content Order",
           type: "string",
           initialValue: "textFirst",
-          description: "In the chosen flow direction (horizontal or vertical), does text or media come first?",
+          description: "In the chosen flow direction (horizontal or vertical), does body (rich text and embedded media) or main image first?",
           options: {
             list: [
-              {title: "Text then Media", value: "textFirst"},
-              {title: "Media then Text", value: "mediaFirst"},    
+              {title: "Body then Main Image", value: "textFirst"},
+              {title: "Main Image then Body", value: "mediaFirst"},    
             ],
             layout: "radio",
           },
