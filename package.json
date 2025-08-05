@@ -1,12 +1,6 @@
 {
   "name": "sanity-template-nextjs-clean",
   "description": "Next.js + Sanity: A Powerful Website Starter with Real-time Visual Editing",
-  "scripts": {
-    "dev": "npm-run-all --parallel --print-label dev:*",
-    "dev:next": "npm run dev --workspace=frontend",
-    "dev:studio": "npm run dev --workspace=studio",
-    "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --replace"
-  },
   "keywords": [
     "Sanity",
     "Next.js",
@@ -15,15 +9,29 @@
     "Live Content API (LCAPI)",
     "Real-time"
   ],
+  "homepage": "https://github.com/sanity-io/sanity-template-nextjs-clean#readme",
   "bugs": {
     "url": "https://github.com/sanity-io/sanity-template-nextjs-clean/issues"
   },
-  "homepage": "https://github.com/sanity-io/sanity-template-nextjs-clean#readme",
   "workspaces": [
     "studio",
     "frontend"
   ],
+  "scripts": {
+    "dev": "npm-run-all --parallel --print-label dev:*",
+    "dev:next": "npm run dev --workspace=frontend",
+    "dev:studio": "npm run dev --workspace=studio",
+    "format": "prettier --cache --write .",
+    "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --replace",
+    "lint": "npm run lint --workspace=frontend",
+    "type-check": "npm run type-check --workspaces"
+  },
+  "prettier": "@sanity/prettier-config",
+  "dependencies": {
+    "@sanity/prettier-config": "^2.0.1",
+    "prettier": "^3.6.2"
+  },
   "devDependencies": {
-    "npm-run-all": "^4.1.5"
+    "npm-run-all2": "^5.0.2"
   }
 }

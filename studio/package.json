@@ -1,5 +1,5 @@
 {
-  "name": "starter-template",
+  "name": "studio",
   "private": true,
   "version": "1.0.0",
   "main": "package.json",
@@ -10,7 +10,8 @@
     "prebuild": "npm run extract-types",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "extract-types": "sanity schema extract --enforce-required-fields"
+    "extract-types": "sanity schema extract --enforce-required-fields",
+    "type-check": "tsc --noEmit"
   },
   "keywords": [
     "sanity"
@@ -31,14 +32,6 @@
   "devDependencies": {
     "@sanity/eslint-config-studio": "^5.0.2",
     "@types/react": "^19.1",
-    "eslint": "^9.28",
-    "prettier": "^3.5",
     "typescript": "^5.8"
-  },
-  "prettier": {
-    "semi": false,
-    "printWidth": 100,
-    "bracketSpacing": false,
-    "singleQuote": true
   }
 }
