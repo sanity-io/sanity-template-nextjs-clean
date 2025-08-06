@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "type-check": "tsc --noEmit",
     "typegen": "sanity typegen generate"
   },
   "dependencies": {
@@ -31,10 +32,10 @@
   },
   "devDependencies": {
     "typescript": "5.6.3",
-    "eslint": "^8.57.0",
     "@types/react-dom": "^18.3.5",
     "@types/node": "^20.17.17",
     "@types/react": "^18.3.18",
-    "eslint-config-next": "^15.1.6"
+    "eslint": "^9.32.0",
+    "eslint-config-next": "^15.4.5"
   }
 }
