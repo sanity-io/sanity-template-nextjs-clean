@@ -1,32 +1,27 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import {useState} from 'react'
 
 export default function GetStartedCode() {
-  const [showTooltip, setShowTooltip] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false)
 
   const handleCopy = () => {
     navigator.clipboard.writeText(
-      "npm create sanity@latest -- --template sanity-io/sanity-template-nextjs-clean",
-    );
-    setShowTooltip(true);
-    setTimeout(() => setShowTooltip(false), 2000);
-  };
+      'npm create sanity@latest -- --template sanity-io/sanity-template-nextjs-clean',
+    )
+    setShowTooltip(true)
+    setTimeout(() => setShowTooltip(false), 2000)
+  }
 
   return (
     <div className="flex flex-col md:inline-flex md:flex-row rounded-xl md:rounded-full shadow-xl md:whitespace-nowrap text-center bg-gray-900 p-4 md:pr-2 md:pl-6 md:py-2 text-white text-sm lg:text-base mt-6 font-mono gap-4 items-center selection:bg-blue selection:text-white">
-      <span>
-        npm create sanity@latest -- --template
-        sanity-io/sanity-template-nextjs-clean
-      </span>
+      <span>npm create sanity@latest -- --template sanity-io/sanity-template-nextjs-clean</span>
       <button
         className="text-white flex items-center gap-2 relative cursor-pointer bg-blue md:aspect-square px-4 py-2 md:p-2 rounded-xl md:rounded-full hover:bg-yellow hover:text-black transition-colors duration-300"
         onClick={handleCopy}
         aria-label="Copy to clipboard"
       >
-        <span className="md:hidden">
-          {showTooltip ? "Copied!" : "Copy Snippet"}
-        </span>
+        <span className="md:hidden">{showTooltip ? 'Copied!' : 'Copy Snippet'}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -37,12 +32,12 @@ export default function GetStartedCode() {
         </svg>
         <span
           className={`hidden md:block absolute bottom-full left-1/2 transform -translate-x-1/2 -translate-y-4 bg-yellow text-black text-xs rounded py-2 px-4 transition-opacity duration-300 ${
-            showTooltip ? "opacity-100" : "opacity-0 pointer-events-none"
+            showTooltip ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
         >
           Copied!
         </span>
       </button>
     </div>
-  );
+  )
 }
