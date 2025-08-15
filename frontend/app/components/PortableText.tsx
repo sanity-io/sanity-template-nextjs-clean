@@ -20,9 +20,13 @@ import CoverImage from "./CoverImage";
 export default function CustomPortableText({
   className,
   value,
+  themeName,
+  customTextColor,
 }: {
   className?: string;
   value: PortableTextBlock[];
+  themeName?: 'light' | 'dark' | 'custom'
+  customTextColor?: string
 }) {
 
   const components: PortableTextComponents = {
@@ -117,8 +121,22 @@ export default function CustomPortableText({
     },
   };
 
+  let proseClasses = "prose";
+  switch (themeName) {
+    case "dark":
+      proseClasses = "prose-invert";
+      break;
+    case "custom":
+      proseClasses = "prose";
+      break;
+      case "light":
+      default:
+        proseClasses = "prose";
+        break;
+  }
+
   return (
-    <div className={cn("prose prose-a:text-brand", className)}>
+    <div className={cn(proseClasses, 'prose-a:text-brand', className)} style={themeName === "custom" ? { color: customTextColor } : {}}>
       <PortableText components={components} value={value} />
     </div>
   );

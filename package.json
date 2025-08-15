@@ -28,5 +28,8 @@
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
     "npm-run-all2": "^5.0.2"
+  },
+  "dependencies": {
+    "@sanity/color-input": "^4.0.6"
   }
 }

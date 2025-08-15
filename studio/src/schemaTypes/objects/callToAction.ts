@@ -13,46 +13,46 @@ export const callToAction = defineType({
   icon: BulbOutlineIcon,
   groups: [
     {
-      name: "contents",
+      name: 'contents',
       icon: ComposeIcon,
       default: true,
     },
     {
-      name: "media",
+      name: 'media',
       icon: ImageIcon,
     },
     {
-      name: "button",
-      icon: EditIcon
+      name: 'button',
+      icon: EditIcon,
     },
     {
-      name: "designSystem",
+      name: 'designSystem',
       icon: CogIcon,
-    }
+    },
   ],
   fields: [
     defineField({
       name: 'eyebrow',
       title: 'Eyebrow',
       type: 'string',
-      group: "contents",
+      group: 'contents',
     }),
     defineField({
       name: 'heading',
       title: 'Heading',
       type: 'string',
       validation: (Rule) => Rule.required(),
-      group: "contents",
+      group: 'contents',
     }),
     defineField({
       name: 'body',
       type: 'blockContent',
-      group: "contents",
+      group: 'contents',
     }),
     defineField({
-      name: "button",
-      type: "button",
-      group: "button",
+      name: 'button',
+      type: 'button',
+      group: 'button',
     }),
     defineField({
       name: "image",
@@ -63,40 +63,100 @@ export const callToAction = defineType({
       },
     }),
     defineField({
-      name: "layout",
-      type: "object",
-      description: "The button of the call to action",
+      name: 'theme',
+      type: 'object',
+      title: 'Color Theme',
+      options: {
+        collapsible: true,
+      },
       fields: [
         defineField({
-          name: "orientation",
-          title: "Content Flow Direction",
-          initialValue: "horizontal",
-          description: "Does the CTA flow horizontally or vertically?",
-          type: "string",
+          name: 'themeName',
+          initialValue: 'light',
+          type: 'string',
+          title: 'Theme Name',
           options: {
             list: [
-              "horizontal",
-              "vertical",
+              {title: 'Light', value: 'light'},
+              {title: 'Dark', value: 'dark'},
+              {title: 'Custom', value: 'custom'},
             ],
-            layout: "radio",
+            layout: 'radio',
           },
         }),
         defineField({
-          name: "contentAlignment",
-          title: "Content Order",
-          type: "string",
-          initialValue: "textFirst",
-          description: "In the chosen flow direction (horizontal or vertical), does body (rich text and embedded media) or main image first?",
+          name: 'customBackgroundColor',
+          title: 'Custom Theme Background Color',
+          type: 'color',
+          options: {
+            collapsible: false,
+          },
+          hidden: ({parent}) => parent?.themeName !== 'custom',
+        }),
+        defineField({
+          name: 'customTextColor',
+          title: 'Custom Theme Text Color',
+          type: 'color',
+          options: {
+            collapsible: false,
+          },
+          hidden: ({parent}) => parent?.themeName !== 'custom',
+        }),
+        defineField({
+          name: 'customButtonBgColor',
+          title: 'Custom Button Background Color',
+          type: 'color',
+          options: {
+            collapsible: false,
+          },
+          hidden: ({parent}) => parent?.themeName !== 'custom',
+        }),
+        defineField({
+          name: 'customButtonTextColor',
+          title: 'Custom Button Text Color',
+          type: 'color',
+          options: {
+            collapsible: false,
+          },
+          hidden: ({parent}) => parent?.themeName !== 'custom',
+        }),
+      ],
+      group: 'designSystem',
+    }),
+
+    defineField({
+      name: 'layout',
+      type: 'object',
+      description: 'The button of the call to action',
+      fields: [
+        defineField({
+          name: 'orientation',
+          title: 'Content Flow Direction',
+          initialValue: 'horizontal',
+          description: 'Does the CTA flow horizontally or vertically?',
+          type: 'string',
+          options: {
+            list: ['horizontal', 'vertical'],
+            layout: 'radio',
+          },
+        }),
+        defineField({
+          name: 'contentAlignment',
+          title: 'Content Order',
+          type: 'string',
+          initialValue: 'textFirst',
+          description:
+            'In the chosen flow direction (horizontal or vertical), does body (rich text and embedded media) or main media (image or video) come first?',
           options: {
             list: [
-              {title: "Body then Main Image", value: "textFirst"},
-              {title: "Main Image then Body", value: "mediaFirst"},    
+              {title: 'Body then Main Media', value: 'textFirst'},
+              {title: 'Main Media then Body', value: 'mediaFirst'},
             ],
-            layout: "radio",
+            layout: 'radio',
           },
         }),
       ],
-      group: "designSystem",
+      group: 'designSystem',
     }),
   ],
   preview: {

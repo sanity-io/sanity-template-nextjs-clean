@@ -1,4 +1,6 @@
-# Clean Next.js + Sanity app
+# Simplified Page Building Example for Enterprise Demos
+
+The purpose of this functionality is to give people a visually beautiful/well functioning version of a 
 
 This template includes a [Next.js](https://nextjs.org/) app with a [Sanity Studio](https://www.sanity.io/) – an open-source React application that connects to your Sanity project’s hosted dataset. The Studio is configured locally and can then be deployed for content collaboration.
 

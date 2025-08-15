@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import ResolvedLink from "@/app/components/ResolvedLink";
-import PortableText from "./PortableText";
+import CustomPortableText from "./PortableText";
 import { PortableTextBlock } from "next-sanity";
 import CoverImage from "./CoverImage";
 import cn from "classnames";
@@ -17,7 +17,37 @@ type CtaProps = {
 };
 
 export default function CTA({ block }: CtaProps) {
-  const { heading, eyebrow, body = [], button, image } = block;
+  const { heading, eyebrow, body = [], button, image, theme } = block;
+  const {
+    customBackgroundColor,
+    customTextColor,
+    customButtonBgColor,
+    customButtonTextColor,
+  } = theme || {};
+  const themeName = stegaClean(theme?.themeName) || 'light';
+
+  let backgroundColor, textColor, buttonBgColor, buttonTextColor;
+  switch (themeName) {
+    case "dark":
+      backgroundColor = "#22303c";
+      textColor = "#FFFFFF";
+      buttonBgColor = "#FFFFFF";
+      buttonTextColor = "#000000";
+      break;
+    case "custom":
+      backgroundColor = customBackgroundColor?.hex || "#FFFFFF";
+      textColor = customTextColor?.hex || "#000000";
+      buttonBgColor = customButtonBgColor?.hex || "#000000";
+      buttonTextColor = customButtonTextColor?.hex || "#FFFFFF";
+      break;
+    case "light":
+    default:
+      backgroundColor = "#FFFFFF";
+      textColor = "#000000";
+      buttonBgColor = "#000000";
+      buttonTextColor = "#FFFFFF";
+      break;
+  }
 
   let layoutClasses = "";
   const contentAlignment = stegaClean(block.layout?.contentAlignment);
@@ -48,26 +78,31 @@ export default function CTA({ block }: CtaProps) {
   }
 
   return (
-    <div className={cn("flex py-6 min-h-100 my-2", layoutClasses)}>
+    <div
+      className={cn("flex py-6 min-h-100 my-2", layoutClasses)}
+      style={{ backgroundColor, color: textColor }}
+    >
       <div className="flex flex-col gap-6 justify-center">
         <div className="max-w-xl flex flex-col gap-3 ">
-          {eyebrow && (
-            <h2 className="text-sm tracking-tight text-[#3a454a]">{eyebrow}</h2>
-          )}
+          {eyebrow && <h2 className="text-sm tracking-tight opacity-70">{eyebrow}</h2>}
           {heading && (
-            <h2 className="text-3xl font-bold tracking-tight text-black sm:text-4xl mb-4">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
               {heading}
             </h2>
           )}
-          {body && <PortableText value={body as PortableTextBlock[]} />}
+          {body && <CustomPortableText value={body as PortableTextBlock[]} themeName={themeName} customTextColor={textColor} />}
         </div>
 
         <Suspense fallback={null}>
           {button?.buttonText && button?.link && (
-            <div className="flex items-center gap-x-6 lg:mt-0 lg:flex-shrink-0">
+            <div
+              className="flex items-center gap-x-6 lg:mt-0 lg:flex-shrink-0"
+            >
               <ResolvedLink
                 link={button?.link}
-                className="rounded-lg flex gap-2 mr-6 items-center bg-black hover:scale-110 py-3 px-6 text-white transition-colors duration-200"
+                className="rounded-lg flex gap-2 mr-6 items-center hover:scale-110 py-3 px-6 transition-colors duration-200"
+                style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
+
               >
                 {button?.buttonText}
               </ResolvedLink>
