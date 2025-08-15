@@ -24,7 +24,7 @@
     "react": "^19.1",
     "react-dom": "^19.1",
     "rxjs": "^7.8.1",
-    "sanity": "^3.93.0",
+    "sanity": "^4.2.0",
     "sanity-plugin-asset-source-unsplash": "^3.0.1",
     "styled-components": "^6.1.18"
   },
