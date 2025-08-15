@@ -18,15 +18,19 @@ interface CoverImageProps {
 
 export default function CoverImage(props: CoverImageProps) {
   const { image: source, priority, widthAsPixels, heightAsPixels, widthAsViewportPercentage, heightAsViewportPercentage } = props;
+  const mediaDimensions = useMediaDimensions(widthAsViewportPercentage, heightAsViewportPercentage)
+
+  if(!source?.asset?._ref) {
+    return null;
+  }
 
   if((widthAsPixels || heightAsPixels) && (widthAsViewportPercentage || heightAsViewportPercentage)) {
     throw new Error("Provide width and height either as pixels or as viewport percentages.");
   }
 
   const dimensions = getImageDimensions(source);
-  const mediaDimensions = useMediaDimensions(widthAsViewportPercentage, heightAsViewportPercentage)
 
-  // We go in order of preference: the direct numberic width and height props, 
+  // We go in order of preference: the direct numeric width and height props, 
   // then the media dimensions based on the viewport size and the two scaling factors (if both are provided), 
   // then the dimensions from the image asset itself as a fallback.
   const imageWidth = widthAsPixels || mediaDimensions.width || dimensions.width;

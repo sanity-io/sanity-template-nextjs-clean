@@ -11,6 +11,9 @@ import { ExtractPageBuilderType } from "@/sanity/lib/types";
 type CtaProps = {
   block: ExtractPageBuilderType<"callToAction">;
   index: number;
+  // Needed if you want to createDataAttributes to do non-text overlays in Presentation (Visual Editing)
+  pageType: string;
+  pageId: string;
 };
 
 export default function CTA({ block }: CtaProps) {
