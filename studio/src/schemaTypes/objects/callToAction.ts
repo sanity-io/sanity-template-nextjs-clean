@@ -128,6 +128,9 @@ export const callToAction = defineType({
       name: 'layout',
       type: 'object',
       description: 'The button of the call to action',
+      options: {
+        collapsible: true,
+      },
       fields: [
         defineField({
           name: 'orientation',
