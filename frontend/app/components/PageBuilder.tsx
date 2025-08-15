@@ -1,6 +1,6 @@
 "use client";
 
-import { SanityDocument } from "next-sanity";
+import { createDataAttribute, SanityDocument } from "next-sanity";
 import { useOptimistic } from "next-sanity/hooks";
 import Link from "next/link";
 
@@ -59,8 +59,15 @@ function RenderEmptyState({ page }: { page: GetPageQueryResult }) {
   if (!page) {
     return null;
   }
+
+  const attr = createDataAttribute({
+    id: page._id,
+    type: "page",
+    path: "pageBuilder",
+  }).toString();
+
   return (
-    <div className="container">
+    <div className="container" data-sanity={attr}>
       <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
         This page has no content!
       </h1>
@@ -106,10 +113,6 @@ export default function PageBuilder({ page }: PageBuilderPageProps) {
     // Otherwise keep the current sections
     return currentSections;
   });
-
-  if (!page) {
-    return <RenderEmptyState page={page} />;
-  }
 
   return pageBuilderSections && pageBuilderSections.length > 0
     ? <RenderSections pageBuilderSections={pageBuilderSections} page={page} />
