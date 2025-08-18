@@ -16,15 +16,12 @@ export default function Footer() {
             >
               View on GitHub
             </a>
-            <a
-              href="https://nextjs.org/docs"
-              className="mx-3 hover:underline font-mono"
-            >
+            <a href="https://nextjs.org/docs" className="mx-3 hover:underline font-mono">
               Read Next.js Documentation
             </a>
           </div>
         </div>
       </div>
     </footer>
-  );
+  )
 }

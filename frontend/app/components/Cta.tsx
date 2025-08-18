@@ -1,14 +1,14 @@
-import { Suspense } from "react";
+import {Suspense} from 'react'
 
-import ResolvedLink from "@/app/components/ResolvedLink";
-import { CallToAction } from "@/sanity.types";
+import ResolvedLink from '@/app/components/ResolvedLink'
+import {CallToAction} from '@/sanity.types'
 
 type CtaProps = {
-  block: CallToAction;
-  index: number;
-};
+  block: CallToAction
+  index: number
+}
 
-export default function CTA({ block }: CtaProps) {
+export default function CTA({block}: CtaProps) {
   return (
     <div className="container my-12">
       <div className="bg-gray-50 border border-gray-100 rounded-2xl max-w-3xl">
@@ -33,5 +33,5 @@ export default function CTA({ block }: CtaProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }

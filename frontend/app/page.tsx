@@ -1,17 +1,17 @@
-import { Suspense } from "react";
-import Link from "next/link";
-import { PortableText } from "@portabletext/react";
+import {Suspense} from 'react'
+import Link from 'next/link'
+import {PortableText} from '@portabletext/react'
 
-import { AllPosts } from "@/app/components/Posts";
-import GetStartedCode from "@/app/components/GetStartedCode";
-import SideBySideIcons from "@/app/components/SideBySideIcons";
-import { settingsQuery } from "@/sanity/lib/queries";
-import { sanityFetch } from "@/sanity/lib/live";
+import {AllPosts} from '@/app/components/Posts'
+import GetStartedCode from '@/app/components/GetStartedCode'
+import SideBySideIcons from '@/app/components/SideBySideIcons'
+import {settingsQuery} from '@/sanity/lib/queries'
+import {sanityFetch} from '@/sanity/lib/live'
 
 export default async function Page() {
-  const { data: settings } = await sanityFetch({
+  const {data: settings} = await sanityFetch({
     query: settingsQuery,
-  });
+  })
 
   return (
     <>
@@ -47,9 +47,7 @@ export default async function Page() {
           <SideBySideIcons />
           <div className="container relative mx-auto max-w-2xl pb-20 pt-10 space-y-6 lg:max-w-4xl lg:px-12 flex flex-col items-center">
             <div className="prose sm:prose-lg md:prose-xl xl:prose-2xl text-gray-700 prose-a:text-gray-700 font-light text-center">
-              {settings?.description && (
-                <PortableText value={settings.description} />
-              )}
+              {settings?.description && <PortableText value={settings.description} />}
               <div className="flex items-center flex-col gap-4">
                 <GetStartedCode />
                 <Link
@@ -81,5 +79,5 @@ export default async function Page() {
         </div>
       </div>
     </>
-  );
+  )
 }
