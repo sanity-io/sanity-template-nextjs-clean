@@ -29,7 +29,6 @@
   "prettier": "@sanity/prettier-config",
   "devDependencies": {
     "@sanity/prettier-config": "^2.0.1",
-    "@sanity/template-validator": "^2.4.3",
     "npm-run-all2": "^5.0.2",
     "prettier": "^3.6.2"
   }
