@@ -2,12 +2,13 @@
   "name": "frontend",
   "private": true,
   "scripts": {
-    "predev": "npm run typegen",
-    "dev": "next dev --turbopack",
     "prebuild": "npm run typegen",
     "build": "next build",
-    "start": "next start",
+    "predev": "npm run typegen",
+    "dev": "next dev --turbopack",
     "lint": "next lint",
+    "start": "next start",
+    "type-check": "tsc --noEmit",
     "typegen": "sanity typegen generate"
   },
   "dependencies": {
