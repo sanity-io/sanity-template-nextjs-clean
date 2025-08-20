@@ -13,6 +13,7 @@
   "bugs": {
     "url": "https://github.com/sanity-io/sanity-template-nextjs-clean/issues"
   },
+  "type": "module",
   "workspaces": [
     "studio",
     "frontend"
