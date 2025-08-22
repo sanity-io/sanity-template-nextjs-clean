@@ -2,13 +2,14 @@
   "name": "frontend",
   "private": true,
   "scripts": {
-    "predev": "npm run typegen",
+    "predev": "npm run schema:extract && npm run typegen",
     "dev": "next dev --turbopack",
     "prebuild": "npm run typegen",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typegen": "sanity typegen generate"
+    "typegen": "sanity typegen generate",
+    "schema:extract": "cd ../studio && npm run extract-types"
   },
   "dependencies": {
     "@sanity/client": "^7.6.0",

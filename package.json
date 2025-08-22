@@ -2,8 +2,6 @@
   "name": "sanity-template-nextjs-clean",
   "description": "Next.js + Sanity: A Powerful Website Starter with Real-time Visual Editing",
   "scripts": {
-    "predev": "npm run schema:extract",
-    "schema:extract": "cd studio && sanity schema extract",
     "dev": "npm-run-all --parallel --print-label dev:*",
     "dev:next": "npm run dev --workspace=frontend",
     "dev:studio": "npm run dev --workspace=studio",
