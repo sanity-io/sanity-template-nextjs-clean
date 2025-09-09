@@ -13,22 +13,16 @@ import {
   type PortableTextComponents,
   type PortableTextBlock,
 } from "next-sanity";
-import cn from "classnames";
 import ResolvedLink from "@/app/components/ResolvedLink";
-import CoverImage from "./CoverImage";
+import Image from "./SanityImage";
 
 export default function CustomPortableText({
   className,
   value,
-  themeName,
-  customTextColor,
 }: {
   className?: string;
   value: PortableTextBlock[];
-  themeName?: 'light' | 'dark' | 'custom'
-  customTextColor?: string
 }) {
-
   const components: PortableTextComponents = {
     types: {
       image: ({ value }) => {
@@ -38,12 +32,7 @@ export default function CustomPortableText({
 
         return (
           <figure className="my-8">
-            <CoverImage
-              image={value}
-              widthAsViewportPercentage={33}
-              heightAsViewportPercentage={33}
-              className="rounded-xl"
-            />
+            <Image id={value.asset._ref} width={672} className="rounded-sm" />
           </figure>
         );
       },
@@ -51,7 +40,7 @@ export default function CustomPortableText({
     block: {
       h1: ({ children, value }) => (
         // Add an anchor to the h1
-        <h1 className={cn("group relative", className)}>
+        <h1 className="group relative">
           {children}
           <a
             href={`#${value?._key}`}
@@ -77,7 +66,7 @@ export default function CustomPortableText({
       h2: ({ children, value }) => {
         // Add an anchor to the h2
         return (
-          <h2 className={cn("group relative", className)}>
+          <h2 className="group relative">
             {children}
             <a
               href={`#${value?._key}`}
@@ -97,46 +86,32 @@ export default function CustomPortableText({
                   d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
                 />
               </svg>
-            </a>  
+            </a>
           </h2>
         );
       },
       h3: ({ children }) => {
-        return <h3 className={cn("group relative", className)}>{children}</h3>;
+        return <h3 className="group relative">{children}</h3>;
       },
       h4: ({ children }) => {
-        return <h4 className={cn("group relative", className)}>{children}</h4>;
+        return <h4 className="group relative">{children}</h4>;
       },
       h5: ({ children }) => {
-        return <h5 className={cn("group relative", className)}>{children}</h5>;
+        return <h5 className="group relative">{children}</h5>;
       },
       h6: ({ children }) => {
-        return <h6 className={cn("group relative", className)}>{children}</h6>;
+        return <h6 className="group relative">{children}</h6>;
       },
     },
     marks: {
       link: ({ children, value: link }) => {
-        return <ResolvedLink link={link} className={cn(className)}>{children}</ResolvedLink>;
+        return <ResolvedLink link={link}>{children}</ResolvedLink>;
       },
     },
   };
 
-  let proseClasses = "prose";
-  switch (themeName) {
-    case "dark":
-      proseClasses = "prose-invert";
-      break;
-    case "custom":
-      proseClasses = "prose";
-      break;
-      case "light":
-      default:
-        proseClasses = "prose";
-        break;
-  }
-
   return (
-    <div className={cn(proseClasses, 'prose-a:text-brand', className)} style={themeName === "custom" ? { color: customTextColor } : {}}>
+    <div className={`prose-a:text-brand prose dark:prose-invert ${className}`}>
       <PortableText components={components} value={value} />
     </div>
   );

@@ -4,9 +4,9 @@ import { type PortableTextBlock } from "next-sanity";
 import { Suspense } from "react";
 
 import Avatar from "@/app/components/Avatar";
-import CoverImage from "@/app/components/CoverImage";
 import { MorePosts } from "@/app/components/Posts";
 import PortableText from "@/app/components/PortableText";
+import Image from "@/app/components/SanityImage";
 import { sanityFetch } from "@/sanity/lib/live";
 import { postPagesSlugs, postQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
@@ -35,7 +35,7 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata(
   props: Props,
-  parent: ResolvingMetadata,
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
   const params = await props.params;
   const { data: post } = await sanityFetch({
@@ -77,9 +77,9 @@ export default async function PostPage(props: Props) {
           <div>
             <div className="pb-6 grid gap-6 mb-6 border-b border-gray-100">
               <div className="max-w-3xl flex flex-col gap-6">
-                <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-7xl">
+                <h1 className="text-4xl text-gray-900 sm:text-5xl lg:text-7xl">
                   {post.title}
-                </h2>
+                </h1>
               </div>
               <div className="max-w-3xl flex gap-4 items-center">
                 {post.author &&
@@ -92,15 +92,20 @@ export default async function PostPage(props: Props) {
             <article className="gap-6 grid max-w-4xl">
               <div className="">
                 {post?.coverImage && (
-                  <CoverImage 
-                    image={post.coverImage} 
-                    priority 
+                  <Image
+                    id={post.coverImage.asset?._ref || ""}
+                    className="rounded-sm w-full"
+                    width={1024}
+                    height={538}
+                    mode="cover"
+                    hotspot={post.coverImage.hotspot}
+                    crop={post.coverImage.crop}
                   />
                 )}
               </div>
               {post.content?.length && (
                 <PortableText
-                  className="max-w-2xl"
+                  className="max-w-2xl prose-headings:font-medium prose-headings:tracking-tight"
                   value={post.content as PortableTextBlock[]}
                 />
               )}

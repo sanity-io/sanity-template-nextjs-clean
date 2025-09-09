@@ -55,110 +55,42 @@ export const callToAction = defineType({
       group: 'button',
     }),
     defineField({
-      name: "image",
-      type: "image",
-      group: "media",
+      name: 'image',
+      type: 'image',
+      group: 'media',
       options: {
         hotspot: true,
       },
     }),
     defineField({
       name: 'theme',
-      type: 'object',
-      title: 'Color Theme',
+      type: 'string',
+      title: 'Theme',
       options: {
-        collapsible: true,
+        list: [
+          {title: 'Light', value: 'light'},
+          {title: 'Dark', value: 'dark'},
+        ],
+        layout: 'radio',
       },
-      fields: [
-        defineField({
-          name: 'themeName',
-          initialValue: 'light',
-          type: 'string',
-          title: 'Theme Name',
-          options: {
-            list: [
-              {title: 'Light', value: 'light'},
-              {title: 'Dark', value: 'dark'},
-              {title: 'Custom', value: 'custom'},
-            ],
-            layout: 'radio',
-          },
-        }),
-        defineField({
-          name: 'customBackgroundColor',
-          title: 'Custom Theme Background Color',
-          type: 'color',
-          options: {
-            collapsible: false,
-          },
-          hidden: ({parent}) => parent?.themeName !== 'custom',
-        }),
-        defineField({
-          name: 'customTextColor',
-          title: 'Custom Theme Text Color',
-          type: 'color',
-          options: {
-            collapsible: false,
-          },
-          hidden: ({parent}) => parent?.themeName !== 'custom',
-        }),
-        defineField({
-          name: 'customButtonBgColor',
-          title: 'Custom Button Background Color',
-          type: 'color',
-          options: {
-            collapsible: false,
-          },
-          hidden: ({parent}) => parent?.themeName !== 'custom',
-        }),
-        defineField({
-          name: 'customButtonTextColor',
-          title: 'Custom Button Text Color',
-          type: 'color',
-          options: {
-            collapsible: false,
-          },
-          hidden: ({parent}) => parent?.themeName !== 'custom',
-        }),
-      ],
+      description: 'Use dark theme with white tile grid background',
+      initialValue: 'light',
       group: 'designSystem',
     }),
-
     defineField({
-      name: 'layout',
-      type: 'object',
-      description: 'The button of the call to action',
+      name: 'contentAlignment',
+      title: 'Content Order',
+      type: 'string',
+      initialValue: 'textFirst',
+      description: 'Does text content or image come first?',
       options: {
-        collapsible: true,
+        list: [
+          {title: 'Text then Image', value: 'textFirst'},
+          {title: 'Image then Text', value: 'imageFirst'},
+        ],
+        layout: 'radio',
       },
-      fields: [
-        defineField({
-          name: 'orientation',
-          title: 'Content Flow Direction',
-          initialValue: 'horizontal',
-          description: 'Does the CTA flow horizontally or vertically?',
-          type: 'string',
-          options: {
-            list: ['horizontal', 'vertical'],
-            layout: 'radio',
-          },
-        }),
-        defineField({
-          name: 'contentAlignment',
-          title: 'Content Order',
-          type: 'string',
-          initialValue: 'textFirst',
-          description:
-            'In the chosen flow direction (horizontal or vertical), does body (rich text and embedded media) or main media (image or video) come first?',
-          options: {
-            list: [
-              {title: 'Body then Main Media', value: 'textFirst'},
-              {title: 'Main Media then Body', value: 'mediaFirst'},
-            ],
-            layout: 'radio',
-          },
-        }),
-      ],
+      hidden: ({parent}) => !Boolean(parent?.image?.asset),
       group: 'designSystem',
     }),
   ],
@@ -172,7 +104,7 @@ export const callToAction = defineType({
       return {
         title: title,
         subtitle: 'Call to Action',
-        media: image || undefined
+        media: image || undefined,
       }
     },
   },

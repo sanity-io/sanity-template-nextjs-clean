@@ -72,19 +72,11 @@ export type CallToAction = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alignment?: "middle" | "bottom";
     _type: "image";
   };
-  theme?: {
-    themeName?: "light" | "dark" | "custom";
-    customBackgroundColor?: Color;
-    customTextColor?: Color;
-    customButtonBgColor?: Color;
-    customButtonTextColor?: Color;
-  };
-  layout?: {
-    orientation?: "horizontal" | "vertical";
-    contentAlignment?: "textFirst" | "mediaFirst";
-  };
+  theme?: "light" | "dark";
+  contentAlignment?: "textFirst" | "imageFirst";
 };
 
 export type InfoSection = {
@@ -101,38 +93,12 @@ export type InfoSection = {
     style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
-      linkType?: "href" | "page" | "post";
       href?: string;
-      page?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "page";
-      };
-      post?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "post";
-      };
-      openInNewTab?: boolean;
       _type: "link";
       _key: string;
     }>;
     level?: number;
     _type: "block";
-    _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
     _key: string;
   }>;
 };
@@ -528,25 +494,25 @@ export type SanityImagePalette = {
 
 export type SanityImageDimensions = {
   _type: "sanity.imageDimensions";
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
+  height: number;
+  width: number;
+  aspectRatio: number;
 };
 
 export type SanityImageHotspot = {
   _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
 };
 
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
 };
 
 export type SanityFileAsset = {
@@ -764,19 +730,11 @@ export type GetPageQueryResult = {
       media?: unknown;
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
+      alignment?: "bottom" | "middle";
       _type: "image";
     };
-    theme?: {
-      themeName?: "custom" | "dark" | "light";
-      customBackgroundColor?: Color;
-      customTextColor?: Color;
-      customButtonBgColor?: Color;
-      customButtonTextColor?: Color;
-    };
-    layout?: {
-      orientation?: "horizontal" | "vertical";
-      contentAlignment?: "mediaFirst" | "textFirst";
-    };
+    theme?: "dark" | "light";
+    contentAlignment?: "imageFirst" | "textFirst";
   } | {
     _key: string;
     _type: "infoSection";
@@ -792,30 +750,15 @@ export type GetPageQueryResult = {
       style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
       listItem?: "bullet" | "number";
       markDefs: Array<{
-        linkType?: "href" | "page" | "post";
         href?: string;
-        page: string | null;
-        post: string | null;
-        openInNewTab?: boolean;
         _type: "link";
         _key: string;
+        page: null;
+        post: null;
       }> | null;
       level?: number;
       _type: "block";
       _key: string;
-    } | {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-      _key: string;
-      markDefs: null;
     }> | null;
   }> | null;
 } | null;

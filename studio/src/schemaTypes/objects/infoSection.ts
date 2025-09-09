@@ -20,7 +20,7 @@ export const infoSection = defineType({
     defineField({
       name: 'content',
       title: 'Content',
-      type: 'blockContent',
+      type: 'blockContentTextOnly',
     }),
   ],
   preview: {

@@ -18,13 +18,13 @@
   "dependencies": {
     "@sanity/assist": "^4.4.7",
     "@sanity/icons": "^3.7.4",
-    "@sanity/vision": "^4.3.0",
+    "@sanity/vision": "^4.7.0",
     "date-fns": "^4.1.0",
     "pluralize-esm": "^9.0.5",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "rxjs": "^7.8.2",
-    "sanity": "^4.3.0",
+    "sanity": "^4.7.0",
     "sanity-plugin-asset-source-unsplash": "^3.1.0",
     "styled-components": "^6.1.19"
   },
