@@ -90,18 +90,6 @@ export default function CustomPortableText({
           </h2>
         );
       },
-      h3: ({ children }) => {
-        return <h3 className="group relative">{children}</h3>;
-      },
-      h4: ({ children }) => {
-        return <h4 className="group relative">{children}</h4>;
-      },
-      h5: ({ children }) => {
-        return <h5 className="group relative">{children}</h5>;
-      },
-      h6: ({ children }) => {
-        return <h6 className="group relative">{children}</h6>;
-      },
     },
     marks: {
       link: ({ children, value: link }) => {
