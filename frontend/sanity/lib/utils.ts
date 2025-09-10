@@ -1,18 +1,18 @@
 import { Link } from "@/sanity.types";
 import { dataset, projectId, studioUrl } from "@/sanity/lib/api";
 import { createDataAttribute, CreateDataAttributeProps } from "next-sanity";
-import imageUrlBuilder from '@sanity/image-url'
-import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+import imageUrlBuilder from "@sanity/image-url";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 const builder = imageUrlBuilder({
   projectId: projectId || "",
   dataset: dataset || "",
-})
+});
 
 // Create an image URL builder using the client
 // Export a function that can be used to get image URLs
-export function urlForImage(source: SanityImageSource) {
-  return builder.image(source)
+function urlForImage(source: SanityImageSource) {
+  return builder.image(source);
 }
 
 export function resolveOpenGraphImage(image: any, width = 1200, height = 627) {

@@ -32,7 +32,13 @@ export default function CustomPortableText({
 
         return (
           <figure className="my-8">
-            <Image id={value.asset._ref} width={672} className="rounded-sm" />
+            <Image
+              id={value.asset._ref}
+              width={672}
+              crop={value.crop}
+              mode="cover"
+              className="rounded-sm"
+            />
           </figure>
         );
       },

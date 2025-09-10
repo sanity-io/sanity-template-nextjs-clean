@@ -5,9 +5,7 @@
     "dev": "npm-run-all --parallel --print-label dev:*",
     "dev:next": "npm run dev --workspace=frontend",
     "dev:studio": "npm run dev --workspace=studio",
-    "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --replace",
-    "generate-types": "cd studio && sanity schema extract --enforce-required-fields && cd ../frontend && sanity typegen generate",
-    "watch:schema": "chokidar 'studio/src/**/*' -c 'npm run generate-types'"
+    "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --replace"
   },
   "keywords": [
     "Sanity",
@@ -26,10 +24,6 @@
     "frontend"
   ],
   "devDependencies": {
-    "chokidar-cli": "^3.0.0",
     "npm-run-all2": "^5.0.2"
-  },
-  "dependencies": {
-    "@sanity/color-input": "^4.0.6"
   }
 }

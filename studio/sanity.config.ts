@@ -9,7 +9,6 @@ import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './src/schemaTypes'
 import {structure} from './src/structure'
 import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
-import {colorInput} from '@sanity/color-input'
 import {
   presentationTool,
   defineDocuments,
@@ -127,7 +126,6 @@ export default defineConfig({
     unsplashImageAsset(),
     assist(),
     visionTool(),
-    colorInput(),
   ],
 
   // Schema configuration, imported from ./src/schemaTypes/index.ts

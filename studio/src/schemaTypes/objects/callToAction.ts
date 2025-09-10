@@ -1,5 +1,11 @@
 import {defineField, defineType} from 'sanity'
-import {BulbOutlineIcon, ComposeIcon, EditIcon, ImageIcon, CogIcon} from '@sanity/icons'
+import {
+  BulbOutlineIcon,
+  ComposeSparklesIcon,
+  LinkIcon,
+  ImageIcon,
+  ControlsIcon,
+} from '@sanity/icons'
 
 /**
  * Call to action schema object.  Objects are reusable schema structures document.
@@ -14,7 +20,7 @@ export const callToAction = defineType({
   groups: [
     {
       name: 'contents',
-      icon: ComposeIcon,
+      icon: ComposeSparklesIcon,
       default: true,
     },
     {
@@ -23,11 +29,11 @@ export const callToAction = defineType({
     },
     {
       name: 'button',
-      icon: EditIcon,
+      icon: LinkIcon,
     },
     {
       name: 'designSystem',
-      icon: CogIcon,
+      icon: ControlsIcon,
     },
   ],
   fields: [
@@ -46,7 +52,7 @@ export const callToAction = defineType({
     }),
     defineField({
       name: 'body',
-      type: 'blockContent',
+      type: 'blockContentTextOnly',
       group: 'contents',
     }),
     defineField({
