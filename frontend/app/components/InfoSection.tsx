@@ -1,7 +1,7 @@
-import { type PortableTextBlock } from "next-sanity";
+import {type PortableTextBlock} from 'next-sanity'
 
-import PortableText from "@/app/components/PortableText";
-import { InfoSection } from "@/sanity.types";
+import PortableText from '@/app/components/PortableText'
+import {InfoSection} from '@/sanity.types'
 
 type InfoProps = {
   block: InfoSection;
@@ -11,7 +11,7 @@ type InfoProps = {
   pageType: string;
 };
 
-export default function CTA({ block }: InfoProps) {
+export default function CTA({block}: InfoProps) {
   return (
     <div className="container my-12">
       <div className="max-w-3xl">
@@ -25,13 +25,10 @@ export default function CTA({ block }: InfoProps) {
         )}
         <div className="mt-4">
           {block?.content?.length && (
-            <PortableText
-              className=""
-              value={block.content as PortableTextBlock[]}
-            />
+            <PortableText className="" value={block.content as PortableTextBlock[]} />
           )}
         </div>
       </div>
     </div>
-  );
+  )
 }

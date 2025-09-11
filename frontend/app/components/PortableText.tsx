@@ -20,8 +20,8 @@ export default function CustomPortableText({
   className,
   value,
 }: {
-  className?: string;
-  value: PortableTextBlock[];
+  className?: string
+  value: PortableTextBlock[]
 }) {
   const components: PortableTextComponents = {
     types: {
@@ -44,7 +44,7 @@ export default function CustomPortableText({
       },
     },
     block: {
-      h1: ({ children, value }) => (
+      h1: ({children, value}) => (
         // Add an anchor to the h1
         <h1 className="group relative">
           {children}
@@ -69,7 +69,7 @@ export default function CustomPortableText({
           </a>
         </h1>
       ),
-      h2: ({ children, value }) => {
+      h2: ({children, value}) => {
         // Add an anchor to the h2
         return (
           <h2 className="group relative">
@@ -94,19 +94,19 @@ export default function CustomPortableText({
               </svg>
             </a>
           </h2>
-        );
+        )
       },
     },
     marks: {
-      link: ({ children, value: link }) => {
-        return <ResolvedLink link={link}>{children}</ResolvedLink>;
+      link: ({children, value: link}) => {
+        return <ResolvedLink link={link}>{children}</ResolvedLink>
       },
     },
-  };
+  }
 
   return (
     <div className={`prose-a:text-brand prose dark:prose-invert ${className}`}>
       <PortableText components={components} value={value} />
     </div>
-  );
+  )
 }

@@ -1,9 +1,8 @@
----
 name: Prettier
 
 on:
   push:
-    branches: [main]
+    branches: [main, feat/ci-renovate-prettier]
   workflow_dispatch:
 
 concurrency:
@@ -15,31 +14,28 @@ jobs:
     name: Can the code be prettier? 🤔
     runs-on: ubuntu-latest
     # workflow_dispatch always lets you select the branch ref, even though in this case we only ever want to run the action on `main` this we need an if check
-    if: ${{ github.ref_name == 'main' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          cache: npm
-          node-version: lts/*
-      - run: npm ci --ignore-scripts --only-dev
-      - uses: actions/cache@v3
-        with:
-          path: node_modules/.cache/prettier/.prettier-cache
-          key: prettier-${{ hashFiles('package-lock.json') }}-${{ hashFiles('.gitignore') }}
-      - run: npx prettier --ignore-path .gitignore --cache --write .
-      - run: git restore .github/workflows
-      - uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2
-        id: generate-token
-        with:
-          app_id: ${{ secrets.ECOSPARK_APP_ID }}
-          private_key: ${{ secrets.ECOSPARK_APP_PRIVATE_KEY }}
-      - uses: peter-evans/create-pull-request@b1ddad2c994a25fbc81a28b3ec0e368bb2021c50 # v6
-        with:
-          author: github-actions <41898282+github-actions[bot]@users.noreply.github.com>
-          body: I ran `npx prettier --ignore-path .gitignore --cache --write .` 🧑‍💻
-          branch: actions/prettier-if-needed
-          commit-message: 'chore(prettier): 🤖 ✨'
-          labels: 🤖 bot
-          title: 'chore(prettier): 🤖 ✨'
-          token: ${{ steps.generate-token.outputs.token }}
+    - uses: actions/checkout@v5
+
+    - uses: actions/setup-node@v4
+      with:
+        cache: npm
+        node-version: lts/*
+
+    - run: npm install
+    - run: npm run format
+    
+    - uses: actions/create-github-app-token@v2
+      id: generate-token
+      with:
+        app-id: ${{ secrets.ECOSPARK_APP_ID }}
+        private-key: ${{ secrets.ECOSPARK_APP_PRIVATE_KEY }}
+    - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7
+      with:
+        body: I ran `pnpm format` 🧑‍💻
+        branch: actions/prettier
+        commit-message: "chore(prettier): 🤖 ✨"
+        labels: 🤖 bot
+        sign-commits: true
+        title: "chore(prettier): 🤖 ✨"
+        token: ${{ steps.generate-token.outputs.token }}
