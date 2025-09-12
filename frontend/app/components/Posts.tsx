@@ -1,25 +1,20 @@
 import Link from 'next/link'
 
+import {studioUrl} from '@/sanity/lib/api'
 import {sanityFetch} from '@/sanity/lib/live'
 import {morePostsQuery, allPostsQuery} from '@/sanity/lib/queries'
 import {Post as PostType, AllPostsQueryResult} from '@/sanity.types'
 import DateComponent from '@/app/components/Date'
 import OnBoarding from '@/app/components/Onboarding'
 import Avatar from '@/app/components/Avatar'
-import {createDataAttribute} from 'next-sanity'
+import {dataAttr} from '@/sanity/lib/utils'
 
 const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
   const {_id, title, slug, excerpt, date, author} = post
 
-  const attr = createDataAttribute({
-    id: _id,
-    type: 'post',
-    path: 'title',
-  })
-
   return (
     <article
-      data-sanity={attr()}
+      data-sanity={dataAttr({id: _id, type: 'post', path: 'title'}).toString()}
       key={_id}
       className="border border-gray-200 rounded-sm p-6 bg-gray-50 flex flex-col justify-between transition-colors hover:bg-white relative"
     >
@@ -55,11 +50,7 @@ const Posts = ({
   subHeading?: string
 }) => (
   <div>
-    {heading && (
-      <h2 className="text-3xl text-gray-900 sm:text-4xl lg:text-5xl">
-        {heading}
-      </h2>
-    )}
+    {heading && <h2 className="text-3xl text-gray-900 sm:text-4xl lg:text-5xl">{heading}</h2>}
     {subHeading && <p className="mt-2 text-lg leading-8 text-gray-600">{subHeading}</p>}
     <div className="pt-6 space-y-6">{children}</div>
   </div>

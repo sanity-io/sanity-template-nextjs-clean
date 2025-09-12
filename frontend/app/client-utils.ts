@@ -1,6 +1,6 @@
 'use client'
 
-import {isCorsOriginError} from 'next-sanity'
+import {isCorsOriginError} from 'next-sanity/live'
 import {toast} from 'sonner'
 
 export function handleError(error: unknown) {
