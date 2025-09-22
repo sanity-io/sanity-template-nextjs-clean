@@ -1,14 +1,12 @@
 'use client'
 
-import { createDataAttribute, SanityDocument } from "next-sanity";
-import { useOptimistic } from "next-sanity/hooks";
-import Link from "next/link";
+import {SanityDocument} from 'next-sanity'
+import {useOptimistic} from 'next-sanity/hooks'
 
-import BlockRenderer from "@/app/components/BlockRenderer";
-import { GetPageQueryResult } from "@/sanity.types";
-import { dataAttr } from "@/sanity/lib/utils";
-import { studioUrl } from "@/sanity/lib/api";
-import { PageBuilderSection } from "@/sanity/lib/types";
+import BlockRenderer from '@/app/components/BlockRenderer'
+import {GetPageQueryResult} from '@/sanity.types'
+import {dataAttr} from '@/sanity/lib/utils'
+import {PageBuilderSection} from '@/sanity/lib/types'
 
 type PageBuilderPageProps = {
   page: GetPageQueryResult
@@ -28,8 +26,8 @@ function RenderSections({
   pageBuilderSections,
   page,
 }: {
-  pageBuilderSections: PageBuilderSection[];
-  page: GetPageQueryResult;
+  pageBuilderSections: PageBuilderSection[]
+  page: GetPageQueryResult
 }) {
   if (!page) {
     return null
@@ -55,32 +53,23 @@ function RenderSections({
   )
 }
 
-function RenderEmptyState({ page }: { page: GetPageQueryResult }) {
+function RenderEmptyState({page}: {page: GetPageQueryResult}) {
   if (!page) {
     return null
   }
 
-  const attr = createDataAttribute({
-    id: page._id,
-    type: "page",
-    path: "pageBuilder",
-  }).toString();
-
   return (
-    <div className="container" data-sanity={attr}>
-      <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
-        This page has no content!
-      </h1>
-      <p className="mt-2 text-base text-gray-500">Open the page in Sanity Studio to add content.</p>
-      <div className="mt-10 flex">
-        <Link
-          className="rounded-full flex gap-2 mr-6 items-center bg-black hover:bg-brand focus:bg-blue py-3 px-6 text-white transition-colors duration-200"
-          href={`${studioUrl}/structure/intent/edit/template=page;type=page;path=pageBuilder;id=${page._id}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Add content to this page
-        </Link>
+    <div
+      className="container mt-10"
+      data-sanity={dataAttr({
+        id: page._id,
+        type: 'page',
+        path: `pageBuilder`,
+      }).toString()}
+    >
+      <div className="prose">
+        <h2 className="">This page has no content!</h2>
+        <p className="">Open the page in Sanity Studio to add content.</p>
       </div>
     </div>
   )
@@ -111,7 +100,9 @@ export default function PageBuilder({page}: PageBuilderPageProps) {
     return currentSections
   })
 
-  return pageBuilderSections && pageBuilderSections.length > 0
-    ? <RenderSections pageBuilderSections={pageBuilderSections} page={page} />
-    : <RenderEmptyState page={page} />;
+  return pageBuilderSections && pageBuilderSections.length > 0 ? (
+    <RenderSections pageBuilderSections={pageBuilderSections} page={page} />
+  ) : (
+    <RenderEmptyState page={page} />
+  )
 }
