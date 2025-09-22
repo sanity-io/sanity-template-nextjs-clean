@@ -1,24 +1,20 @@
 import React from 'react'
 
-import Cta from '@/app/components/Cta'
-import Info from '@/app/components/InfoSection'
-import {dataAttr} from '@/sanity/lib/utils'
+import Cta from "@/app/components/Cta";
+import Info from "@/app/components/InfoSection";
+import { dataAttr } from "@/sanity/lib/utils";
+import { PageBuilderSection } from "@/sanity/lib/types";
 
 type BlocksType = {
   [key: string]: React.FC<any>
 }
 
-type BlockType = {
-  _type: string
-  _key: string
-}
-
 type BlockProps = {
-  index: number
-  block: BlockType
-  pageId: string
-  pageType: string
-}
+  index: number;
+  block: PageBuilderSection;
+  pageId: string;
+  pageType: string;
+};
 
 const Blocks: BlocksType = {
   callToAction: Cta,
@@ -44,6 +40,8 @@ export default function BlockRenderer({block, index, pageId, pageType}: BlockPro
           key: block._key,
           block: block,
           index: index,
+          pageId: pageId,
+          pageType: pageType,
         })}
       </div>
     )
