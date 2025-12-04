@@ -1,7 +1,5 @@
-import {Image} from 'next-sanity/image'
-
-import {urlForImage} from '@/sanity/lib/utils'
-import DateComponent from '@/app/components/Date'
+import Image from "@/app/components/SanityImage";
+import DateComponent from "@/app/components/Date";
 
 type Props = {
   person: {
@@ -21,17 +19,14 @@ export default function Avatar({person, date, small = false}: Props) {
       {picture?.asset?._ref ? (
         <div className={`${small ? 'h-6 w-6 mr-2' : 'h-9 w-9 mr-4'}`}>
           <Image
-            alt={picture?.alt || ''}
-            className="h-full rounded-full object-cover"
+            id={picture.asset._ref}
+            alt={picture?.alt || ""}
+            className="h-full rounded-full"
             height={small ? 32 : 48}
             width={small ? 32 : 48}
-            src={
-              urlForImage(picture)
-                ?.height(small ? 64 : 96)
-                .width(small ? 64 : 96)
-                .fit('crop')
-                .url() as string
-            }
+            hotspot={picture.hotspot}
+            crop={picture.crop}
+            mode="cover"
           />
         </div>
       ) : (
@@ -39,7 +34,7 @@ export default function Avatar({person, date, small = false}: Props) {
       )}
       <div className="flex flex-col">
         {firstName && lastName && (
-          <div className={`font-bold ${small ? 'text-sm' : ''}`}>
+          <div className={`${small ? "text-sm" : ""}`}>
             {firstName} {lastName}
           </div>
         )}
