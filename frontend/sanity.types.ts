@@ -13,14 +13,6 @@
  */
 
 // Source: schema.json
-export type CallToAction = {
-  _type: 'callToAction'
-  heading: string
-  text?: string
-  buttonText?: string
-  link?: Link
-}
-
 export type Link = {
   _type: 'link'
   linkType?: 'href' | 'page' | 'post'
@@ -40,42 +32,19 @@ export type Link = {
   openInNewTab?: boolean
 }
 
+export type CallToAction = {
+  _type: 'callToAction'
+  heading: string
+  text?: string
+  buttonText?: string
+  link?: Link
+}
+
 export type InfoSection = {
   _type: 'infoSection'
   heading?: string
   subheading?: string
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      linkType?: 'href' | 'page' | 'post'
-      href?: string
-      page?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'page'
-      }
-      post?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'post'
-      }
-      openInNewTab?: boolean
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+  content?: BlockContent
 }
 
 export type BlockContent = Array<{
@@ -166,6 +135,22 @@ export type Settings = {
   }
 }
 
+export type SanityImageCrop = {
+  _type: 'sanity.imageCrop'
+  top: number
+  bottom: number
+  left: number
+  right: number
+}
+
+export type SanityImageHotspot = {
+  _type: 'sanity.imageHotspot'
+  x: number
+  y: number
+  height: number
+  width: number
+}
+
 export type Page = {
   _id: string
   _type: 'page'
@@ -196,7 +181,7 @@ export type Post = {
   slug: Slug
   content?: BlockContent
   excerpt?: string
-  coverImage: {
+  coverImage?: {
     asset?: {
       _ref: string
       _type: 'reference'
@@ -239,6 +224,12 @@ export type Person = {
     alt?: string
     _type: 'image'
   }
+}
+
+export type Slug = {
+  _type: 'slug'
+  current: string
+  source?: string
 }
 
 export type SanityAssistInstructionTask = {
@@ -397,25 +388,20 @@ export type SanityImagePalette = {
 
 export type SanityImageDimensions = {
   _type: 'sanity.imageDimensions'
-  height?: number
-  width?: number
-  aspectRatio?: number
+  height: number
+  width: number
+  aspectRatio: number
 }
 
-export type SanityImageHotspot = {
-  _type: 'sanity.imageHotspot'
-  x?: number
-  y?: number
-  height?: number
-  width?: number
-}
-
-export type SanityImageCrop = {
-  _type: 'sanity.imageCrop'
-  top?: number
-  bottom?: number
-  left?: number
-  right?: number
+export type SanityImageMetadata = {
+  _type: 'sanity.imageMetadata'
+  location?: Geopoint
+  dimensions?: SanityImageDimensions
+  palette?: SanityImagePalette
+  lqip?: string
+  blurHash?: string
+  hasAlpha?: boolean
+  isOpaque?: boolean
 }
 
 export type SanityFileAsset = {
@@ -438,6 +424,13 @@ export type SanityFileAsset = {
   path?: string
   url?: string
   source?: SanityAssetSourceData
+}
+
+export type SanityAssetSourceData = {
+  _type: 'sanity.assetSourceData'
+  name?: string
+  id?: string
+  url?: string
 }
 
 export type SanityImageAsset = {
@@ -463,17 +456,6 @@ export type SanityImageAsset = {
   source?: SanityAssetSourceData
 }
 
-export type SanityImageMetadata = {
-  _type: 'sanity.imageMetadata'
-  location?: Geopoint
-  dimensions?: SanityImageDimensions
-  palette?: SanityImagePalette
-  lqip?: string
-  blurHash?: string
-  hasAlpha?: boolean
-  isOpaque?: boolean
-}
-
 export type Geopoint = {
   _type: 'geopoint'
   lat?: number
@@ -481,28 +463,18 @@ export type Geopoint = {
   alt?: number
 }
 
-export type Slug = {
-  _type: 'slug'
-  current: string
-  source?: string
-}
-
-export type SanityAssetSourceData = {
-  _type: 'sanity.assetSourceData'
-  name?: string
-  id?: string
-  url?: string
-}
-
 export type AllSanitySchemaTypes =
-  | CallToAction
   | Link
+  | CallToAction
   | InfoSection
   | BlockContent
   | Settings
+  | SanityImageCrop
+  | SanityImageHotspot
   | Page
   | Post
   | Person
+  | Slug
   | SanityAssistInstructionTask
   | SanityAssistTaskStatus
   | SanityAssistSchemaTypeAnnotations
@@ -518,14 +490,11 @@ export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
-  | SanityImageHotspot
-  | SanityImageCrop
-  | SanityFileAsset
-  | SanityImageAsset
   | SanityImageMetadata
-  | Geopoint
-  | Slug
+  | SanityFileAsset
   | SanityAssetSourceData
+  | SanityImageAsset
+  | Geopoint
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -673,7 +642,7 @@ export type AllPostsQueryResult = Array<{
     crop?: SanityImageCrop
     alt?: string
     _type: 'image'
-  }
+  } | null
   date: string
   author: {
     firstName: string
@@ -713,7 +682,7 @@ export type MorePostsQueryResult = Array<{
     crop?: SanityImageCrop
     alt?: string
     _type: 'image'
-  }
+  } | null
   date: string
   author: {
     firstName: string
@@ -775,7 +744,7 @@ export type PostQueryResult = {
     crop?: SanityImageCrop
     alt?: string
     _type: 'image'
-  }
+  } | null
   date: string
   author: {
     firstName: string
