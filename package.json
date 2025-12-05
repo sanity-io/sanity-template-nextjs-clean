@@ -18,7 +18,7 @@
     "frontend"
   ],
   "scripts": {
-    "dev": "npx npm-run-all --parallel --print-label dev:*",
+    "dev": "run-p --print-label dev:*",
     "dev:next": "npm run dev --workspace=frontend",
     "dev:studio": "npm run dev --workspace=studio",
     "format": "prettier --cache --write .",
