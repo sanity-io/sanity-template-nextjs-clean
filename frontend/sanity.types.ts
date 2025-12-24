@@ -13,28 +13,30 @@
  */
 
 // Source: schema.json
+export type Link = {
+  _type: 'link'
+  linkType?: 'href' | 'page' | 'post'
+  href?: string
+  page?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'page'
+  }
+  post?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'post'
+  }
+  openInNewTab?: boolean
+}
+
 export type CallToAction = {
   _type: 'callToAction'
   eyebrow?: string
   heading: string
-  body?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+  body?: BlockContentTextOnly
   button?: Button
   image?: {
     asset?: {
@@ -56,53 +58,7 @@ export type InfoSection = {
   _type: 'infoSection'
   heading?: string
   subheading?: string
-  content?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>
-          text?: string
-          _type: 'span'
-          _key: string
-        }>
-        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-        listItem?: 'bullet' | 'number'
-        markDefs?: Array<{
-          linkType?: 'href' | 'page' | 'post'
-          href?: string
-          page?: {
-            _ref: string
-            _type: 'reference'
-            _weak?: boolean
-            [internalGroqTypeReferenceTo]?: 'page'
-          }
-          post?: {
-            _ref: string
-            _type: 'reference'
-            _weak?: boolean
-            [internalGroqTypeReferenceTo]?: 'post'
-          }
-          openInNewTab?: boolean
-          _type: 'link'
-          _key: string
-        }>
-        level?: number
-        _type: 'block'
-        _key: string
-      }
-    | {
-        asset?: {
-          _ref: string
-          _type: 'reference'
-          _weak?: boolean
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-        }
-        media?: unknown
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        _type: 'image'
-        _key: string
-      }
-  >
+  content?: BlockContent
 }
 
 export type BlockContentTextOnly = Array<{
@@ -178,25 +134,6 @@ export type Button = {
   link?: Link
 }
 
-export type Link = {
-  _type: 'link'
-  linkType?: 'href' | 'page' | 'post'
-  href?: string
-  page?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'page'
-  }
-  post?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'post'
-  }
-  openInNewTab?: boolean
-}
-
 export type Settings = {
   _id: string
   _type: 'settings'
@@ -252,6 +189,22 @@ export type Settings = {
   }
 }
 
+export type SanityImageCrop = {
+  _type: 'sanity.imageCrop'
+  top: number
+  bottom: number
+  left: number
+  right: number
+}
+
+export type SanityImageHotspot = {
+  _type: 'sanity.imageHotspot'
+  x: number
+  y: number
+  height: number
+  width: number
+}
+
 export type Page = {
   _id: string
   _type: 'page'
@@ -282,7 +235,7 @@ export type Post = {
   slug: Slug
   content?: BlockContent
   excerpt?: string
-  coverImage: {
+  coverImage?: {
     asset?: {
       _ref: string
       _type: 'reference'
@@ -325,6 +278,12 @@ export type Person = {
     alt?: string
     _type: 'image'
   }
+}
+
+export type Slug = {
+  _type: 'slug'
+  current: string
+  source?: string
 }
 
 export type SanityAssistInstructionTask = {
@@ -488,20 +447,15 @@ export type SanityImageDimensions = {
   aspectRatio: number
 }
 
-export type SanityImageHotspot = {
-  _type: 'sanity.imageHotspot'
-  x: number
-  y: number
-  height: number
-  width: number
-}
-
-export type SanityImageCrop = {
-  _type: 'sanity.imageCrop'
-  top: number
-  bottom: number
-  left: number
-  right: number
+export type SanityImageMetadata = {
+  _type: 'sanity.imageMetadata'
+  location?: Geopoint
+  dimensions?: SanityImageDimensions
+  palette?: SanityImagePalette
+  lqip?: string
+  blurHash?: string
+  hasAlpha?: boolean
+  isOpaque?: boolean
 }
 
 export type SanityFileAsset = {
@@ -524,6 +478,13 @@ export type SanityFileAsset = {
   path?: string
   url?: string
   source?: SanityAssetSourceData
+}
+
+export type SanityAssetSourceData = {
+  _type: 'sanity.assetSourceData'
+  name?: string
+  id?: string
+  url?: string
 }
 
 export type SanityImageAsset = {
@@ -549,17 +510,6 @@ export type SanityImageAsset = {
   source?: SanityAssetSourceData
 }
 
-export type SanityImageMetadata = {
-  _type: 'sanity.imageMetadata'
-  location?: Geopoint
-  dimensions?: SanityImageDimensions
-  palette?: SanityImagePalette
-  lqip?: string
-  blurHash?: string
-  hasAlpha?: boolean
-  isOpaque?: boolean
-}
-
 export type Geopoint = {
   _type: 'geopoint'
   lat?: number
@@ -567,30 +517,20 @@ export type Geopoint = {
   alt?: number
 }
 
-export type Slug = {
-  _type: 'slug'
-  current: string
-  source?: string
-}
-
-export type SanityAssetSourceData = {
-  _type: 'sanity.assetSourceData'
-  name?: string
-  id?: string
-  url?: string
-}
-
 export type AllSanitySchemaTypes =
+  | Link
   | CallToAction
   | InfoSection
   | BlockContentTextOnly
   | BlockContent
   | Button
-  | Link
   | Settings
+  | SanityImageCrop
+  | SanityImageHotspot
   | Page
   | Post
   | Person
+  | Slug
   | SanityAssistInstructionTask
   | SanityAssistTaskStatus
   | SanityAssistSchemaTypeAnnotations
@@ -606,14 +546,11 @@ export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
-  | SanityImageHotspot
-  | SanityImageCrop
-  | SanityFileAsset
-  | SanityImageAsset
   | SanityImageMetadata
-  | Geopoint
-  | Slug
+  | SanityFileAsset
   | SanityAssetSourceData
+  | SanityImageAsset
+  | Geopoint
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -687,24 +624,7 @@ export type GetPageQueryResult = {
         _type: 'callToAction'
         eyebrow?: string
         heading: string
-        body?: Array<{
-          children?: Array<{
-            marks?: Array<string>
-            text?: string
-            _type: 'span'
-            _key: string
-          }>
-          style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-          listItem?: 'bullet' | 'number'
-          markDefs?: Array<{
-            href?: string
-            _type: 'link'
-            _key: string
-          }>
-          level?: number
-          _type: 'block'
-          _key: string
-        }>
+        body?: BlockContentTextOnly
         button: {
           _type: 'button'
           buttonText?: string
@@ -812,7 +732,7 @@ export type AllPostsQueryResult = Array<{
     crop?: SanityImageCrop
     alt?: string
     _type: 'image'
-  }
+  } | null
   date: string
   author: {
     firstName: string
@@ -852,7 +772,7 @@ export type MorePostsQueryResult = Array<{
     crop?: SanityImageCrop
     alt?: string
     _type: 'image'
-  }
+  } | null
   date: string
   author: {
     firstName: string
@@ -930,7 +850,7 @@ export type PostQueryResult = {
     crop?: SanityImageCrop
     alt?: string
     _type: 'image'
-  }
+  } | null
   date: string
   author: {
     firstName: string

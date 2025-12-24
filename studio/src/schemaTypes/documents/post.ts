@@ -68,7 +68,6 @@ export const post = defineType({
           },
         },
       ],
-      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'date',
