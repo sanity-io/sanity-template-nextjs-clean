@@ -1,5 +1,5 @@
-import Image from "@/app/components/SanityImage";
-import DateComponent from "@/app/components/Date";
+import Image from '@/app/components/SanityImage'
+import DateComponent from '@/app/components/Date'
 
 type Props = {
   person: {
@@ -20,7 +20,7 @@ export default function Avatar({person, date, small = false}: Props) {
         <div className={`${small ? 'h-6 w-6 mr-2' : 'h-9 w-9 mr-4'}`}>
           <Image
             id={picture.asset._ref}
-            alt={picture?.alt || ""}
+            alt={picture?.alt || ''}
             className="h-full rounded-full"
             height={small ? 32 : 48}
             width={small ? 32 : 48}
@@ -34,7 +34,7 @@ export default function Avatar({person, date, small = false}: Props) {
       )}
       <div className="flex flex-col">
         {firstName && lastName && (
-          <div className={`${small ? "text-sm" : ""}`}>
+          <div className={`${small ? 'text-sm' : ''}`}>
             {firstName} {lastName}
           </div>
         )}

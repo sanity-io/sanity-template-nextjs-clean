@@ -6,8 +6,8 @@ const nextConfig: NextConfig = {
     SC_DISABLE_SPEEDY: 'false',
   },
   images: {
-    remotePatterns: [new URL("https://cdn.sanity.io/**")],
+    remotePatterns: [new URL('https://cdn.sanity.io/**')],
   },
-};
+}
 
 export default nextConfig
