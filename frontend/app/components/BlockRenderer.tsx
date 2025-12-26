@@ -1,20 +1,20 @@
 import React from 'react'
 
-import Cta from "@/app/components/Cta";
-import Info from "@/app/components/InfoSection";
-import { dataAttr } from "@/sanity/lib/utils";
-import { PageBuilderSection } from "@/sanity/lib/types";
+import Cta from '@/app/components/Cta'
+import Info from '@/app/components/InfoSection'
+import {dataAttr} from '@/sanity/lib/utils'
+import {PageBuilderSection} from '@/sanity/lib/types'
 
 type BlocksType = {
   [key: string]: React.FC<any>
 }
 
 type BlockProps = {
-  index: number;
-  block: PageBuilderSection;
-  pageId: string;
-  pageType: string;
-};
+  index: number
+  block: PageBuilderSection
+  pageId: string
+  pageType: string
+}
 
 const Blocks: BlocksType = {
   callToAction: Cta,

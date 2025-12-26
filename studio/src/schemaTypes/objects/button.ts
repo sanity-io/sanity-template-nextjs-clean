@@ -14,8 +14,8 @@ export default defineType({
       name: 'link',
       title: 'Button Link',
       type: 'link',
-      options:{collapsible: true, collapsed: false}, 
+      options: {collapsible: true, collapsed: false},
     }),
   ],
-  options:{collapsible: true}, 
+  options: {collapsible: true},
 })
