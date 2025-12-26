@@ -8,13 +8,9 @@
  *
  */
 
-import {
-  PortableText,
-  type PortableTextComponents,
-  type PortableTextBlock,
-} from "next-sanity";
-import ResolvedLink from "@/app/components/ResolvedLink";
-import Image from "@/app/components/SanityImage";
+import {PortableText, type PortableTextComponents, type PortableTextBlock} from 'next-sanity'
+import ResolvedLink from '@/app/components/ResolvedLink'
+import Image from '@/app/components/SanityImage'
 
 export default function CustomPortableText({
   className,
@@ -25,9 +21,9 @@ export default function CustomPortableText({
 }) {
   const components: PortableTextComponents = {
     types: {
-      image: ({ value }) => {
+      image: ({value}) => {
         if (!value?.asset?._ref) {
-          return null;
+          return null
         }
 
         return (
@@ -40,7 +36,7 @@ export default function CustomPortableText({
               className="rounded-sm"
             />
           </figure>
-        );
+        )
       },
     },
     block: {
