@@ -2,10 +2,23 @@
 
 @plugin "@tailwindcss/typography";
 
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-medium tracking-tight;
+  }
+}
+
 @utility container {
   margin: 0 auto;
   padding: 0 2rem;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --shadow-layer: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
@@ -27,9 +40,6 @@
   --color-gray-800: #252837;
   --color-gray-900: #1b1d27;
   --color-gray-950: #13141b;
-
-  --font-display: 'Inter', 'sans-serif';
-  --font-sans: 'Inter', 'sans-serif';
 
   --default-transition-duration: 250ms;
 }

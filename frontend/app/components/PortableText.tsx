@@ -8,9 +8,13 @@
  *
  */
 
-import {PortableText, type PortableTextComponents, type PortableTextBlock} from 'next-sanity'
-
-import ResolvedLink from '@/app/components/ResolvedLink'
+import {
+  PortableText,
+  type PortableTextComponents,
+  type PortableTextBlock,
+} from "next-sanity";
+import ResolvedLink from "@/app/components/ResolvedLink";
+import Image from "@/app/components/SanityImage";
 
 export default function CustomPortableText({
   className,
@@ -20,6 +24,25 @@ export default function CustomPortableText({
   value: PortableTextBlock[]
 }) {
   const components: PortableTextComponents = {
+    types: {
+      image: ({ value }) => {
+        if (!value?.asset?._ref) {
+          return null;
+        }
+
+        return (
+          <figure className="my-8">
+            <Image
+              id={value.asset._ref}
+              width={672}
+              crop={value.crop}
+              mode="cover"
+              className="rounded-sm"
+            />
+          </figure>
+        );
+      },
+    },
     block: {
       h1: ({children, value}) => (
         // Add an anchor to the h1
@@ -82,7 +105,7 @@ export default function CustomPortableText({
   }
 
   return (
-    <div className={['prose prose-a:text-brand', className].filter(Boolean).join(' ')}>
+    <div className={`prose-a:text-brand prose dark:prose-invert ${className}`}>
       <PortableText components={components} value={value} />
     </div>
   )
