@@ -5,15 +5,15 @@ import Info from '@/app/components/InfoSection'
 import {dataAttr} from '@/sanity/lib/utils'
 import {PageBuilderSection} from '@/sanity/lib/types'
 
-type BlocksType = {
-  [key: string]: React.FC<any>
-}
-
 type BlockProps = {
   index: number
   block: PageBuilderSection
   pageId: string
   pageType: string
+}
+
+type BlocksType = {
+  [key: string]: React.FC<BlockProps>
 }
 
 const Blocks: BlocksType = {

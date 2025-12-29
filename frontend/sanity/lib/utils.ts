@@ -15,11 +15,11 @@ function urlForImage(source: SanityImageSource) {
   return builder.image(source)
 }
 
-export function resolveOpenGraphImage(image: any, width = 1200, height = 627) {
+export function resolveOpenGraphImage(image: SanityImageSource, width = 1200, height = 627) {
   if (!image) return
   const url = urlForImage(image)?.width(1200).height(627).fit('crop').url()
   if (!url) return
-  return {url, alt: image?.alt as string, width, height}
+  return {url, alt: (image as {alt?: string})?.alt || '', width, height}
 }
 
 // Depending on the type of link, we need to fetch the corresponding page, post, or URL.  Otherwise return null.

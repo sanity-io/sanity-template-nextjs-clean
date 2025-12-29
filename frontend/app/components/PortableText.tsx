@@ -30,6 +30,7 @@ export default function CustomPortableText({
           <figure className="my-8">
             <Image
               id={value.asset._ref}
+              alt={value.alt || ''}
               width={672}
               crop={value.crop}
               mode="cover"

@@ -85,6 +85,7 @@ export default async function PostPage(props: Props) {
                 {post?.coverImage && (
                   <Image
                     id={post.coverImage.asset?._ref || ''}
+                    alt={post.coverImage.alt || ''}
                     className="rounded-sm w-full"
                     width={1024}
                     height={538}

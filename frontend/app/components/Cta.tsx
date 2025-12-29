@@ -1,4 +1,3 @@
-import {Suspense} from 'react'
 import {PortableTextBlock} from 'next-sanity'
 
 import ResolvedLink from '@/app/components/ResolvedLink'

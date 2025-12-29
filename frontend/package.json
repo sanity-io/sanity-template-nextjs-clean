@@ -6,7 +6,8 @@
     "build": "next build",
     "predev": "npm run typegen",
     "dev": "next dev",
-    "lint": "next lint",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "start": "next start",
     "type-check": "tsc --noEmit",
     "typegen": "sanity typegen generate"
