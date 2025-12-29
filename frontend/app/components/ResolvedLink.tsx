@@ -1,10 +1,10 @@
 import Link from 'next/link'
 
 import {linkResolver} from '@/sanity/lib/utils'
-import {Link as SanityLink} from '@/sanity.types'
+import {DereferencedLink} from '@/sanity/lib/types'
 
 interface ResolvedLinkProps {
-  link: SanityLink
+  link: DereferencedLink
   children: React.ReactNode
   className?: string
 }

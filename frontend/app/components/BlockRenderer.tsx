@@ -16,10 +16,10 @@ type BlocksType = {
   [key: string]: React.FC<BlockProps>
 }
 
-const Blocks: BlocksType = {
+const Blocks = {
   callToAction: Cta,
   infoSection: Info,
-}
+} as BlocksType
 
 /**
  * Used by the <PageBuilder>, this component renders a the component that matches the block type.
