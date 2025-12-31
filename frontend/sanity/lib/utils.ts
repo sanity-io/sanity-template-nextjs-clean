@@ -1,52 +1,30 @@
-import createImageUrlBuilder from '@sanity/image-url'
 import {Link} from '@/sanity.types'
 import {dataset, projectId, studioUrl} from '@/sanity/lib/api'
 import {createDataAttribute, CreateDataAttributeProps} from 'next-sanity'
-import {getImageDimensions} from '@sanity/asset-utils'
+import imageUrlBuilder from '@sanity/image-url'
+import type {SanityImageSource} from '@sanity/image-url/lib/types/types'
+import {DereferencedLink} from '@/sanity/lib/types'
 
-const imageBuilder = createImageUrlBuilder({
+const builder = imageUrlBuilder({
   projectId: projectId || '',
   dataset: dataset || '',
 })
 
-export const urlForImage = (source: any) => {
-  // Ensure that source image contains a valid reference
-  if (!source?.asset?._ref) {
-    return undefined
-  }
-
-  const imageRef = source?.asset?._ref
-  const crop = source.crop
-
-  // get the image's og dimensions
-  const {width, height} = getImageDimensions(imageRef)
-
-  if (Boolean(crop)) {
-    // compute the cropped image's area
-    const croppedWidth = Math.floor(width * (1 - (crop.right + crop.left)))
-
-    const croppedHeight = Math.floor(height * (1 - (crop.top + crop.bottom)))
-
-    // compute the cropped image's position
-    const left = Math.floor(width * crop.left)
-    const top = Math.floor(height * crop.top)
-
-    // gather into a url
-    return imageBuilder?.image(source).rect(left, top, croppedWidth, croppedHeight).auto('format')
-  }
-
-  return imageBuilder?.image(source).auto('format')
+// Create an image URL builder using the client
+// Export a function that can be used to get image URLs
+function urlForImage(source: SanityImageSource) {
+  return builder.image(source)
 }
 
-export function resolveOpenGraphImage(image: any, width = 1200, height = 627) {
+export function resolveOpenGraphImage(image?: SanityImageSource | null, width = 1200, height = 627) {
   if (!image) return
   const url = urlForImage(image)?.width(1200).height(627).fit('crop').url()
   if (!url) return
-  return {url, alt: image?.alt as string, width, height}
+  return {url, alt: (image as {alt?: string})?.alt || '', width, height}
 }
 
 // Depending on the type of link, we need to fetch the corresponding page, post, or URL.  Otherwise return null.
-export function linkResolver(link: Link | undefined) {
+export function linkResolver(link: Link | DereferencedLink | undefined) {
   if (!link) return null
 
   // If linkType is not set but href is, lets set linkType to "href".  This comes into play when pasting links into the portable text editor because a link type is not assumed.

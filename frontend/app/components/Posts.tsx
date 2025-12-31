@@ -2,24 +2,18 @@ import Link from 'next/link'
 
 import {sanityFetch} from '@/sanity/lib/live'
 import {morePostsQuery, allPostsQuery} from '@/sanity/lib/queries'
-import {Post as PostType, AllPostsQueryResult} from '@/sanity.types'
+import {AllPostsQueryResult} from '@/sanity.types'
 import DateComponent from '@/app/components/Date'
 import OnBoarding from '@/app/components/Onboarding'
 import Avatar from '@/app/components/Avatar'
-import {createDataAttribute} from 'next-sanity'
+import {dataAttr} from '@/sanity/lib/utils'
 
 const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
   const {_id, title, slug, excerpt, date, author} = post
 
-  const attr = createDataAttribute({
-    id: _id,
-    type: 'post',
-    path: 'title',
-  })
-
   return (
     <article
-      data-sanity={attr()}
+      data-sanity={dataAttr({id: _id, type: 'post', path: 'title'}).toString()}
       key={_id}
       className="border border-gray-200 rounded-sm p-6 bg-gray-50 flex flex-col justify-between transition-colors hover:bg-white relative"
     >
@@ -27,7 +21,7 @@ const Post = ({post}: {post: AllPostsQueryResult[number]}) => {
         <span className="absolute inset-0 z-10" />
       </Link>
       <div>
-        <h3 className="text-2xl font-bold mb-4 leading-tight">{title}</h3>
+        <h3 className="text-2xl mb-4">{title}</h3>
 
         <p className="line-clamp-3 text-sm leading-6 text-gray-600 max-w-[70ch]">{excerpt}</p>
       </div>
@@ -55,11 +49,7 @@ const Posts = ({
   subHeading?: string
 }) => (
   <div>
-    {heading && (
-      <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
-        {heading}
-      </h2>
-    )}
+    {heading && <h2 className="text-3xl text-gray-900 sm:text-4xl lg:text-5xl">{heading}</h2>}
     {subHeading && <p className="mt-2 text-lg leading-8 text-gray-600">{subHeading}</p>}
     <div className="pt-6 space-y-6">{children}</div>
   </div>
@@ -77,7 +67,7 @@ export const MorePosts = async ({skip, limit}: {skip: string; limit: number}) =>
 
   return (
     <Posts heading={`Recent Posts (${data?.length})`}>
-      {data?.map((post: any) => (
+      {data?.map((post: AllPostsQueryResult[number]) => (
         <Post key={post._id} post={post} />
       ))}
     </Posts>
@@ -96,7 +86,7 @@ export const AllPosts = async () => {
       heading="Recent Posts"
       subHeading={`${data.length === 1 ? 'This blog post is' : `These ${data.length} blog posts are`} populated from your Sanity Studio.`}
     >
-      {data.map((post: any) => (
+      {data.map((post: AllPostsQueryResult[number]) => (
         <Post key={post._id} post={post} />
       ))}
     </Posts>

@@ -3,27 +3,23 @@ import React from 'react'
 import Cta from '@/app/components/Cta'
 import Info from '@/app/components/InfoSection'
 import {dataAttr} from '@/sanity/lib/utils'
-
-type BlocksType = {
-  [key: string]: React.FC<any>
-}
-
-type BlockType = {
-  _type: string
-  _key: string
-}
+import {PageBuilderSection} from '@/sanity/lib/types'
 
 type BlockProps = {
   index: number
-  block: BlockType
+  block: PageBuilderSection
   pageId: string
   pageType: string
 }
 
-const Blocks: BlocksType = {
+type BlocksType = {
+  [key: string]: React.FC<BlockProps>
+}
+
+const Blocks = {
   callToAction: Cta,
   infoSection: Info,
-}
+} as BlocksType
 
 /**
  * Used by the <PageBuilder>, this component renders a the component that matches the block type.
@@ -44,6 +40,8 @@ export default function BlockRenderer({block, index, pageId, pageType}: BlockPro
           key: block._key,
           block: block,
           index: index,
+          pageId: pageId,
+          pageType: pageType,
         })}
       </div>
     )
