@@ -5,7 +5,12 @@ type Props = {
   person: {
     firstName: string | null
     lastName: string | null
-    picture?: any
+    picture?: {
+      asset?: {_ref: string}
+      hotspot?: {x: number; y: number}
+      crop?: {top: number; bottom: number; left: number; right: number}
+      alt?: string
+    }
   }
   date?: string
   small?: boolean
