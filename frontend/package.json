@@ -2,14 +2,13 @@
   "name": "frontend",
   "private": true,
   "scripts": {
-    "prebuild": "npm run sanity:extract-schema && npm run sanity:generate-types",
+    "prebuild": "npm run sanity:typegen",
     "build": "next build",
-    "predev": "npm run sanity:extract-schema && npm run sanity:generate-types",
+    "predev": "npm run sanity:typegen",
     "dev": "next dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "sanity:extract-schema": "cd ../studio && sanity schema extract --enforce-required-fields",
-    "sanity:generate-types": "sanity typegen generate",
+    "sanity:typegen": "cd ../studio && sanity schema extract --enforce-required-fields && sanity typegen generate",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
