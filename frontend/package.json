@@ -5,11 +5,12 @@
     "prebuild": "npm run sanity:extract-schema && npm run sanity:generate-types",
     "build": "next build",
     "predev": "npm run sanity:extract-schema && npm run sanity:generate-types",
-    "dev": "next dev",
+    "dev": "next dev & npm run sanity:watch-types",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "sanity:extract-schema": "cd ../studio && sanity schema extract --enforce-required-fields",
     "sanity:generate-types": "sanity typegen generate",
+    "sanity:watch-types": "chokidar './sanity/**/*.{ts,tsx,js,jsx}' '../studio/src/**/*.{ts,tsx,js,jsx}' -c 'npm run sanity:extract-schema && npm run sanity:generate-types' --debounce 500",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },

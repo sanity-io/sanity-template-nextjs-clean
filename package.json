@@ -21,9 +21,7 @@
     "dev": "npm-run-all --parallel --print-label dev:*",
     "dev:next": "npm run dev --workspace=frontend",
     "dev:studio": "npm run dev --workspace=studio",
-    "dev:typegen": "chokidar 'studio/src/schemaTypes/**/*.{ts,tsx}' -c 'npm run generate-types'",
     "format": "prettier --cache --write .",
-    "generate-types": "npm run extract-types --workspace=studio && npm run typegen --workspace=frontend",
     "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --replace",
     "lint": "npm run lint --workspace=frontend",
     "type-check": "npm run type-check --workspaces"
