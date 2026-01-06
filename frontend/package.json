@@ -5,11 +5,11 @@
     "prebuild": "npm run sanity:typegen",
     "build": "next build",
     "predev": "npm run sanity:typegen",
-    "dev": "next dev & npm run sanity:watch",
+    "dev": "next dev & npm run sanity:watch-types",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "sanity:typegen": "cd ../studio && sanity schema extract --enforce-required-fields && sanity typegen generate",
-    "sanity:watch": "chokidar './sanity/**/*.{ts,tsx,js,jsx}' '../studio/src/**/*.{ts,tsx,js,jsx}' -c 'npm run sanity:typegen' --debounce 500",
+    "sanity:watch-types": "chokidar './sanity/**/*.{ts,tsx,js,jsx}' '../studio/src/**/*.{ts,tsx,js,jsx}' -c 'npm run sanity:typegen' --debounce 500",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },

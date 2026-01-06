@@ -12,9 +12,9 @@
     "build": "sanity build",
     "deploy": "sanity deploy",
     "predev": "npm run sanity:typegen",
-    "dev": "sanity dev & npm run sanity:watch",
+    "dev": "sanity dev & npm run sanity:watch-types",
     "sanity:typegen": "sanity schema extract --enforce-required-fields && sanity typegen generate",
-    "sanity:watch": "chokidar './src/**/*.{ts,tsx,js,jsx}' -c 'npm run sanity:typegen' --debounce 500",
+    "sanity:watch-types": "chokidar './src/**/*.{ts,tsx,js,jsx}' -c 'npm run sanity:typegen' --debounce 500",
     "start": "sanity start",
     "type-check": "tsc --noEmit"
   },
