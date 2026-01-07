@@ -12,7 +12,7 @@
  * ---------------------------------------------------------------------------------
  */
 
-// Source: ../studio/schema.json
+// Source: ../sanity.schema.json
 export type PageReference = {
   _ref: string
   _type: 'reference'
