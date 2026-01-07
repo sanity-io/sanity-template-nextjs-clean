@@ -8,7 +8,7 @@
     "dev": "next dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "sanity:typegen": "cd ../studio && sanity schema extract --enforce-required-fields --path ../schema.json && sanity typegen generate",
+    "sanity:typegen": "cd ../studio && sanity schema extract --enforce-required-fields --path ../sanity.schema.json && cd ../frontend && sanity typegen generate",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
