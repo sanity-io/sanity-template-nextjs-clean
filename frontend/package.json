@@ -2,7 +2,7 @@
   "name": "frontend",
   "private": true,
   "scripts": {
-    "prebuild": "npm run sanity typegen generate",
+    "prebuild": "sanity typegen generate",
     "build": "next build",
     "predev": "npm run sanity:typegen",
     "dev": "next dev",
