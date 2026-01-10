@@ -9,7 +9,7 @@ import {
 
 /**
  * Call to action schema object.  Objects are reusable schema structures document.
- * Learn more: https://www.sanity.io/docs/object-type
+ * Learn more: https://www.sanity.io/docs/studio/object-type
  */
 
 export const callToAction = defineType({
