@@ -8,11 +8,11 @@
   "license": "UNLICENSED",
   "main": "package.json",
   "scripts": {
-    "prebuild": "npm run extract-types",
     "build": "sanity build",
     "deploy": "sanity deploy",
+    "predev": "npm run sanity:typegen",
     "dev": "sanity dev",
-    "extract-types": "sanity schema extract --enforce-required-fields",
+    "sanity:typegen": "sanity schema extract --enforce-required-fields --path ../sanity.schema.json && sanity typegen generate",
     "start": "sanity start",
     "type-check": "tsc --noEmit"
   },

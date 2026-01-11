@@ -2,15 +2,15 @@
   "name": "frontend",
   "private": true,
   "scripts": {
-    "prebuild": "npm run typegen",
+    "prebuild": "sanity typegen generate",
     "build": "next build",
-    "predev": "npm run typegen",
+    "predev": "npm run sanity:typegen",
     "dev": "next dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "sanity:typegen": "cd ../studio && sanity schema extract --enforce-required-fields --path ../sanity.schema.json && cd ../frontend && sanity typegen generate",
     "start": "next start",
-    "type-check": "tsc --noEmit",
-    "typegen": "sanity typegen generate"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@sanity/client": "^7.13.2",
