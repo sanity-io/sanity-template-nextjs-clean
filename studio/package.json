@@ -8,11 +8,12 @@
   "license": "UNLICENSED",
   "main": "package.json",
   "scripts": {
-    "prebuild": "npm run extract-types",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "dev": "sanity dev",
-    "extract-types": "sanity schema extract --enforce-required-fields",
+    "predev": "npm run sanity:typegen",
+    "dev": "sanity dev & npm run sanity:watch-types",
+    "sanity:typegen": "sanity schema extract --enforce-required-fields --path ../sanity.schema.json && sanity typegen generate",
+    "sanity:watch-types": "chokidar './src/**/*.{ts,tsx,js,jsx}' -c 'npm run sanity:typegen' --debounce 500",
     "start": "sanity start",
     "type-check": "tsc --noEmit"
   },
