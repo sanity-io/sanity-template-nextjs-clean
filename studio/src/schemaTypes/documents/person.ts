@@ -3,7 +3,7 @@ import {defineField, defineType} from 'sanity'
 
 /**
  * Person schema.  Define and edit the fields for the 'person' content type.
- * Learn more: https://www.sanity.io/docs/schema-types
+ * Learn more: https://www.sanity.io/docs/studio/schema-types
  */
 
 export const person = defineType({
