@@ -5,7 +5,7 @@ import type {Link} from '../../../sanity.types'
 /**
  * Link schema object. This link object lets the user first select the type of link and then
  * then enter the URL, page reference, or post reference - depending on the type selected.
- * Learn more: https://www.sanity.io/docs/object-type
+ * Learn more: https://www.sanity.io/docs/studio/object-type
  */
 
 export const link = defineType({
