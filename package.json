@@ -29,6 +29,7 @@
   "prettier": "@sanity/prettier-config",
   "devDependencies": {
     "@sanity/prettier-config": "^2.0.2",
+    "chokidar-cli": "^3.0.0",
     "npm-run-all2": "^5.0.2",
     "prettier": "^3.7.3"
   }

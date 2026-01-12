@@ -1,5 +1,6 @@
 import {defineField, defineType} from 'sanity'
 import {LinkIcon} from '@sanity/icons'
+import type {Link} from '../../../sanity.types'
 
 /**
  * Link schema object. This link object lets the user first select the type of link and then
@@ -34,8 +35,9 @@ export const link = defineType({
       hidden: ({parent}) => parent?.linkType !== 'href',
       validation: (Rule) =>
         // Custom validation to ensure URL is provided if the link type is 'href'
-        Rule.custom((value, context: any) => {
-          if (context.parent?.linkType === 'href' && !value) {
+        Rule.custom((value, context) => {
+          const parent = context.parent as Link
+          if (parent?.linkType === 'href' && !value) {
             return 'URL is required when Link Type is URL'
           }
           return true
@@ -49,8 +51,9 @@ export const link = defineType({
       hidden: ({parent}) => parent?.linkType !== 'page',
       validation: (Rule) =>
         // Custom validation to ensure page reference is provided if the link type is 'page'
-        Rule.custom((value, context: any) => {
-          if (context.parent?.linkType === 'page' && !value) {
+        Rule.custom((value, context) => {
+          const parent = context.parent as Link
+          if (parent?.linkType === 'page' && !value) {
             return 'Page reference is required when Link Type is Page'
           }
           return true
@@ -64,8 +67,9 @@ export const link = defineType({
       hidden: ({parent}) => parent?.linkType !== 'post',
       validation: (Rule) =>
         // Custom validation to ensure post reference is provided if the link type is 'post'
-        Rule.custom((value, context: any) => {
-          if (context.parent?.linkType === 'post' && !value) {
+        Rule.custom((value, context) => {
+          const parent = context.parent as Link
+          if (parent?.linkType === 'post' && !value) {
             return 'Post reference is required when Link Type is Post'
           }
           return true
