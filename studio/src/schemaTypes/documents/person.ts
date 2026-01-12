@@ -1,5 +1,6 @@
 import {UserIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
+import type {Person} from '../../../sanity.types'
 
 /**
  * Person schema.  Define and edit the fields for the 'person' content type.
@@ -37,7 +38,8 @@ export const person = defineType({
           validation: (rule) => {
             // Custom validation to ensure alt text is provided if the image is present. https://www.sanity.io/docs/validation
             return rule.custom((alt, context) => {
-              if ((context.document?.picture as any)?.asset?._ref && !alt) {
+              const document = context.document as Person
+              if (document?.picture?.asset?._ref && !alt) {
                 return 'Required'
               }
               return true

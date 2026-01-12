@@ -1,6 +1,7 @@
 import {DocumentTextIcon} from '@sanity/icons'
 import {format, parseISO} from 'date-fns'
 import {defineField, defineType} from 'sanity'
+import type {Post} from '../../../sanity.types'
 
 /**
  * Post schema.  Define and edit the fields for the 'post' content type.
@@ -60,7 +61,8 @@ export const post = defineType({
           validation: (rule) => {
             // Custom validation to ensure alt text is provided if the image is present. https://www.sanity.io/docs/validation
             return rule.custom((alt, context) => {
-              if ((context.document?.coverImage as any)?.asset?._ref && !alt) {
+              const document = context.document as Post
+              if (document?.coverImage?.asset?._ref && !alt) {
                 return 'Required'
               }
               return true
