@@ -1,5 +1,5 @@
 import {UserIcon} from '@sanity/icons'
-import {defineField, defineType, type ValidationContext} from 'sanity'
+import {defineField, defineType} from 'sanity'
 import type {Person} from '../../../sanity.types'
 
 /**
@@ -37,7 +37,7 @@ export const person = defineType({
           description: 'Important for SEO and accessibility.',
           validation: (rule) => {
             // Custom validation to ensure alt text is provided if the image is present. https://www.sanity.io/docs/validation
-            return rule.custom((alt, context: ValidationContext) => {
+            return rule.custom((alt, context) => {
               const document = context.document as Person
               if (document?.picture?.asset?._ref && !alt) {
                 return 'Required'

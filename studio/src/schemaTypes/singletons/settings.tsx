@@ -1,5 +1,5 @@
 import {CogIcon} from '@sanity/icons'
-import {defineArrayMember, defineField, defineType, type ValidationContext} from 'sanity'
+import {defineArrayMember, defineField, defineType} from 'sanity'
 import type {Link, Settings} from '../../../sanity.types'
 
 import * as demo from '../../lib/initialValues'
@@ -64,7 +64,7 @@ export const settings = defineType({
                     type: 'url',
                     hidden: ({parent}) => parent?.linkType !== 'href' && parent?.linkType != null,
                     validation: (Rule) =>
-                      Rule.custom((value, context: ValidationContext) => {
+                      Rule.custom((value, context) => {
                         const parent = context.parent as Link
                         if (parent?.linkType === 'href' && !value) {
                           return 'URL is required when Link Type is URL'
@@ -79,7 +79,7 @@ export const settings = defineType({
                     to: [{type: 'page'}],
                     hidden: ({parent}) => parent?.linkType !== 'page',
                     validation: (Rule) =>
-                      Rule.custom((value, context: ValidationContext) => {
+                      Rule.custom((value, context) => {
                         const parent = context.parent as Link
                         if (parent?.linkType === 'page' && !value) {
                           return 'Page reference is required when Link Type is Page'
@@ -94,7 +94,7 @@ export const settings = defineType({
                     to: [{type: 'post'}],
                     hidden: ({parent}) => parent?.linkType !== 'post',
                     validation: (Rule) =>
-                      Rule.custom((value, context: ValidationContext) => {
+                      Rule.custom((value, context) => {
                         const parent = context.parent as Link
                         if (parent?.linkType === 'post' && !value) {
                           return 'Post reference is required when Link Type is Post'
@@ -133,7 +133,7 @@ export const settings = defineType({
           title: 'Alternative text',
           type: 'string',
           validation: (rule) => {
-            return rule.custom((alt, context: ValidationContext) => {
+            return rule.custom((alt, context) => {
               const document = context.document as Settings
               if (document?.ogImage?.asset?._ref && !alt) {
                 return 'Required'
