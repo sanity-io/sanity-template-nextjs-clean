@@ -3,6 +3,13 @@ name: Prettier
 on:
   push:
     branches: [main, feat/ci-renovate-prettier]
+    paths-ignore:
+      - 'package-lock.json'
+      - '**/package-lock.json'
+      - 'yarn.lock'
+      - '**/yarn.lock'
+      - 'pnpm-lock.yaml'
+      - '**/pnpm-lock.yaml'
   workflow_dispatch:
 
 concurrency:
