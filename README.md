@@ -27,13 +27,13 @@ https://template-nextjs-clean.sanity.dev
 
 #### 1. Initialize template with Sanity CLI
 
-Run the command in your Terminal to initialize this template on your local computer. _Optionally, you can [deploy this template to Vercel](vercel-installation-instructions.md) with a single click._
-
-See the documentation if you are [having issues with the CLI](https://www.sanity.io/help/cli-errors).
+Run the command in your Terminal to initialize this template on your local computer.
 
 ```shell
 npm create sanity@latest -- --template sanity-io/sanity-template-nextjs-clean
 ```
+
+See the documentation if you are [having issues with the CLI](https://www.sanity.io/help/cli-errors).
 
 #### 2. Run Studio and Next.js app locally
 
