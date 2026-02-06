@@ -23,7 +23,7 @@ https://template-nextjs-clean.sanity.dev
 
 ### Installing the template
 
-> **Already deployed with Vercel?** If you've already deployed using the one-click Vercel button, please visit our [Vercel deployment instructions](vercel-installation-instructions.md) to set up your local environment and deploy Sanity Studio.
+> **Already deployed with Vercel?** If you've already deployed using the **Sanity + Vercel Integration** or **one-click Vercel button**, please visit our [Vercel deployment instructions](vercel-installation-instructions.md) to set up your local environment and deploy Sanity Studio.
 
 #### 1. Initialize template with Sanity CLI
 
@@ -87,17 +87,9 @@ npx sanity deploy
 
 You have the freedom to deploy your Next.js app to your hosting provider of choice. With Vercel and GitHub being a popular choice, we'll cover the basics of that approach.
 
-##### One-click deploy
-
-[![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
-
-After deploying, follow the [Vercel deployment instructions](vercel-installation-instructions.md) to set up your local environment and deploy Sanity Studio.
-
-##### Manual deploy
-
 1. Create a GitHub repository from this project. [Learn more](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github).
 2. Create a new Vercel project and connect it to your Github repository.
-3. Set the `Root Directory` to your Next.js app, `frontend`.
+3. Set the `Root Directory` to your Next.js app.
 4. Configure your Environment Variables.
 
 #### 3. Invite a collaborator
