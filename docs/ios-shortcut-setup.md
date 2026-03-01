@@ -55,23 +55,25 @@ Or when editing the shortcut, tap the **ⓘ** icon → enable **Show in Share Sh
 
 ---
 
-## Desktop Bookmarklet (fallback)
+## Desktop (curl)
 
-You can also trigger the Worker from a desktop browser using this bookmarklet. Drag it to your bookmarks bar:
+You can manage tweets from the terminal using `curl`:
 
-```javascript
-javascript:(function(){
-  var url=location.href;
-  var action=prompt('Action: add / pin / unpin / remove','add');
-  if(!action)return;
-  fetch('https://tweet-collector.bvc.workers.dev/collect',{
-    method:'POST',
-    headers:{'Authorization':'Bearer YOUR_SECRET_TOKEN','Content-Type':'application/json'},
-    body:JSON.stringify({url:url,action:action})
-  }).then(function(r){return r.json()}).then(function(d){alert('Done: '+d.action+' '+d.id)}).catch(function(e){alert('Error: '+e)});
-})();
+```bash
+# Add a tweet
+curl -X POST https://tweet-collector.YOUR_SUBDOMAIN.workers.dev/collect \
+  -H "Authorization: Bearer YOUR_SECRET_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://x.com/user/status/1234567890", "action": "add"}'
+
+# Pin a tweet
+curl -X POST https://tweet-collector.YOUR_SUBDOMAIN.workers.dev/collect \
+  -H "Authorization: Bearer YOUR_SECRET_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://x.com/user/status/1234567890", "action": "pin"}'
+
+# View current tweets
+curl https://tweet-collector.YOUR_SUBDOMAIN.workers.dev/tweets
 ```
 
-Replace `YOUR_SECRET_TOKEN` with your actual token before saving.
-
-> **Note:** X.com's Content Security Policy (CSP) may block `fetch` calls from bookmarklets on the `x.com` domain. The **iOS Shortcut** is the recommended primary method. As a workaround on desktop, you can run the bookmarklet from a different page (e.g. your own site) while the tweet URL is copied to clipboard.
+Replace `YOUR_SUBDOMAIN` and `YOUR_SECRET_TOKEN` with your actual values.

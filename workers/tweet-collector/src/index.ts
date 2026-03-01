@@ -1,16 +1,29 @@
 interface Env {
   TWEET_KV: KVNamespace
   SECRET_TOKEN: string
+  ALLOWED_ORIGIN?: string
 }
 
 type Action = 'add' | 'pin' | 'unpin' | 'remove'
 
 const VALID_ACTIONS: Action[] = ['add', 'pin', 'unpin', 'remove']
 
-const CORS_HEADERS = {
+function isValidAction(value: unknown): value is Action {
+  return typeof value === 'string' && VALID_ACTIONS.includes(value as Action)
+}
+
+const PUBLIC_CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Authorization, Content-Type',
+  'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+}
+
+function collectCorsHeaders(env: Env) {
+  return {
+    'Access-Control-Allow-Origin': env.ALLOWED_ORIGIN || '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Authorization, Content-Type',
+  }
 }
 
 function extractTweetId(input: string): string | null {
@@ -30,49 +43,57 @@ async function getArray(kv: KVNamespace, key: string): Promise<string[]> {
   }
 }
 
+function jsonResponse(body: unknown, status: number, headers: Record<string, string>) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: {'Content-Type': 'application/json', ...headers},
+  })
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
+    const method = request.method
 
-    if (request.method === 'OPTIONS') {
-      return new Response(null, {status: 204, headers: CORS_HEADERS})
+    // CORS preflight
+    if (method === 'OPTIONS') {
+      const cors =
+        url.pathname === '/collect' ? collectCorsHeaders(env) : PUBLIC_CORS_HEADERS
+      return new Response(null, {status: 204, headers: cors})
     }
 
-    if (request.method === 'POST' && url.pathname === '/collect') {
+    // POST /collect — authenticated tweet management
+    if (url.pathname === '/collect') {
+      if (method !== 'POST') {
+        return jsonResponse({ok: false, error: 'Method not allowed'}, 405, collectCorsHeaders(env))
+      }
+
       const authHeader = request.headers.get('Authorization')
       if (!authHeader || authHeader !== `Bearer ${env.SECRET_TOKEN}`) {
-        return new Response(JSON.stringify({ok: false, error: 'Unauthorized'}), {
-          status: 401,
-          headers: {'Content-Type': 'application/json', ...CORS_HEADERS},
-        })
+        return jsonResponse({ok: false, error: 'Unauthorized'}, 401, collectCorsHeaders(env))
       }
 
       let body: {url?: string; action?: string}
       try {
         body = (await request.json()) as {url?: string; action?: string}
       } catch {
-        return new Response(JSON.stringify({ok: false, error: 'Invalid JSON'}), {
-          status: 400,
-          headers: {'Content-Type': 'application/json', ...CORS_HEADERS},
-        })
+        return jsonResponse({ok: false, error: 'Invalid JSON'}, 400, collectCorsHeaders(env))
       }
 
       const id = extractTweetId(body.url ?? '')
       if (!id) {
-        return new Response(JSON.stringify({ok: false, error: 'Could not extract tweet ID'}), {
-          status: 400,
-          headers: {'Content-Type': 'application/json', ...CORS_HEADERS},
-        })
+        return jsonResponse({ok: false, error: 'Could not extract tweet ID'}, 400, collectCorsHeaders(env))
       }
 
-      const action = body.action as Action
-      if (!VALID_ACTIONS.includes(action)) {
-        return new Response(JSON.stringify({ok: false, error: 'Invalid action'}), {
-          status: 400,
-          headers: {'Content-Type': 'application/json', ...CORS_HEADERS},
-        })
+      if (!isValidAction(body.action)) {
+        return jsonResponse({ok: false, error: 'Invalid action'}, 400, collectCorsHeaders(env))
       }
+      const action = body.action
 
+      // NOTE: KV does not support transactions. Concurrent POST requests can
+      // cause lost updates (read-modify-write race). This is acceptable for
+      // low-traffic, single-user usage. For higher concurrency, migrate to
+      // Durable Objects.
       let pinned = await getArray(env.TWEET_KV, 'pinned')
       let recent = await getArray(env.TWEET_KV, 'recent')
 
@@ -107,13 +128,15 @@ export default {
         env.TWEET_KV.put('recent', JSON.stringify(recent)),
       ])
 
-      return new Response(JSON.stringify({ok: true, action, id, pinned, recent}), {
-        status: 200,
-        headers: {'Content-Type': 'application/json', ...CORS_HEADERS},
-      })
+      return jsonResponse({ok: true, action, id, pinned, recent}, 200, collectCorsHeaders(env))
     }
 
-    if (request.method === 'GET' && url.pathname === '/tweets') {
+    // GET /tweets — public endpoint
+    if (url.pathname === '/tweets') {
+      if (method !== 'GET') {
+        return jsonResponse({ok: false, error: 'Method not allowed'}, 405, PUBLIC_CORS_HEADERS)
+      }
+
       const [pinned, recent] = await Promise.all([
         getArray(env.TWEET_KV, 'pinned'),
         getArray(env.TWEET_KV, 'recent'),
@@ -126,14 +149,11 @@ export default {
         headers: {
           'Content-Type': 'application/json',
           'Cache-Control': 'public, max-age=60',
-          ...CORS_HEADERS,
+          ...PUBLIC_CORS_HEADERS,
         },
       })
     }
 
-    return new Response(JSON.stringify({ok: false, error: 'Not found'}), {
-      status: 404,
-      headers: {'Content-Type': 'application/json', ...CORS_HEADERS},
-    })
+    return jsonResponse({ok: false, error: 'Not found'}, 404, PUBLIC_CORS_HEADERS)
   },
 }

@@ -32,16 +32,24 @@ export default async function RecentTweets({settings}: RecentTweetsProps) {
   ) as string[]
 
   let workerIds: string[] = []
-  try {
-    const res = await fetch('https://tweet-collector.bvc.workers.dev/tweets', {
-      next: {revalidate: 60},
-    })
-    const data: unknown = await res.json()
-    if (Array.isArray(data) && data.every((item) => typeof item === 'string')) {
-      workerIds = data
+  const workerUrl = process.env.TWEET_WORKER_URL
+  if (workerUrl) {
+    try {
+      const res = await fetch(`${workerUrl}/tweets`, {
+        next: {revalidate: 60},
+      })
+      if (res.ok) {
+        const data: unknown = await res.json()
+        if (
+          Array.isArray(data) &&
+          data.every((item) => typeof item === 'string')
+        ) {
+          workerIds = data
+        }
+      }
+    } catch {
+      // silently fall back to empty
     }
-  } catch {
-    // silently fall back to empty
   }
 
   const tweetIds = [
