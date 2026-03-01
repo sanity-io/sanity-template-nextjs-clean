@@ -1,0 +1,10 @@
+name = "tweet-collector"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[kv_namespaces]]
+binding = "TWEET_KV"
+id = "5a984166b43044028ba5df979547f309"
+
+# SECRET_TOKEN must be set via: wrangler secret put SECRET_TOKEN

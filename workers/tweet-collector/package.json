@@ -1,0 +1,16 @@
+{
+  "name": "tweet-collector",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.5.0",
+    "@cloudflare/workers-types": "^4.0.0",
+    "vitest": "^2.1.0",
+    "wrangler": "^3.0.0"
+  }
+}
