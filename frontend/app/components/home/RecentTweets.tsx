@@ -22,14 +22,33 @@ type RecentTweetsProps = {
   settings: SettingsQueryResult
 }
 
-export default function RecentTweets({settings}: RecentTweetsProps) {
+export default async function RecentTweets({settings}: RecentTweetsProps) {
   const handle = getTwitterHandle(settings)
 
   if (!handle) return null
 
-  const tweetIds = (
+  const sanityIds = (
     settings?.featuredTweets?.map(getTweetId).filter(Boolean) ?? []
   ) as string[]
+
+  let workerIds: string[] = []
+  try {
+    const res = await fetch('https://tweet-collector.bvc.workers.dev/tweets', {
+      next: {revalidate: 60},
+    })
+    const data: unknown = await res.json()
+    if (Array.isArray(data) && data.every((item) => typeof item === 'string')) {
+      workerIds = data
+    }
+  } catch {
+    // silently fall back to empty
+  }
+
+  const tweetIds = [
+    ...sanityIds,
+    ...workerIds.filter((id) => !sanityIds.includes(id)),
+  ].slice(0, 10)
+
   const profileUrl = `https://x.com/${handle}`
 
   return (
