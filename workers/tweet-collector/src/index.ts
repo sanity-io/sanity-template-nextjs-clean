@@ -74,10 +74,17 @@ export default {
       }
 
       let body: {url?: string; action?: string}
+      const raw = await request.text()
       try {
-        body = (await request.json()) as {url?: string; action?: string}
+        body = JSON.parse(raw) as {url?: string; action?: string}
       } catch {
-        return jsonResponse({ok: false, error: 'Invalid JSON'}, 400, collectCorsHeaders(env))
+        try {
+          // Recover from invalid JSON escape sequences (e.g., \? \= from shell-escaped URLs)
+          const sanitized = raw.replace(/\\(?!["\\/bfnrtu])/g, '')
+          body = JSON.parse(sanitized) as {url?: string; action?: string}
+        } catch {
+          return jsonResponse({ok: false, error: 'Invalid JSON'}, 400, collectCorsHeaders(env))
+        }
       }
 
       const id = extractTweetId(body.url ?? '')

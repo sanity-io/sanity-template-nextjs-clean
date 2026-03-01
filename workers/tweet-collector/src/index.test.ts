@@ -98,6 +98,31 @@ describe('tweet-collector worker', () => {
       expect(result.id).toBe('9876543210')
     })
 
+    it('extracts ID from tweet URL with query params', async () => {
+      const result = await collect('add', 'https://x.com/user/status/9876543210?s=20')
+      expect(result.id).toBe('9876543210')
+    })
+
+    it('handles shell-escaped URL with invalid JSON escapes', async () => {
+      // Simulates: -d '{"url": "https://x.com/user/status/123\?s\=20", "action": "add"}'
+      // where \? and \= are invalid JSON escape sequences
+      const rawBody = '{"url": "https://x.com/user/status/9876543210\\?s\\=20", "action": "add"}'
+      const req = new Request('https://test.example.com/collect', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SECRET}`,
+        },
+        body: rawBody,
+      })
+      const ctx = createExecutionContext()
+      const res = await worker.fetch(req, {...env, SECRET_TOKEN: SECRET}, ctx)
+      await waitOnExecutionContext(ctx)
+      const result = await res.json() as {ok: boolean; id: string}
+      expect(result.ok).toBe(true)
+      expect(result.id).toBe('9876543210')
+    })
+
     it('accepts bare numeric ID', async () => {
       const result = await collect('add', '1234567890')
       expect(result.id).toBe('1234567890')
