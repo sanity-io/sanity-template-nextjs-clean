@@ -42,7 +42,7 @@ function resolveHref(documentType?: string, slug?: string): string | undefined {
 export default defineConfig({
   basePath: '/studio',
   name: 'default',
-  title: 'Sanity + Next.js Starter Template',
+  title: 'Blog Studio',
 
   projectId,
   dataset,

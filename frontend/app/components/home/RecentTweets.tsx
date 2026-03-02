@@ -1,8 +1,8 @@
-import {Tweet} from 'react-tweet'
 import {stegaClean} from '@sanity/client/stega'
 
 import {SettingsQueryResult} from '@/sanity.types'
 import SectionHeading from './SectionHeading'
+import TweetGrid from './TweetGrid'
 
 function getTweetId(url: string): string | null {
   const match = url.match(/\/status\/(\d+)/)
@@ -89,13 +89,7 @@ export default async function RecentTweets({settings}: RecentTweetsProps) {
           </div>
 
           {tweetIds.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {tweetIds.map((id) => (
-                <div key={id} className="[&>div]:m-0!">
-                  <Tweet id={id} />
-                </div>
-              ))}
-            </div>
+            <TweetGrid tweetIds={tweetIds} />
           ) : (
             <a
               href={profileUrl}

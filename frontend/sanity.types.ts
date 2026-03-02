@@ -125,6 +125,13 @@ export type Button = {
   link?: Link
 }
 
+export type PersonReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'person'
+}
+
 export type Settings = {
   _id: string
   _type: 'settings'
@@ -174,6 +181,8 @@ export type Settings = {
     _key: string
   }>
   featuredTweets?: Array<string>
+  profileAuthor?: PersonReference
+  profileTagline?: string
   aboutBio?: Array<{
     children?: Array<{
       marks?: Array<string>
@@ -244,13 +253,6 @@ export type Page = {
         _key: string
       } & InfoSection)
   >
-}
-
-export type PersonReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'person'
 }
 
 export type Post = {
@@ -567,12 +569,12 @@ export type AllSanitySchemaTypes =
   | BlockContentTextOnly
   | BlockContent
   | Button
+  | PersonReference
   | Settings
   | Color
   | SanityImageCrop
   | SanityImageHotspot
   | Page
-  | PersonReference
   | Post
   | Person
   | Slug
@@ -655,6 +657,19 @@ export type SettingsQueryResult = {
     _key: string
   }> | null
   featuredTweets: Array<string> | null
+  profileAuthor: {
+    firstName: string
+    lastName: string
+    picture: {
+      asset?: SanityImageAssetReference
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    }
+  } | null
+  profileTagline: string | null
   aboutBio: Array<{
     children?: Array<{
       marks?: Array<string>
@@ -680,8 +695,6 @@ export type SettingsQueryResult = {
     _type: 'topic'
     _key: string
   }> | null
-  profileAuthor: null
-  profileTagline: null
 } | null
 
 // Source: sanity/lib/queries.ts
