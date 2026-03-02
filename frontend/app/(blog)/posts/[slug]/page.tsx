@@ -158,7 +158,7 @@ export default async function PostPage(props: Props) {
                 className="rounded-sm w-full"
                 width={1024}
                 height={538}
-                mode="cover"
+                mode="contain"
                 hotspot={post.coverImage.hotspot}
                 crop={post.coverImage.crop}
               />
