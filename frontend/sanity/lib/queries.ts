@@ -12,7 +12,9 @@ export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
   profileTitle,
   profileTagline,
   topics,
-  featuredTweets
+  featuredTweets,
+  footerText,
+  footerLinks
 }`)
 
 const postFields = /* groq */ `

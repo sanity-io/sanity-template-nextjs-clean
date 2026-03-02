@@ -208,6 +208,30 @@ export type Settings = {
     _type: 'topic'
     _key: string
   }>
+  footerText?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'normal'
+    listItem?: never
+    markDefs?: Array<{
+      href?: string
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+  }>
+  footerLinks?: Array<{
+    label: string
+    url: string
+    _type: 'footerLink'
+    _key: string
+  }>
 }
 
 export type Color = {
@@ -607,7 +631,7 @@ export declare const internalGroqTypeReferenceTo: unique symbol
 
 // Source: sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]{  ...,  heroSubheading,  heroHeading,  heroIntro,  statusLine,  socialLinks,  aboutBio,  profileAuthor->{firstName, lastName, picture},  profileTitle,  profileTagline,  topics,  featuredTweets}
+// Query: *[_type == "settings"][0]{  ...,  heroSubheading,  heroHeading,  heroIntro,  statusLine,  socialLinks,  aboutBio,  profileAuthor->{firstName, lastName, picture},  profileTitle,  profileTagline,  topics,  featuredTweets,  footerText,  footerLinks}
 export type SettingsQueryResult = {
   _id: string
   _type: 'settings'
@@ -693,6 +717,30 @@ export type SettingsQueryResult = {
     name: string
     color?: Color
     _type: 'topic'
+    _key: string
+  }> | null
+  footerText: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'normal'
+    listItem?: never
+    markDefs?: Array<{
+      href?: string
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+  }> | null
+  footerLinks: Array<{
+    label: string
+    url: string
+    _type: 'footerLink'
     _key: string
   }> | null
 } | null
@@ -961,7 +1009,7 @@ export type PagesSlugsResult = Array<{
 import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "settings"][0]{\n  ...,\n  heroSubheading,\n  heroHeading,\n  heroIntro,\n  statusLine,\n  socialLinks,\n  aboutBio,\n  profileAuthor->{firstName, lastName, picture},\n  profileTitle,\n  profileTagline,\n  topics,\n  featuredTweets\n}': SettingsQueryResult
+    '*[_type == "settings"][0]{\n  ...,\n  heroSubheading,\n  heroHeading,\n  heroIntro,\n  statusLine,\n  socialLinks,\n  aboutBio,\n  profileAuthor->{firstName, lastName, picture},\n  profileTitle,\n  profileTagline,\n  topics,\n  featuredTweets,\n  footerText,\n  footerLinks\n}': SettingsQueryResult
     '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": pageBuilder[]{\n      ...,\n      _type == "callToAction" => {\n        ...,\n        button {\n          ...,\n          \n  link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n\n        }\n      },\n      _type == "infoSection" => {\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n          }\n        }\n      },\n    },\n  }\n': GetPageQueryResult
     '\n  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult
     '\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  tags,\n  "readTime": round(length(pt::text(content)) / 5 / 200),\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': AllPostsQueryResult

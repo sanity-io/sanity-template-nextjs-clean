@@ -208,6 +208,30 @@ export type Settings = {
     _type: 'topic'
     _key: string
   }>
+  footerText?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'normal'
+    listItem?: never
+    markDefs?: Array<{
+      href?: string
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+  }>
+  footerLinks?: Array<{
+    label: string
+    url: string
+    _type: 'footerLink'
+    _key: string
+  }>
 }
 
 export type Color = {

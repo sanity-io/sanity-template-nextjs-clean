@@ -18,6 +18,7 @@ export const settings = defineType({
     {name: 'general', title: 'General', default: true},
     {name: 'homepage', title: 'Homepage'},
     {name: 'about', title: 'About'},
+    {name: 'footer', title: 'Footer'},
   ],
   fields: [
     // ── General ──
@@ -344,6 +345,72 @@ export const settings = defineType({
                 subtitle: color || 'No color set',
               }
             },
+          },
+        }),
+      ],
+    }),
+
+    // ── Footer ──
+    defineField({
+      name: 'footerText',
+      title: 'Footer Text',
+      description: 'Rich text displayed on the left side of the footer.',
+      type: 'array',
+      group: 'footer',
+      of: [
+        defineArrayMember({
+          type: 'block',
+          styles: [{title: 'Normal', value: 'normal'}],
+          lists: [],
+          marks: {
+            decorators: [
+              {title: 'Bold', value: 'strong'},
+              {title: 'Italic', value: 'em'},
+            ],
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: 'Link',
+                fields: [
+                  defineField({
+                    name: 'href',
+                    title: 'URL',
+                    type: 'url',
+                  }),
+                ],
+              },
+            ],
+          },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'footerLinks',
+      title: 'Footer Links',
+      description: 'Links displayed on the right side of the footer.',
+      type: 'array',
+      group: 'footer',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'footerLink',
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Label',
+              type: 'string',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'url',
+              title: 'URL',
+              type: 'url',
+              validation: (rule) => rule.required(),
+            }),
+          ],
+          preview: {
+            select: {title: 'label', subtitle: 'url'},
           },
         }),
       ],
