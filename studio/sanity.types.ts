@@ -125,6 +125,13 @@ export type Button = {
   link?: Link
 }
 
+export type PersonReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'person'
+}
+
 export type Settings = {
   _id: string
   _type: 'settings'
@@ -163,6 +170,8 @@ export type Settings = {
     metadataBase?: string
     _type: 'image'
   }
+  heroSubheading?: string
+  heroHeading: string
   heroIntro?: string
   statusLine?: string
   socialLinks?: Array<{
@@ -171,6 +180,9 @@ export type Settings = {
     _type: 'socialLink'
     _key: string
   }>
+  featuredTweets?: Array<string>
+  profileAuthor?: PersonReference
+  profileTagline?: string
   aboutBio?: Array<{
     children?: Array<{
       marks?: Array<string>
@@ -241,13 +253,6 @@ export type Page = {
         _key: string
       } & InfoSection)
   >
-}
-
-export type PersonReference = {
-  _ref: string
-  _type: 'reference'
-  _weak?: boolean
-  [internalGroqTypeReferenceTo]?: 'person'
 }
 
 export type Post = {
@@ -564,12 +569,12 @@ export type AllSanitySchemaTypes =
   | BlockContentTextOnly
   | BlockContent
   | Button
+  | PersonReference
   | Settings
   | Color
   | SanityImageCrop
   | SanityImageHotspot
   | Page
-  | PersonReference
   | Post
   | Person
   | Slug
