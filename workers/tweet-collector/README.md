@@ -71,6 +71,61 @@ curl https://tweet-collector.<your-subdomain>.workers.dev/tweets
 
 Returns a JSON array of tweet IDs (pinned first, then recent, max 10).
 
+## iOS Shortcut Setup
+
+Create an iOS Shortcut to save, pin, unpin, or remove tweets from the Share Sheet.
+
+### Shortcut Actions
+
+Open **Shortcuts** app → tap **+** → name it **"Save Tweet"**. Add these actions in order:
+
+1. **Receive URLs from Share Sheet**
+   - Input type: **URLs**
+   - "If there's no input": **Continue**
+
+2. **Get URLs from Input**
+   - Input: **Shortcut Input**
+
+3. **List** + **Choose from List**
+   - Add a **List** with items: `add`, `pin`, `unpin`, `remove`
+   - Add **Choose from List** after it
+   - Use "Choose from List" (not "Choose from Menu" — the menu is for branching and won't pass the label as a plain string)
+
+4. **Get Contents of URL** (the POST request)
+   - URL: `https://tweet-collector.<subdomain>.workers.dev/collect`
+   - Method: **POST**
+   - Headers:
+     - `Authorization` → `Bearer YOUR_SECRET_TOKEN`
+     - `Content-Type` → `application/json`
+   - Request Body (JSON):
+     - `url` → **URLs** variable (from step 2)
+     - `action` → **Chosen Item** variable (from step 3)
+
+5. **Check response and notify**
+   - **Get Dictionary Value** — key: `ok`, dictionary: **Contents of URL**
+   - **If** Dictionary Value **is** `1`:
+     - **Show Notification**: `Tweet added`
+   - **Otherwise**:
+     - **Get Dictionary Value** — key: `error`, dictionary: **Contents of URL**
+     - **Show Notification**: Dictionary Value
+   - **End If**
+
+### Tips
+
+- Use `Bearer` (not `Bear`) in the Authorization header
+- Shortcuts represents JSON `true` as `1` and `false` as `0` — use **is `1`** not "has any value"
+- Leave the notification Title blank to avoid duplicate text — the shortcut name shows automatically
+
+### Enable in Share Sheet
+
+When editing the shortcut, tap **ⓘ** → enable **Show in Share Sheet** → set type to **URLs**.
+
+### Usage
+
+1. Open a tweet in the **X app** or **Safari**
+2. Tap **Share** → **Save Tweet**
+3. Pick an action → get a notification confirming success or showing the error
+
 ## Tests
 
 ```bash
