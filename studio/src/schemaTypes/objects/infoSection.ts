@@ -22,16 +22,26 @@ export const infoSection = defineType({
       title: 'Content',
       type: 'blockContent',
     }),
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    }),
   ],
   preview: {
     select: {
       title: 'heading',
       subtitle: 'subheading',
+      image: 'image.asset',
     },
-    prepare({title}) {
+    prepare({title, image}) {
       return {
         title: title || 'Untitled Info Section',
         subtitle: 'Info Section',
+        media: image || undefined,
       }
     },
   },

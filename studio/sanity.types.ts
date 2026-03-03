@@ -65,6 +65,13 @@ export type InfoSection = {
   heading?: string
   subheading?: string
   content?: BlockContent
+  image?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
 }
 
 export type BlockContentTextOnly = Array<{

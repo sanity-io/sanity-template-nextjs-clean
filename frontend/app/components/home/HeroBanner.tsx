@@ -53,6 +53,7 @@ export default function HeroBanner({settings}: HeroBannerProps) {
             <div className="flex gap-3 mb-8">
               {settings.socialLinks.map((link) => {
                 const platform = stegaClean(link.platform)
+                if (!platform) return null
                 return (
                   <a
                     key={link._key}
