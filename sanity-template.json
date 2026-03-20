@@ -1,0 +1,17 @@
+{
+  "postSetupMessage": [
+    "## Next: AI features powered by your content",
+    "",
+    "Build assistants and bots that read your Sanity content — search, help, in-app answers.",
+    "",
+    "In your coding assistant (for example Cursor or Claude Code), run:",
+    "",
+    "`npx skills add sanity-io/agent-context --all`",
+    "",
+    "Then ask it to help you get started:",
+    "",
+    "> Use the `create-agent-with-sanity-context` skill to help me build an agent in this project.",
+    "",
+    "[sanity.io/docs/ai/agent-context](https://www.sanity.io/docs/ai/agent-context)"
+  ]
+}
