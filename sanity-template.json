@@ -1,5 +1,5 @@
 {
-  "postSetupMessage": [
+  "postInitMessage": [
     "## Next: AI features powered by your content",
     "",
     "Build assistants and bots that read your Sanity content — search, help, in-app answers.",
