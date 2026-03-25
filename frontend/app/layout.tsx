@@ -16,6 +16,8 @@ import {sanityFetch, SanityLive} from '@/sanity/lib/live'
 import {settingsQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
 import {handleError} from '@/app/client-utils'
+// The NotificationBanner component is responsible for rendering a notification banner at the top of the page, based on the contents of sanity-template.json. It checks if a notification is enabled and if the user has dismissed it before rendering the banner.  It is safe to remove.
+import NotificationBanner from '@/app/components/NotificationBanner'
 
 /**
  * Generate metadata for the page.
@@ -74,6 +76,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
         <section className="min-h-screen pt-24">
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
           <Toaster />
+          <NotificationBanner />
           {isDraftMode && (
             <>
               <DraftModeToast />

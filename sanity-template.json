@@ -1,0 +1,8 @@
+{
+  "postInitMessage": "POST MESSAGE",
+  "notification": {
+    "id": "getting-started",
+    "enabled": true,
+    "message": "**Build AI features powered by your content.** Create assistants and bots that read your Sanity content. [Get started with Agent Context](https://www.sanity.io/docs/ai/agent-context)"
+  }
+}
