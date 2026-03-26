@@ -3,6 +3,6 @@
   "notification": {
     "id": "getting-started",
     "enabled": true,
-    "message": "**Build AI features powered by your content.** Create assistants and bots that read your Sanity content. [Get started with Agent Context](https://www.sanity.io/docs/ai/agent-context)"
+    "message": "**Ship AI features that actually know your content.** Agent Context gives any MCP-compatible agent schema-aware access to your dataset. [Get started →](https://www.sanity.io/docs/ai/agent-context)"
   }
 }
