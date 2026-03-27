@@ -37,23 +37,22 @@ export default function NotificationBanner() {
   const storageKey = notification ? `notification-dismissed-${notification.id}` : ''
 
   const [show, setShow] = useState(false)
-  const [mounted, setMounted] = useState(() => {
-    if (!notification) return false
-    try {
-      return !localStorage.getItem(storageKey)
-    } catch {
-      return false
-    }
-  })
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    if (!mounted) return
-    // Delay so the 0fr state is painted before we transition to 1fr
+    if (!notification) return
+    try {
+      if (localStorage.getItem(storageKey)) return
+    } catch {
+      return
+    }
+    // Set mounted inside rAF to avoid synchronous setState in effect
     const timer = requestAnimationFrame(() => {
+      setMounted(true)
       requestAnimationFrame(() => setShow(true))
     })
     return () => cancelAnimationFrame(timer)
-  }, [mounted])
+  }, [storageKey])
 
   const dismiss = useCallback(() => {
     setShow(false)
