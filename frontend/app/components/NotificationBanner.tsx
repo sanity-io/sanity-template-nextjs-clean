@@ -34,26 +34,26 @@ function getNotification(): {id: string; message: string} | null {
 const notification = getNotification()
 
 export default function NotificationBanner() {
-  const [show, setShow] = useState(false)
-  const [mounted, setMounted] = useState(false)
-
   const storageKey = notification ? `notification-dismissed-${notification.id}` : ''
 
-  useEffect(() => {
-    if (!notification) return
+  const [show, setShow] = useState(false)
+  const [mounted, setMounted] = useState(() => {
+    if (!notification) return false
     try {
-      if (!localStorage.getItem(storageKey)) {
-        setMounted(true)
-        // Delay so the 0fr state is painted before we transition to 1fr
-        const timer = requestAnimationFrame(() => {
-          requestAnimationFrame(() => setShow(true))
-        })
-        return () => cancelAnimationFrame(timer)
-      }
+      return !localStorage.getItem(storageKey)
     } catch {
-      // localStorage unavailable
+      return false
     }
-  }, [storageKey])
+  })
+
+  useEffect(() => {
+    if (!mounted) return
+    // Delay so the 0fr state is painted before we transition to 1fr
+    const timer = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setShow(true))
+    })
+    return () => cancelAnimationFrame(timer)
+  }, [mounted])
 
   const dismiss = useCallback(() => {
     setShow(false)
