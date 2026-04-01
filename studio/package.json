@@ -30,7 +30,7 @@
     "styled-components": "^6.3.12"
   },
   "devDependencies": {
-    "@sanity/eslint-config-studio": "^5.0.2",
+    "@sanity/eslint-config-studio": "^6.0.0",
     "@types/react": "^19.2.14",
     "typescript": "^5.9.3"
   }
