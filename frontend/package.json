@@ -2,7 +2,7 @@
   "name": "frontend",
   "private": true,
   "scripts": {
-    "prebuild": "cd ../studio && sanity schema extract --enforce-required-fields && cd ../frontend && sanity typegen generate",
+    "prebuild": "sanity typegen generate",
     "build": "next build",
     "dev": "next dev",
     "dev:typegen": "sanity typegen generate --watch",
