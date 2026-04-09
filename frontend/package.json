@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@sanity/client": "^7.20.0",
-    "@sanity/image-url": "^1.2.0",
+    "@sanity/image-url": "^2.1.1",
     "@sanity/uuid": "^3.0.2",
     "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/typography": "^0.5.19",
