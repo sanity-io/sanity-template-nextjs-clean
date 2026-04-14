@@ -2,7 +2,7 @@ name: Prettier
 
 on:
   push:
-    branches: [main, feat/ci-renovate-prettier]
+    branches: [main, feat/ci-renovate-prettier, chore-prettier-ignore-generated-files]
     paths-ignore:
       - 'package-lock.json'
       - '**/package-lock.json'
@@ -29,7 +29,7 @@ jobs:
         cache: npm
         node-version: lts/*
 
-    - run: npm install
+    - run: npm ci
     - run: npm run format
     
     - uses: actions/create-github-app-token@v3
