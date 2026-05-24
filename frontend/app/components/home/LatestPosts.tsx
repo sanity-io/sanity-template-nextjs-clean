@@ -2,27 +2,9 @@ import Link from 'next/link'
 
 import {AllPostsQueryResult} from '@/sanity.types'
 import DateComponent from '@/app/components/Date'
+import TagBadge from '@/app/components/TagBadge'
 import SectionHeading from './SectionHeading'
 import {dataAttr} from '@/sanity/lib/utils'
-
-const TAG_COLORS = [
-  'bg-red-100 text-red-700',
-  'bg-green-100 text-green-700',
-  'bg-blue-100 text-blue-700',
-  'bg-amber-100 text-amber-700',
-  'bg-purple-100 text-purple-700',
-  'bg-teal-100 text-teal-700',
-  'bg-pink-100 text-pink-700',
-  'bg-indigo-100 text-indigo-700',
-]
-
-function getTagColor(tag: string): string {
-  let hash = 0
-  for (let i = 0; i < tag.length; i++) {
-    hash = tag.charCodeAt(i) + ((hash << 5) - hash)
-  }
-  return TAG_COLORS[Math.abs(hash) % TAG_COLORS.length]
-}
 
 function PostCard({post}: {post: AllPostsQueryResult[number]}) {
   const {_id, title, slug, excerpt, date, tags, readTime} = post
@@ -55,12 +37,7 @@ function PostCard({post}: {post: AllPostsQueryResult[number]}) {
       {tags && tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mt-4">
           {tags.map((tag) => (
-            <span
-              key={tag}
-              className={`text-xs font-medium px-3 py-1 rounded-full ${getTagColor(tag)}`}
-            >
-              {tag}
-            </span>
+            <TagBadge key={tag} tag={tag} />
           ))}
         </div>
       )}

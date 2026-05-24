@@ -1229,6 +1229,46 @@ export type PagesSlugsResult = Array<{
   slug: string
 }>
 
+// Source: sanity/lib/queries.ts
+// Variable: allTagsQuery
+// Query: array::unique(*[_type == "post" && defined(slug.current)].tags[])
+export type AllTagsQueryResult = Array<string | null>
+
+// Source: sanity/lib/queries.ts
+// Variable: postsByTagQuery
+// Query: *[_type == "post" && defined(slug.current) && $tag in tags] | order(date desc, _updatedAt desc) {      _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  tags,  "readTime": round((    coalesce(length(pt::text(content)), 0) +    coalesce(length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])), 0) +    coalesce(length(array::join(pageBuilder[_type == "codeBlock"].code.code, " ")), 0)  ) / 5 / 200),  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
+export type PostsByTagQueryResult = Array<{
+  _id: string
+  _type: 'post'
+  status: 'draft' | 'published'
+  title: string
+  slug: string
+  excerpt: string | null
+  tags: Array<string> | null
+  readTime: number
+  coverImage: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  } | null
+  date: string
+  author: {
+    firstName: string
+    lastName: string
+    picture: {
+      asset?: SanityImageAssetReference
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    }
+  } | null
+}>
+
 // Query TypeMap
 import '@sanity/client'
 declare module '@sanity/client' {
@@ -1242,5 +1282,7 @@ declare module '@sanity/client' {
     '{\n  "prev": *[_type == "post" && _id != $id && defined(slug.current) && (\n    date > $date || (date == $date && _updatedAt > $updatedAt)\n  )] | order(date asc, _updatedAt asc) [0] {\n    "title": coalesce(title, "Untitled"),\n    "slug": slug.current\n  },\n  "next": *[_type == "post" && _id != $id && defined(slug.current) && (\n    date < $date || (date == $date && _updatedAt < $updatedAt)\n  )] | order(date desc, _updatedAt desc) [0] {\n    "title": coalesce(title, "Untitled"),\n    "slug": slug.current\n  }\n}': AdjacentPostsQueryResult
     '\n  *[_type == "post" && defined(slug.current)]\n  {"slug": slug.current}\n': PostPagesSlugsResult
     '\n  *[_type == "page" && defined(slug.current)]\n  {"slug": slug.current}\n': PagesSlugsResult
+    '\n  array::unique(*[_type == "post" && defined(slug.current)].tags[])\n': AllTagsQueryResult
+    '\n  *[_type == "post" && defined(slug.current) && $tag in tags] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  _type,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  tags,\n  "readTime": round((\n    coalesce(length(pt::text(content)), 0) +\n    coalesce(length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])), 0) +\n    coalesce(length(array::join(pageBuilder[_type == "codeBlock"].code.code, " ")), 0)\n  ) / 5 / 200),\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': PostsByTagQueryResult
   }
 }
