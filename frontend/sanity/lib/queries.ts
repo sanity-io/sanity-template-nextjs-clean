@@ -153,3 +153,13 @@ export const pagesSlugs = defineQuery(`
   *[_type == "page" && defined(slug.current)]
   {"slug": slug.current}
 `)
+
+export const allTagsQuery = defineQuery(`
+  array::unique(*[_type == "post" && defined(slug.current)].tags[])
+`)
+
+export const postsByTagQuery = defineQuery(`
+  *[_type == "post" && defined(slug.current) && $tag in tags] | order(date desc, _updatedAt desc) {
+    ${postFields}
+  }
+`)

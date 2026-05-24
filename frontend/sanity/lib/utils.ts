@@ -15,6 +15,46 @@ function urlForImage(source: SanityImageSource) {
   return builder.image(source)
 }
 
+/**
+ * Walk portable text arrays to find the first image block with a valid asset
+ * reference. Checks `content` first, then `pageBuilder` sections that may
+ * contain nested portable text (richTextBlock, infoSection).
+ */
+export function resolveFirstContentImage(
+  content?: any[] | null,
+  pageBuilder?: any[] | null,
+): SanityImageSource | null {
+  // Helper: return the first image block from a portable text array
+  function findImageInBlocks(blocks?: any[] | null): SanityImageSource | null {
+    if (!Array.isArray(blocks)) return null
+    for (const block of blocks) {
+      if (block?._type === 'image' && block?.asset?._ref) {
+        return block as SanityImageSource
+      }
+    }
+    return null
+  }
+
+  // 1. Check top-level content (portable text body)
+  const fromContent = findImageInBlocks(content)
+  if (fromContent) return fromContent
+
+  // 2. Check pageBuilder sections that may contain images or nested content
+  if (Array.isArray(pageBuilder)) {
+    for (const section of pageBuilder) {
+      // Direct image blocks in the page builder
+      if (section?._type === 'image' && section?.asset?._ref) {
+        return section as SanityImageSource
+      }
+      // Nested content within richTextBlock / infoSection
+      const nested = findImageInBlocks(section?.content)
+      if (nested) return nested
+    }
+  }
+
+  return null
+}
+
 export function resolveOpenGraphImage(
   image?: SanityImageSource | null,
   width = 1200,

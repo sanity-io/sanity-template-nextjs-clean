@@ -1,4 +1,4 @@
-import type {Metadata} from 'next'
+import type {Metadata, ResolvingMetadata} from 'next'
 import Head from 'next/head'
 
 import PageBuilderPage from '@/app/components/PageBuilder'
@@ -7,6 +7,7 @@ import {highlightCodeBlocks} from '@/sanity/lib/highlightCode'
 import {getPageQuery, pagesSlugs} from '@/sanity/lib/queries'
 import {GetPageQueryResult} from '@/sanity.types'
 import {PageOnboarding} from '@/app/components/Onboarding'
+import {resolveOpenGraphImage, resolveFirstContentImage} from '@/sanity/lib/utils'
 
 type Props = {
   params: Promise<{slug: string}>
@@ -30,7 +31,7 @@ export async function generateStaticParams() {
  * Generate metadata for the page.
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
  */
-export async function generateMetadata(props: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const params = await props.params
   const {data: page} = await sanityFetch({
     query: getPageQuery,
@@ -38,10 +39,26 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     // Metadata should never contain stega
     stega: false,
   })
+  const parentMeta = await parent
+  const previousImages = parentMeta.openGraph?.images || []
+  const ogImage = resolveOpenGraphImage(
+    resolveFirstContentImage(null, page?.pageBuilder),
+  )
+  const description = page?.heading || parentMeta.description || ''
+  const twitterImage = ogImage?.url || parentMeta.twitter?.images?.[0]?.url
 
   return {
     title: page?.name,
-    description: page?.heading,
+    description,
+    openGraph: {
+      images: ogImage ? [ogImage, ...previousImages] : previousImages,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: page?.name || undefined,
+      description,
+      ...(twitterImage ? {images: [twitterImage]} : {}),
+    },
   } satisfies Metadata
 }
 

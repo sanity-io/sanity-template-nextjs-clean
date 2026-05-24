@@ -29,3 +29,6 @@ next-env.d.ts
 
 # VS Code
 .vscode
+
+# AI and agent files
+.playwright-mcp/
