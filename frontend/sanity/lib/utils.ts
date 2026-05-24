@@ -46,7 +46,9 @@ export function resolveFirstContentImage(
       if (section?._type === 'image' && section?.asset?._ref) {
         return section as SanityImageSource
       }
-      // Nested content within richTextBlock / infoSection
+      if (section?.image?.asset?._ref) {
+        return section.image as SanityImageSource
+      }
       const nested = findImageInBlocks(section?.content)
       if (nested) return nested
     }
