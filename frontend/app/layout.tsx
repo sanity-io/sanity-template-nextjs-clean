@@ -1,6 +1,5 @@
 import './globals.css'
 
-import {SpeedInsights} from '@vercel/speed-insights/next'
 import {Inter, IBM_Plex_Mono, Playfair_Display} from 'next/font/google'
 
 const inter = Inter({
@@ -28,7 +27,6 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     <html lang="en" className={`${inter.variable} ${ibmPlexMono.variable} ${playfairDisplay.variable} bg-white text-black`}>
       <body>
         {children}
-        <SpeedInsights />
       </body>
     </html>
   )

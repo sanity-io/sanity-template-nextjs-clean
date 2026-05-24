@@ -1,4 +1,7 @@
 import {stegaClean} from '@sanity/client/stega'
+import {getTweet} from 'react-tweet/api'
+import {EmbeddedTweet, TweetNotFound} from 'react-tweet'
+import type {Tweet} from 'react-tweet/api'
 
 import {SettingsQueryResult} from '@/sanity.types'
 import SectionHeading from './SectionHeading'
@@ -16,6 +19,17 @@ function getTwitterHandle(settings: SettingsQueryResult): string | null {
   if (!link?.url) return null
   const match = link.url.match(/(?:x\.com|twitter\.com)\/(\w+)/)
   return match ? match[1] : null
+}
+
+function sanitizeTweet(tweet: Tweet): Tweet {
+  const emptyEntities = {hashtags: [], urls: [], user_mentions: [], symbols: [], media: undefined}
+  return {
+    ...tweet,
+    entities: {...emptyEntities, ...tweet.entities},
+    quoted_tweet: tweet.quoted_tweet
+      ? {...tweet.quoted_tweet, entities: {...emptyEntities, ...tweet.quoted_tweet.entities}}
+      : undefined,
+  }
 }
 
 type RecentTweetsProps = {
@@ -57,6 +71,18 @@ export default async function RecentTweets({settings}: RecentTweetsProps) {
     ...workerIds.filter((id) => !sanityIds.includes(id)),
   ].slice(0, 10)
 
+  const tweets = await Promise.all(
+    tweetIds.map(async (id) => {
+      try {
+        const tweet = await getTweet(id)
+        return tweet ? sanitizeTweet(tweet) : null
+      } catch {
+        return null
+      }
+    }),
+  )
+
+  const validTweets = tweets.filter((t): t is Tweet => t !== null)
   const profileUrl = `https://x.com/${handle}`
 
   return (
@@ -88,8 +114,14 @@ export default async function RecentTweets({settings}: RecentTweetsProps) {
             </a>
           </div>
 
-          {tweetIds.length > 0 ? (
-            <TweetGrid tweetIds={tweetIds} />
+          {validTweets.length > 0 ? (
+            <TweetGrid totalCount={validTweets.length}>
+              {validTweets.map((tweet) => (
+                <div key={tweet.id_str} className="break-inside-avoid mb-4 [&>div]:m-0!">
+                  <EmbeddedTweet tweet={tweet} />
+                </div>
+              ))}
+            </TweetGrid>
           ) : (
             <a
               href={profileUrl}

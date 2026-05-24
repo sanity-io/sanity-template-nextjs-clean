@@ -12,6 +12,8 @@
  * ---------------------------------------------------------------------------------
  */
 
+export declare const internalGroqTypeReferenceTo: unique symbol
+
 // Source: ../sanity.schema.json
 export type PageReference = {
   _ref: string
@@ -567,6 +569,7 @@ export type SanityImageMetadata = {
   palette?: SanityImagePalette
   lqip?: string
   blurHash?: string
+  thumbHash?: string
   hasAlpha?: boolean
   isOpaque?: boolean
 }
@@ -582,14 +585,14 @@ export type SanityFileAsset = {
   title?: string
   description?: string
   altText?: string
-  sha1hash?: string
-  extension?: string
-  mimeType?: string
-  size?: number
-  assetId?: string
+  sha1hash: string
+  extension: string
+  mimeType: string
+  size: number
+  assetId: string
   uploadId?: string
-  path?: string
-  url?: string
+  path: string
+  url: string
   source?: SanityAssetSourceData
 }
 
@@ -611,14 +614,14 @@ export type SanityImageAsset = {
   title?: string
   description?: string
   altText?: string
-  sha1hash?: string
-  extension?: string
-  mimeType?: string
-  size?: number
-  assetId?: string
+  sha1hash: string
+  extension: string
+  mimeType: string
+  size: number
+  assetId: string
   uploadId?: string
-  path?: string
-  url?: string
+  path: string
+  url: string
   metadata?: SanityImageMetadata
   source?: SanityAssetSourceData
 }
@@ -676,8 +679,6 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageAsset
   | Geopoint
-
-export declare const internalGroqTypeReferenceTo: unique symbol
 
 // Source: sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -945,7 +946,7 @@ export type SitemapDataResult = Array<
 
 // Source: sanity/lib/queries.ts
 // Variable: allPostsQuery
-// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {      _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  tags,  "readTime": round((    length(pt::text(content)) +    length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])) +    length(array::join(pageBuilder[_type == "codeBlock"].code.code, " "))  ) / 5 / 200),  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
+// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {      _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  tags,  "readTime": round((    coalesce(length(pt::text(content)), 0) +    coalesce(length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])), 0) +    coalesce(length(array::join(pageBuilder[_type == "codeBlock"].code.code, " ")), 0)  ) / 5 / 200),  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
 export type AllPostsQueryResult = Array<{
   _id: string
   _type: 'post'
@@ -954,7 +955,7 @@ export type AllPostsQueryResult = Array<{
   slug: string
   excerpt: string | null
   tags: Array<string> | null
-  readTime: number | null
+  readTime: number
   coverImage: {
     asset?: SanityImageAssetReference
     media?: unknown
@@ -980,7 +981,7 @@ export type AllPostsQueryResult = Array<{
 
 // Source: sanity/lib/queries.ts
 // Variable: morePostsQuery
-// Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {      _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  tags,  "readTime": round((    length(pt::text(content)) +    length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])) +    length(array::join(pageBuilder[_type == "codeBlock"].code.code, " "))  ) / 5 / 200),  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
+// Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {      _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  tags,  "readTime": round((    coalesce(length(pt::text(content)), 0) +    coalesce(length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])), 0) +    coalesce(length(array::join(pageBuilder[_type == "codeBlock"].code.code, " ")), 0)  ) / 5 / 200),  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
 export type MorePostsQueryResult = Array<{
   _id: string
   _type: 'post'
@@ -989,7 +990,7 @@ export type MorePostsQueryResult = Array<{
   slug: string
   excerpt: string | null
   tags: Array<string> | null
-  readTime: number | null
+  readTime: number
   coverImage: {
     asset?: SanityImageAssetReference
     media?: unknown
@@ -1015,7 +1016,7 @@ export type MorePostsQueryResult = Array<{
 
 // Source: sanity/lib/queries.ts
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  },      _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  tags,  "readTime": round((    length(pt::text(content)) +    length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])) +    length(array::join(pageBuilder[_type == "codeBlock"].code.code, " "))  ) / 5 / 200),  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},      "pageBuilder": pageBuilder[]{    ...,    _type == "callToAction" => {      ...,      button {        ...,          link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }      }    },    _type == "infoSection" => {      content[]{        ...,        markDefs[]{          ...,            _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }        }      }    },    _type == "richTextBlock" => {      content[]{        ...,        markDefs[]{          ...,            _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }        }      }    },    _type == "codeBlock" => {      ...    },  },  }
+// Query: *[_type == "post" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  },      _id,  _type,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  tags,  "readTime": round((    coalesce(length(pt::text(content)), 0) +    coalesce(length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])), 0) +    coalesce(length(array::join(pageBuilder[_type == "codeBlock"].code.code, " ")), 0)  ) / 5 / 200),  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},      "pageBuilder": pageBuilder[]{    ...,    _type == "callToAction" => {      ...,      button {        ...,          link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }      }    },    _type == "infoSection" => {      content[]{        ...,        markDefs[]{          ...,            _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }        }      }    },    _type == "richTextBlock" => {      content[]{        ...,        markDefs[]{          ...,            _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }        }      }    },    _type == "codeBlock" => {      ...    },  },  }
 export type PostQueryResult = {
   content: Array<
     | {
@@ -1057,7 +1058,7 @@ export type PostQueryResult = {
   slug: string
   excerpt: string | null
   tags: Array<string> | null
-  readTime: number | null
+  readTime: number
   coverImage: {
     asset?: SanityImageAssetReference
     media?: unknown
@@ -1235,9 +1236,9 @@ declare module '@sanity/client' {
     '*[_type == "settings"][0]{\n  ...,\n  heroSubheading,\n  heroHeading,\n  heroIntro,\n  statusLine,\n  socialLinks,\n  aboutBio,\n  profileAuthor->{firstName, lastName, picture},\n  profileTitle,\n  profileTagline,\n  topics,\n  featuredTweets,\n  footerText,\n  footerLinks\n}': SettingsQueryResult
     '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    \n  "pageBuilder": pageBuilder[]{\n    ...,\n    _type == "callToAction" => {\n      ...,\n      button {\n        ...,\n        \n  link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n\n      }\n    },\n    _type == "infoSection" => {\n      content[]{\n        ...,\n        markDefs[]{\n          ...,\n          \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n        }\n      }\n    },\n    _type == "richTextBlock" => {\n      content[]{\n        ...,\n        markDefs[]{\n          ...,\n          \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n        }\n      }\n    },\n    _type == "codeBlock" => {\n      ...\n    },\n  }\n,\n  }\n': GetPageQueryResult
     '\n  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult
-    '\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  _type,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  tags,\n  "readTime": round((\n    length(pt::text(content)) +\n    length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])) +\n    length(array::join(pageBuilder[_type == "codeBlock"].code.code, " "))\n  ) / 5 / 200),\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': AllPostsQueryResult
-    '\n  *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  _type,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  tags,\n  "readTime": round((\n    length(pt::text(content)) +\n    length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])) +\n    length(array::join(pageBuilder[_type == "codeBlock"].code.code, " "))\n  ) / 5 / 200),\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': MorePostsQueryResult
-    '\n  *[_type == "post" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  _type,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  tags,\n  "readTime": round((\n    length(pt::text(content)) +\n    length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])) +\n    length(array::join(pageBuilder[_type == "codeBlock"].code.code, " "))\n  ) / 5 / 200),\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n    \n  "pageBuilder": pageBuilder[]{\n    ...,\n    _type == "callToAction" => {\n      ...,\n      button {\n        ...,\n        \n  link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n\n      }\n    },\n    _type == "infoSection" => {\n      content[]{\n        ...,\n        markDefs[]{\n          ...,\n          \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n        }\n      }\n    },\n    _type == "richTextBlock" => {\n      content[]{\n        ...,\n        markDefs[]{\n          ...,\n          \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n        }\n      }\n    },\n    _type == "codeBlock" => {\n      ...\n    },\n  }\n,\n  }\n': PostQueryResult
+    '\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  _type,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  tags,\n  "readTime": round((\n    coalesce(length(pt::text(content)), 0) +\n    coalesce(length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])), 0) +\n    coalesce(length(array::join(pageBuilder[_type == "codeBlock"].code.code, " ")), 0)\n  ) / 5 / 200),\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': AllPostsQueryResult
+    '\n  *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  _type,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  tags,\n  "readTime": round((\n    coalesce(length(pt::text(content)), 0) +\n    coalesce(length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])), 0) +\n    coalesce(length(array::join(pageBuilder[_type == "codeBlock"].code.code, " ")), 0)\n  ) / 5 / 200),\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': MorePostsQueryResult
+    '\n  *[_type == "post" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  _type,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  tags,\n  "readTime": round((\n    coalesce(length(pt::text(content)), 0) +\n    coalesce(length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])), 0) +\n    coalesce(length(array::join(pageBuilder[_type == "codeBlock"].code.code, " ")), 0)\n  ) / 5 / 200),\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n    \n  "pageBuilder": pageBuilder[]{\n    ...,\n    _type == "callToAction" => {\n      ...,\n      button {\n        ...,\n        \n  link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n\n      }\n    },\n    _type == "infoSection" => {\n      content[]{\n        ...,\n        markDefs[]{\n          ...,\n          \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n        }\n      }\n    },\n    _type == "richTextBlock" => {\n      content[]{\n        ...,\n        markDefs[]{\n          ...,\n          \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n        }\n      }\n    },\n    _type == "codeBlock" => {\n      ...\n    },\n  }\n,\n  }\n': PostQueryResult
     '{\n  "prev": *[_type == "post" && _id != $id && defined(slug.current) && (\n    date > $date || (date == $date && _updatedAt > $updatedAt)\n  )] | order(date asc, _updatedAt asc) [0] {\n    "title": coalesce(title, "Untitled"),\n    "slug": slug.current\n  },\n  "next": *[_type == "post" && _id != $id && defined(slug.current) && (\n    date < $date || (date == $date && _updatedAt < $updatedAt)\n  )] | order(date desc, _updatedAt desc) [0] {\n    "title": coalesce(title, "Untitled"),\n    "slug": slug.current\n  }\n}': AdjacentPostsQueryResult
     '\n  *[_type == "post" && defined(slug.current)]\n  {"slug": slug.current}\n': PostPagesSlugsResult
     '\n  *[_type == "page" && defined(slug.current)]\n  {"slug": slug.current}\n': PagesSlugsResult
