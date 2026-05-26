@@ -1,4 +1,5 @@
 import type {NextConfig} from 'next'
+import {sanity} from 'next-sanity/live/cache-life'
 
 const nextConfig: NextConfig = {
   env: {
@@ -8,6 +9,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [new URL('https://cdn.sanity.io/**')],
   },
+  cacheComponents: true,
+  cacheLife: {default: sanity},
 }
 
 export default nextConfig
