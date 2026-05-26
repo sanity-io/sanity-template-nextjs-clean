@@ -1,4 +1,5 @@
 import type {Metadata, ResolvingMetadata} from 'next'
+import {draftMode} from 'next/headers'
 import {notFound} from 'next/navigation'
 import {type PortableTextBlock} from 'next-sanity'
 import {Suspense} from 'react'
@@ -7,25 +8,25 @@ import Avatar from '@/app/components/Avatar'
 import {MorePosts} from '@/app/components/Posts'
 import PortableText from '@/app/components/PortableText'
 import Image from '@/app/components/SanityImage'
-import {sanityFetch} from '@/sanity/lib/live'
+import {
+  getDynamicFetchOptions,
+  sanityFetch,
+  sanityFetchMetadata,
+  sanityFetchStaticParams,
+  type DynamicFetchOptions,
+} from '@/sanity/lib/live'
 import {postPagesSlugs, postQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
 
-type Props = {
-  params: Promise<{slug: string}>
-}
+type Params = {slug: string}
+type Props = {params: Promise<Params>}
 
 /**
  * Generate the static params for the page.
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-static-params
  */
 export async function generateStaticParams() {
-  const {data} = await sanityFetch({
-    query: postPagesSlugs,
-    // Use the published perspective in generateStaticParams
-    perspective: 'published',
-    stega: false,
-  })
+  const {data} = await sanityFetchStaticParams({query: postPagesSlugs})
   return data
 }
 
@@ -34,13 +35,8 @@ export async function generateStaticParams() {
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
  */
 export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
-  const params = await props.params
-  const {data: post} = await sanityFetch({
-    query: postQuery,
-    params,
-    // Metadata should never contain stega
-    stega: false,
-  })
+  const [params, {perspective}] = await Promise.all([props.params, getDynamicFetchOptions()])
+  const {data: post} = await sanityFetchMetadata({query: postQuery, params, perspective})
   const previousImages = (await parent).openGraph?.images || []
   const ogImage = resolveOpenGraphImage(post?.coverImage)
 
@@ -57,9 +53,32 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
   } satisfies Metadata
 }
 
-export default async function PostPage(props: Props) {
-  const params = await props.params
-  const [{data: post}] = await Promise.all([sanityFetch({query: postQuery, params})])
+export default async function PostPage({params}: Props) {
+  const {isEnabled: isDraftMode} = await draftMode()
+  if (isDraftMode) {
+    return (
+      <Suspense fallback={<PostFallback />}>
+        <DynamicPost params={params} />
+      </Suspense>
+    )
+  }
+  const {slug} = await params
+  return <CachedPost slug={slug} perspective="published" stega={false} />
+}
+
+async function DynamicPost({params}: Props) {
+  const [{slug}, {perspective, stega}] = await Promise.all([params, getDynamicFetchOptions()])
+  return <CachedPost slug={slug} perspective={perspective} stega={stega} />
+}
+
+async function CachedPost({slug, perspective, stega}: Params & DynamicFetchOptions) {
+  'use cache'
+  const {data: post} = await sanityFetch({
+    query: postQuery,
+    params: {slug},
+    perspective,
+    stega,
+  })
 
   if (!post?._id) {
     return notFound()
@@ -109,11 +128,23 @@ export default async function PostPage(props: Props) {
         <div className="container py-12 lg:py-24 grid gap-12">
           <aside>
             <Suspense>
-              <MorePosts skip={post._id} limit={2} />
+              <MorePosts skip={post._id} limit={2} perspective={perspective} stega={stega} />
             </Suspense>
           </aside>
         </div>
       </div>
     </>
+  )
+}
+
+function PostFallback() {
+  return (
+    <div className="container my-12 lg:my-24 grid gap-12" aria-busy>
+      <div className="pb-6 grid gap-6 mb-6 border-b border-gray-100">
+        <div className="max-w-3xl flex flex-col gap-6">
+          <h1 className="text-4xl text-gray-900 sm:text-5xl lg:text-7xl">Loading…</h1>
+        </div>
+      </div>
+    </div>
   )
 }

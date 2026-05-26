@@ -1,20 +1,40 @@
 import Link from 'next/link'
-import {settingsQuery} from '@/sanity/lib/queries'
-import {sanityFetch} from '@/sanity/lib/live'
+import {draftMode} from 'next/headers'
+import {Suspense} from 'react'
+
+import {fetchSettings} from '@/sanity/lib/fetchers'
+import {getDynamicFetchOptions, type DynamicFetchOptions} from '@/sanity/lib/live'
 
 export default async function Header() {
-  const {data: settings} = await sanityFetch({
-    query: settingsQuery,
-  })
+  const {isEnabled: isDraftMode} = await draftMode()
+  if (isDraftMode) {
+    return (
+      <Suspense fallback={<HeaderShell title="Sanity + Next.js" />}>
+        <DynamicHeader />
+      </Suspense>
+    )
+  }
+  return <CachedHeader perspective="published" stega={false} />
+}
 
+async function DynamicHeader() {
+  const {perspective, stega} = await getDynamicFetchOptions()
+  return <CachedHeader perspective={perspective} stega={stega} />
+}
+
+async function CachedHeader({perspective, stega}: DynamicFetchOptions) {
+  'use cache'
+  const settings = await fetchSettings({perspective, stega})
+  return <HeaderShell title={settings?.title || 'Sanity + Next.js'} />
+}
+
+function HeaderShell({title}: {title: string}) {
   return (
     <header className="fixed z-50 h-24 inset-0 bg-white/80 flex items-center backdrop-blur-lg">
       <div className="container py-6 px-2 sm:px-6">
         <div className="flex items-center justify-between gap-5">
           <Link className="flex items-center gap-2" href="/">
-            <span className="text-lg sm:text-2xl pl-2 font-semibold">
-              {settings?.title || 'Sanity + Next.js'}
-            </span>
+            <span className="text-lg sm:text-2xl pl-2 font-semibold">{title}</span>
           </Link>
 
           <nav>

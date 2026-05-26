@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import {sanityFetch} from '@/sanity/lib/live'
+import {sanityFetch, type DynamicFetchOptions} from '@/sanity/lib/live'
 import {morePostsQuery, allPostsQuery} from '@/sanity/lib/queries'
 import {AllPostsQueryResult} from '@/sanity.types'
 import DateComponent from '@/app/components/Date'
@@ -55,10 +55,18 @@ const Posts = ({
   </div>
 )
 
-export const MorePosts = async ({skip, limit}: {skip: string; limit: number}) => {
+export const MorePosts = async ({
+  skip,
+  limit,
+  perspective,
+  stega,
+}: {skip: string; limit: number} & DynamicFetchOptions) => {
+  'use cache'
   const {data} = await sanityFetch({
     query: morePostsQuery,
     params: {skip, limit},
+    perspective,
+    stega,
   })
 
   if (!data || data.length === 0) {
@@ -74,8 +82,9 @@ export const MorePosts = async ({skip, limit}: {skip: string; limit: number}) =>
   )
 }
 
-export const AllPosts = async () => {
-  const {data} = await sanityFetch({query: allPostsQuery})
+export const AllPosts = async ({perspective, stega}: DynamicFetchOptions) => {
+  'use cache'
+  const {data} = await sanityFetch({query: allPostsQuery, perspective, stega})
 
   if (!data || data.length === 0) {
     return <OnBoarding />

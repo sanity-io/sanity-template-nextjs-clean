@@ -12,7 +12,7 @@ import DraftModeToast from '@/app/components/DraftModeToast'
 import Footer from '@/app/components/Footer'
 import Header from '@/app/components/Header'
 import * as demo from '@/sanity/lib/demo'
-import {sanityFetch, SanityLive} from '@/sanity/lib/live'
+import {getDynamicFetchOptions, sanityFetchMetadata, SanityLive} from '@/sanity/lib/live'
 import {settingsQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
 import {handleError} from '@/app/client-utils'
@@ -22,11 +22,8 @@ import {handleError} from '@/app/client-utils'
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
  */
 export async function generateMetadata(): Promise<Metadata> {
-  const {data: settings} = await sanityFetch({
-    query: settingsQuery,
-    // Metadata should never contain stega
-    stega: false,
-  })
+  const {perspective} = await getDynamicFetchOptions()
+  const {data: settings} = await sanityFetchMetadata({query: settingsQuery, perspective})
   const title = settings?.title || demo.title
   const description = settings?.description || demo.description
 
@@ -82,7 +79,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
             </>
           )}
           {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
-          <SanityLive onError={handleError} />
+          <SanityLive includeDrafts={isDraftMode} onError={handleError} />
           <Header />
           <main className="">{children}</main>
           <Footer />
