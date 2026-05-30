@@ -22,16 +22,19 @@ export default async function Header() {
               role="list"
               className="flex items-center gap-4 md:gap-6 leading-5 text-xs sm:text-base tracking-tight font-mono"
             >
-              <li>
-                <Link href="/posts" className="hover:underline">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:underline">
-                  About
-                </Link>
-              </li>
+              {settings?.headerNav?.map((item) => (
+                <li key={item._key}>
+                  <Link
+                    href={item.url!}
+                    className="hover:underline"
+                    {...(item.openInNewTab
+                      ? {target: '_blank', rel: 'noopener noreferrer'}
+                      : {})}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
 
               <li className="sm:before:w-[1px] sm:before:bg-gray-200 before:block flex sm:gap-4 md:gap-6">
                 <Link

@@ -191,6 +191,13 @@ export type Settings = {
     _type: 'image'
   }
   googleSiteVerification?: string
+  headerNav?: Array<{
+    label: string
+    url: string
+    openInNewTab?: boolean
+    _type: 'navLink'
+    _key: string
+  }>
   heroSubheading?: string
   heroHeading: string
   heroIntro?: string
@@ -250,7 +257,8 @@ export type Settings = {
   footerLinks?: Array<{
     label: string
     url: string
-    _type: 'footerLink'
+    openInNewTab?: boolean
+    _type: 'navLink'
     _key: string
   }>
 }
@@ -682,7 +690,7 @@ export type AllSanitySchemaTypes =
 
 // Source: sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]{  ...,  heroSubheading,  heroHeading,  heroIntro,  statusLine,  socialLinks,  aboutBio,  profileAuthor->{firstName, lastName, picture},  profileTitle,  profileTagline,  topics,  featuredTweets,  footerText,  footerLinks}
+// Query: *[_type == "settings"][0]{  ...,  headerNav,  heroSubheading,  heroHeading,  heroIntro,  statusLine,  socialLinks,  aboutBio,  profileAuthor->{firstName, lastName, picture},  profileTitle,  profileTagline,  topics,  featuredTweets,  footerText,  footerLinks}
 export type SettingsQueryResult = {
   _id: string
   _type: 'settings'
@@ -722,6 +730,13 @@ export type SettingsQueryResult = {
     _type: 'image'
   }
   googleSiteVerification?: string
+  headerNav: Array<{
+    label: string
+    url: string
+    openInNewTab?: boolean
+    _type: 'navLink'
+    _key: string
+  }> | null
   heroSubheading: string | null
   heroHeading: string
   heroIntro: string | null
@@ -792,7 +807,8 @@ export type SettingsQueryResult = {
   footerLinks: Array<{
     label: string
     url: string
-    _type: 'footerLink'
+    openInNewTab?: boolean
+    _type: 'navLink'
     _key: string
   }> | null
 } | null
@@ -1273,7 +1289,7 @@ export type PostsByTagQueryResult = Array<{
 import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "settings"][0]{\n  ...,\n  heroSubheading,\n  heroHeading,\n  heroIntro,\n  statusLine,\n  socialLinks,\n  aboutBio,\n  profileAuthor->{firstName, lastName, picture},\n  profileTitle,\n  profileTagline,\n  topics,\n  featuredTweets,\n  footerText,\n  footerLinks\n}': SettingsQueryResult
+    '*[_type == "settings"][0]{\n  ...,\n  headerNav,\n  heroSubheading,\n  heroHeading,\n  heroIntro,\n  statusLine,\n  socialLinks,\n  aboutBio,\n  profileAuthor->{firstName, lastName, picture},\n  profileTitle,\n  profileTagline,\n  topics,\n  featuredTweets,\n  footerText,\n  footerLinks\n}': SettingsQueryResult
     '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    \n  "pageBuilder": pageBuilder[]{\n    ...,\n    _type == "callToAction" => {\n      ...,\n      button {\n        ...,\n        \n  link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n\n      }\n    },\n    _type == "infoSection" => {\n      content[]{\n        ...,\n        markDefs[]{\n          ...,\n          \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n        }\n      }\n    },\n    _type == "richTextBlock" => {\n      content[]{\n        ...,\n        markDefs[]{\n          ...,\n          \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n        }\n      }\n    },\n    _type == "codeBlock" => {\n      ...\n    },\n  }\n,\n  }\n': GetPageQueryResult
     '\n  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult
     '\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  _type,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  tags,\n  "readTime": round((\n    coalesce(length(pt::text(content)), 0) +\n    coalesce(length(pt::text(pageBuilder[_type in ["richTextBlock", "infoSection"]].content[])), 0) +\n    coalesce(length(array::join(pageBuilder[_type == "codeBlock"].code.code, " ")), 0)\n  ) / 5 / 200),\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': AllPostsQueryResult
