@@ -11,10 +11,6 @@ import {sanityFetch} from '@/sanity/lib/live'
 import {postPagesSlugs, postQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
 
-type Props = {
-  params: Promise<{slug: string}>
-}
-
 /**
  * Generate the static params for the page.
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-static-params
@@ -33,7 +29,10 @@ export async function generateStaticParams() {
  * Generate metadata for the page.
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
  */
-export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata(
+  props: PageProps<'/posts/[slug]'>,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const params = await props.params
   const {data: post} = await sanityFetch({
     query: postQuery,
@@ -57,7 +56,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
   } satisfies Metadata
 }
 
-export default async function PostPage(props: Props) {
+export default async function PostPage(props: PageProps<'/posts/[slug]'>) {
   const params = await props.params
   const [{data: post}] = await Promise.all([sanityFetch({query: postQuery, params})])
 

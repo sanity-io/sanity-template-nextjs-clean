@@ -7,10 +7,6 @@ import {getPageQuery, pagesSlugs} from '@/sanity/lib/queries'
 import {GetPageQueryResult} from '@/sanity.types'
 import {PageOnboarding} from '@/app/components/Onboarding'
 
-type Props = {
-  params: Promise<{slug: string}>
-}
-
 /**
  * Generate the static params for the page.
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-static-params
@@ -29,7 +25,7 @@ export async function generateStaticParams() {
  * Generate metadata for the page.
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
  */
-export async function generateMetadata(props: Props): Promise<Metadata> {
+export async function generateMetadata(props: PageProps<'/[slug]'>): Promise<Metadata> {
   const params = await props.params
   const {data: page} = await sanityFetch({
     query: getPageQuery,
@@ -44,7 +40,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   } satisfies Metadata
 }
 
-export default async function Page(props: Props) {
+export default async function Page(props: PageProps<'/[slug]'>) {
   const params = await props.params
   const [{data: page}] = await Promise.all([sanityFetch({query: getPageQuery, params})])
 

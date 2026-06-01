@@ -65,7 +65,7 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: 'swap',
 })
 
-export default async function RootLayout({children}: {children: React.ReactNode}) {
+export default async function RootLayout({children}: LayoutProps<'/'>) {
   const {isEnabled: isDraftMode} = await draftMode()
 
   return (
