@@ -7,4 +7,4 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Validate Sanity Template
-        uses: sanity-io/template-validator@v2
+        uses: sanity-io/template-validator@v3
