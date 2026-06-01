@@ -30,6 +30,6 @@
   "devDependencies": {
     "@sanity/prettier-config": "^3.0.0",
     "npm-run-all2": "^5.0.2",
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.2"
   }
 }

@@ -13,7 +13,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@sanity/client": "^7.20.0",
+    "@sanity/client": "^7.21.0",
     "@sanity/image-url": "^2.1.1",
     "@sanity/uuid": "^3.0.2",
     "@tailwindcss/postcss": "^4.2.2",
@@ -36,7 +36,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "eslint": "^9.39.4",
-    "eslint-config-next": "16.2.2",
+    "eslint-config-next": "16.2.3",
     "typescript": "5.9.3"
   }
 }
