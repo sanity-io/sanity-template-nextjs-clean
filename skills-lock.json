@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "sanity-live-cache-components": {
+      "source": "sanity-io/next-sanity",
+      "sourceType": "github",
+      "skillPath": "skills/sanity-live-cache-components/SKILL.md",
+      "computedHash": "354498f97fd57877d48f4cfe6e8838de610995a6d53bef0cee3fe5b5ef9fad7e"
+    }
+  }
+}
