@@ -10,7 +10,7 @@
     "lint:fix": "eslint . --fix",
     "sanity:typegen": "cd ../studio && sanity schema extract --enforce-required-fields --path ../sanity.schema.json && cd ../frontend && sanity typegen generate",
     "start": "next start",
-    "type-check": "tsc --noEmit"
+    "type-check": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@sanity/client": "^7.21.0",
@@ -33,10 +33,10 @@
   },
   "devDependencies": {
     "@types/node": "^22.19.17",
-    "@types/react": "19.2.14",
-    "@types/react-dom": "19.2.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.4",
-    "eslint-config-next": "16.2.3",
-    "typescript": "5.9.3"
+    "eslint-config-next": "^16.2.3",
+    "typescript": "^5.9.3"
   }
 }
