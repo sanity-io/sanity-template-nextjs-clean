@@ -21,6 +21,7 @@
     "dev": "npx run-p --print-label dev:*",
     "dev:next": "npm run dev --workspace=frontend",
     "dev:studio": "npm run dev --workspace=studio",
+    "dev:typegen": "npm run dev:typegen --workspace=frontend",
     "format": "prettier --cache --write .",
     "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --dataset production --replace",
     "lint": "npm run lint --workspace=frontend",

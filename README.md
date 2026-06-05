@@ -14,6 +14,7 @@ This template includes a [Next.js](https://nextjs.org/) app with a [Sanity Studi
 - **AI-powered Media Support:** Auto-generate alt text with [Sanity AI Assist](https://www.sanity.io/ai-assist).
 - **On-demand Publishing:** No waiting for rebuilds—new content is live instantly with Incremental Static Revalidation.
 - **Easy Media Management:** [Integrated Unsplash support](https://www.sanity.io/plugins/sanity-plugin-asset-source-unsplash) for seamless media handling.
+- **Automatic TypeScript Types:** [Sanity TypeGen](https://www.sanity.io/docs/apis-and-sdks/sanity-typegen) automatically generates TypeScript types for your schemas and GROQ queries — no manual steps required.
 
 ## Demo
 
@@ -97,6 +98,20 @@ You have the freedom to deploy your Next.js app to your hosting provider of choi
 Now that you’ve deployed your Next.js application and Sanity Studio, you can optionally invite a collaborator to your Studio. Open up [Manage](https://www.sanity.io/manage), select your project and click "Invite project members"
 
 They will be able to access the deployed Studio, where you can collaborate together on creating content.
+
+## Automatic TypeScript type generation
+
+This template uses [Sanity TypeGen](https://www.sanity.io/docs/apis-and-sdks/sanity-typegen) to automatically generate TypeScript types for your schemas and GROQ queries. When you run `npm run dev`, three processes start in parallel:
+
+- **Sanity Studio** (`sanity dev`) — automatically extracts the schema and generates types for the studio whenever you modify schema files
+- **Next.js** (`next dev`) — runs the frontend as usual
+- **TypeGen watcher** (`sanity typegen generate --watch`) — watches for GROQ query changes in the frontend and regenerates types
+
+This means you get end-to-end type safety with zero manual steps. Edit a schema type, and both `studio/sanity.types.ts` and `frontend/sanity.types.ts` update automatically. Edit a GROQ query, and `frontend/sanity.types.ts` updates too.
+
+The generated types are committed to the repo so that `type-check` and IDE support work immediately after cloning — no setup required.
+
+For CI builds, the `prebuild` script in the frontend handles schema extraction and type generation automatically before `next build`.
 
 ## Resources
 
