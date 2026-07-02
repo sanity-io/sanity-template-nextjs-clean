@@ -1,0 +1,15 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "sanity:typegen": {
+      "cache": false
+    },
+    "dev": {
+      "dependsOn": ["sanity:typegen"],
+      "cache": false,
+      "persistent": true,
+      "interactive": true
+    }
+  }
+}

@@ -6,6 +6,9 @@
 .pnp.js
 .yarn/install-state.gz
 
+# turbo
+.turbo
+
 # misc
 .DS_Store
 *.pem

@@ -18,7 +18,7 @@
     "frontend"
   ],
   "scripts": {
-    "dev": "npx run-p --print-label dev:*",
+    "dev": "turbo dev",
     "dev:next": "npm run dev --workspace=frontend",
     "dev:studio": "npm run dev --workspace=studio",
     "format": "prettier --cache --write .",
@@ -26,10 +26,12 @@
     "lint": "npm run lint --workspace=frontend",
     "type-check": "npm run type-check --workspaces"
   },
+  "packageManager": "npm@11.6.2",
   "prettier": "@sanity/prettier-config",
   "devDependencies": {
     "@sanity/prettier-config": "^3.0.0",
     "npm-run-all2": "^5.0.2",
-    "prettier": "^3.8.3"
+    "prettier": "^3.8.3",
+    "turbo": "^2.10.2"
   }
 }
