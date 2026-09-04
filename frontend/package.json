@@ -23,7 +23,7 @@
     "date-fns": "^4.4.0",
     "next": "^16.2.7",
     "next-sanity": "^13.0.8",
-    "postcss": "^8.5.18",
+    "postcss": "^8.5.23",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "sanity": "^5.28.0",
