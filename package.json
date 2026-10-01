@@ -26,7 +26,7 @@
     "lint": "npm run lint --workspace=frontend",
     "type-check": "npm run type-check --workspaces"
   },
-  "packageManager": "npm@11.6.2",
+  "packageManager": "npm@11.21.0",
   "prettier": "@sanity/prettier-config",
   "devDependencies": {
     "@sanity/prettier-config": "^3.0.0",
