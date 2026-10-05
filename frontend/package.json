@@ -13,7 +13,7 @@
     "type-check": "next typegen && tsc --noEmit"
   },
   "dependencies": {
-    "@sanity/client": "^7.22.1",
+    "@sanity/client": "^8.9.0",
     "@sanity/image-url": "^2.1.1",
     "@sanity/uuid": "^3.0.2",
     "@tailwindcss/postcss": "^4.3.0",
