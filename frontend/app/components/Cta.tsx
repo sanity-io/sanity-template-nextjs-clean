@@ -1,9 +1,10 @@
+import {isImageWithAsset} from '@sanity/image-url'
+import {stegaClean} from '@sanity/client/stega'
 import {PortableTextBlock} from 'next-sanity'
 
 import ResolvedLink from '@/app/components/ResolvedLink'
 import PortableText from '@/app/components/PortableText'
 import Image from '@/app/components/SanityImage'
-import {stegaClean} from '@sanity/client/stega'
 import {ExtractPageBuilderType} from '@/sanity/lib/types'
 
 type CtaProps = {
@@ -54,15 +55,8 @@ export default function CTA({block}: CtaProps) {
             )}
           </div>
 
-          {image?.asset?._ref && (
-            <Image
-              id={image.asset._ref}
-              alt="Demo image"
-              width={704}
-              crop={image.crop}
-              mode="cover"
-              className="rounded-sm"
-            />
+          {isImageWithAsset(image) && (
+            <Image value={image} alt="Demo image" width={704} mode="cover" className="rounded-sm" />
           )}
         </div>
       </div>

@@ -1,17 +1,15 @@
+import {isImageWithAsset} from '@sanity/image-url'
+
 import Image from '@/app/components/SanityImage'
 import DateComponent from '@/app/components/Date'
+import type {AllPostsQueryResult, PostQueryResult} from '@/sanity.types'
+
+type Person = NonNullable<
+  NonNullable<PostQueryResult>['author'] | AllPostsQueryResult[number]['author']
+>
 
 type Props = {
-  person: {
-    firstName: string | null
-    lastName: string | null
-    picture?: {
-      asset?: {_ref: string}
-      hotspot?: {x: number; y: number}
-      crop?: {top: number; bottom: number; left: number; right: number}
-      alt?: string
-    }
-  }
+  person: Person
   date?: string
   small?: boolean
 }
@@ -21,16 +19,14 @@ export default function Avatar({person, date, small = false}: Props) {
 
   return (
     <div className="flex items-center font-mono">
-      {picture?.asset?._ref ? (
+      {isImageWithAsset(picture) ? (
         <div className={`${small ? 'h-6 w-6 mr-2' : 'h-9 w-9 mr-4'}`}>
           <Image
-            id={picture.asset._ref}
-            alt={picture?.alt || ''}
+            value={picture}
+            alt={picture.alt || ''}
             className="h-full rounded-full"
             height={small ? 32 : 48}
             width={small ? 32 : 48}
-            hotspot={picture.hotspot}
-            crop={picture.crop}
             mode="cover"
           />
         </div>

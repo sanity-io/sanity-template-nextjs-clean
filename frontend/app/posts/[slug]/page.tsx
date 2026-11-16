@@ -1,3 +1,4 @@
+import {isImageWithAsset} from '@sanity/image-url'
 import type {Metadata, ResolvingMetadata} from 'next'
 import {notFound} from 'next/navigation'
 import {type PortableTextBlock} from 'next-sanity'
@@ -81,16 +82,14 @@ export default async function PostPage(props: PageProps<'/posts/[slug]'>) {
             </div>
             <article className="gap-6 grid max-w-4xl">
               <div className="">
-                {post?.coverImage && (
+                {isImageWithAsset(post.coverImage) && (
                   <Image
-                    id={post.coverImage.asset?._ref || ''}
+                    value={post.coverImage}
                     alt={post.coverImage.alt || ''}
                     className="rounded-sm w-full"
                     width={1024}
                     height={538}
                     mode="cover"
-                    hotspot={post.coverImage.hotspot}
-                    crop={post.coverImage.crop}
                   />
                 )}
               </div>

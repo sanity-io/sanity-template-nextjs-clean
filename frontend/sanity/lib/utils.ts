@@ -1,7 +1,9 @@
+import {createImageUrlBuilder, isImageWithAsset, type InferImageValue} from '@sanity/image-url'
+import type {SanityQueries} from '@sanity/client'
+import {createDataAttribute, CreateDataAttributeProps} from 'next-sanity'
+
 import {Link} from '@/sanity.types'
 import {dataset, projectId, studioUrl} from '@/sanity/lib/api'
-import {createDataAttribute, CreateDataAttributeProps} from 'next-sanity'
-import {createImageUrlBuilder, type SanityImageSource} from '@sanity/image-url'
 import {DereferencedLink} from '@/sanity/lib/types'
 
 const builder = createImageUrlBuilder({
@@ -9,21 +11,23 @@ const builder = createImageUrlBuilder({
   dataset: dataset || '',
 })
 
+export type ImageValue = InferImageValue<SanityQueries[keyof SanityQueries]>
+
 // Create an image URL builder using the client
 // Export a function that can be used to get image URLs
-function urlForImage(source: SanityImageSource) {
+function urlForImage(source: ImageValue) {
   return builder.image(source)
 }
 
-export function resolveOpenGraphImage(
-  image?: SanityImageSource | null,
-  width = 1200,
-  height = 627,
-) {
-  if (!image) return
-  const url = urlForImage(image)?.width(1200).height(627).fit('crop').url()
+function imageAlt(image: object): string {
+  return 'alt' in image && typeof image.alt === 'string' ? image.alt : ''
+}
+
+export function resolveOpenGraphImage(image?: ImageValue | null, width = 1200, height = 627) {
+  if (!isImageWithAsset(image)) return
+  const url = urlForImage(image).width(1200).height(627).fit('crop').url()
   if (!url) return
-  return {url, alt: (image as {alt?: string})?.alt || '', width, height}
+  return {url, alt: imageAlt(image), width, height}
 }
 
 // Depending on the type of link, we need to fetch the corresponding page, post, or URL.  Otherwise return null.
