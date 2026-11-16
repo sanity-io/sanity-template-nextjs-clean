@@ -8,7 +8,9 @@
  *
  */
 
+import {isImageWithAsset} from '@sanity/image-url'
 import {PortableText, type PortableTextComponents, type PortableTextBlock} from 'next-sanity'
+
 import ResolvedLink from '@/app/components/ResolvedLink'
 import Image from '@/app/components/SanityImage'
 
@@ -22,17 +24,16 @@ export default function CustomPortableText({
   const components: PortableTextComponents = {
     types: {
       image: ({value}) => {
-        if (!value?.asset?._ref) {
+        if (!isImageWithAsset(value)) {
           return null
         }
 
         return (
           <figure className="my-8">
             <Image
-              id={value.asset._ref}
+              value={value}
               alt={value.alt || ''}
               width={672}
-              crop={value.crop}
               mode="cover"
               className="rounded-sm"
             />
