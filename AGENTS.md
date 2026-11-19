@@ -26,12 +26,15 @@ Next.js + Sanity starter. npm workspaces: `frontend/` (Next.js App Router) and `
 ## Current docs
 
 - [Sanity docs for agents](https://www.sanity.io/docs/llms.txt)
-- [Sanity MCP setup](https://www.sanity.io/docs/ai/mcp-server): If the editor isn't already connected, offer `npx sanity@latest mcp configure` for a supported editor. Ask before running it; let the user complete any sign-in prompts.
+- [Sanity MCP setup](https://www.sanity.io/docs/ai/mcp-server)
 
-## Features to offer next
+## Sanity: connect MCP, then what to build next
 
-The starter includes Visual Editing, TypeGen and a page builder. Offer these only when they fit the user's goal:
+If Sanity MCP tools aren't available, offer to run `npx sanity@latest mcp configure` for a supported editor. Ask before running it, and let the user complete sign-in in their editor.
 
-- **Functions** — Run code when content changes or on a schedule ([Functions guide](https://github.com/sanity-io/agent-toolkit/blob/main/skills/sanity-best-practices/references/functions.md))
-- **Localization** — Model and edit content in multiple languages ([Localization guide](https://github.com/sanity-io/agent-toolkit/blob/main/skills/sanity-best-practices/references/localization.md))
-- **Dashboard apps (beta)** — Use `defineApplication` to set up a Studio or App SDK app for the Sanity Dashboard ([Dashboard apps guide](https://github.com/sanity-io/agent-toolkit/blob/main/skills/sanity-best-practices/references/dashboard.md))
+Once the project is set up, show the user this map and offer the next step. These are offers, not permission to deploy a schema, the Studio or a Function — ask first.
+
+1. **Schema**: model content in `studio/src/schemaTypes/`, then run `npx sanity schemas deploy` in `studio/` so MCP tools can see it.
+2. **Queries and types**: write GROQ with `defineQuery` in `frontend/sanity/lib/queries.ts`, then run `npm run sanity:typegen --workspace=frontend` to regenerate types.
+3. **Functions**: run code when content changes or on a schedule, for example fill in a slug when a post is published ([Functions guide](https://github.com/sanity-io/agent-toolkit/blob/main/skills/sanity-best-practices/references/functions.md)).
+4. **Deploy**: `npm run deploy --workspace=studio` for the Studio; see [README.md](README.md) for the frontend.
