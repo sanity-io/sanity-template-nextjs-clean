@@ -14,7 +14,7 @@
 
 export declare const internalGroqTypeReferenceTo: unique symbol
 
-// Source: ../sanity.schema.json
+// Source: ../studio/schema.json
 export type PageReference = {
   _ref: string
   _type: 'reference'
